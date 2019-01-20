@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { ROUTES } from 'app/components/sidebar/sidebar.component';
 import { chartdata } from 'app/models/chartdata.model';
 
+declare var $:any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -53,8 +55,12 @@ export class DashboardComponent implements OnInit {
   lineChartWithNumbersAndGridData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   timeBig: boolean = false;
   lineBigDashboardChartDataAux: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
+  modaltitle: string;
+  modalbody: string;
+  modalbigtitle: string;
 
   constructor(private af: AngularFirestore, private element: ElementRef, private router: Router) {
+
     var that = this;
 
     this.sidebarVisible = false;
@@ -491,5 +497,28 @@ export class DashboardComponent implements OnInit {
     this.lineBigDashboardChartData = this.lineBigDashboardChartDataAux;
     this.timeBig = false;
     this.timeAtivo = "Seu Time";
+  }
+
+  clickHandler(evt, time) {
+
+    if (evt.active.length > 0) {
+      const chart = evt.active[0]._chart;
+      const activePoints = chart.getElementAtEvent(evt.event);
+      if (activePoints.length > 0) {
+        // get the internal index of slice in pie chart
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        // get value by index
+        const value = chart.data.datasets[0].data[clickedElementIndex];
+        $('.modal').modal('show');
+        if(time)
+          this.modalbigtitle = time + ' - ' + this.title;
+        else
+          this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
+        this.modaltitle = label;
+        this.modalbody = value;
+        console.log(clickedElementIndex, label, value)
+      }
+    }
   }
 }

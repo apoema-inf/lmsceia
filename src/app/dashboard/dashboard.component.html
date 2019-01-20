@@ -89,11 +89,35 @@
     [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
     (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   <ng-container *ngFor="let fase of fases | async">
-    <canvas *ngIf="title == fase.id" baseChart [datasets]="lineBigDashboardChartData" [labels]="lineBigDashboardChartLabels"
+    <canvas id="ok" *ngIf="title == fase.id" baseChart [datasets]="lineBigDashboardChartData" [labels]="lineBigDashboardChartLabels"
       [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
-      (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      (chartHover)="chartHovered($event)" (chartClick)="clickHandler($event, false)"></canvas>
   </ng-container>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{modalbigtitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><b>{{modaltitle}}</b></p>
+        <p><b>Nota:</b> {{modalbody}}</p>
+        <p><b>Feddback:</b> Feedback do avaliador...</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="main-content">
@@ -120,9 +144,9 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineChartWithNumbersAndGridLabels"
-              [colors]="lineChartWithNumbersAndGridColors" [options]="lineChartWithNumbersAndGridOptions" [chartType]="chartLines[i]"
-              (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineChartWithNumbersAndGridLabels" [colors]="lineChartWithNumbersAndGridColors"
+              [options]="lineChartWithNumbersAndGridOptions" [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
+              (chartClick)="clickHandler($event, time.id)"></canvas>
           </div>
         </div>
         <div class="card-footer">

@@ -16,7 +16,7 @@ export class NotificationsComponent implements OnInit {
       switch(color){
         case 1:
         this.toastr.info('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
+           timeOut: 0,
            closeButton: true,
            enableHtml: true,
            toastClass: "alert alert-info alert-with-icon",
@@ -25,7 +25,7 @@ export class NotificationsComponent implements OnInit {
         break;
         case 2:
         this.toastr.success('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
+           timeOut: 0,
            closeButton: true,
            enableHtml: true,
            toastClass: "alert alert-success alert-with-icon",
@@ -34,7 +34,7 @@ export class NotificationsComponent implements OnInit {
         break;
         case 3:
         this.toastr.warning('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
+           timeOut: 0,
            closeButton: true,
            enableHtml: true,
            toastClass: "alert alert-warning alert-with-icon",
@@ -43,7 +43,7 @@ export class NotificationsComponent implements OnInit {
         break;
         case 4:
         this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-           timeOut: 8000,
+           timeOut: 0,
            enableHtml: true,
            closeButton: true,
            toastClass: "alert alert-danger alert-with-icon",
@@ -52,7 +52,7 @@ export class NotificationsComponent implements OnInit {
          break;
          case 5:
          this.toastr.show('<span class="now-ui-icons ui-1_bell-53"></span> Welcome to <b>Now Ui Dashboard</b> - a beautiful freebie for every web developer.', '', {
-            timeOut: 8000,
+            timeOut: 0,
             closeButton: true,
             enableHtml: true,
             toastClass: "alert alert-primary alert-with-icon",

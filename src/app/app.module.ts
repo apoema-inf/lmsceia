@@ -5,9 +5,9 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChartsModule } from 'ng2-charts';
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AngularFireModule } from 'angularfire2';
-import {environment} from 'environments/environment';
+import { environment } from 'environments/environment';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -33,7 +33,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     AdminLayoutComponent,
 
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

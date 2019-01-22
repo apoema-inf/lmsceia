@@ -1,0 +1,32 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-center">
+        <div class="card-header">
+          <h5 class="title">Login</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="container">
+              <form (keyup.enter)="onSubmitLogin()" (submit)="onSubmitLogin()">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <input [(ngModel)]="email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Enter email" autofocus>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Senha</label>
+                  <input [(ngModel)]="password" name="senha" type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+                </div>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

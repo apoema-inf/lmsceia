@@ -12,7 +12,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
+import { LoginComponent } from 'app/login/login.component';
 
 @NgModule({
   imports: [
@@ -20,8 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ChartsModule,
-    NgbModule,
-    ToastrModule.forRoot()
+    NgbModule
   ],
   declarations: [
     DashboardComponent,
@@ -31,6 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    LoginComponent
   ]
 })
 

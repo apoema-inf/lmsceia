@@ -7,13 +7,16 @@ import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
+import { LoginComponent } from 'app/login/login.component';
+import { AuthGuard } from 'app/services/auth-guard.service';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'user-profile',   component: UserProfileComponent, canActivate: [AuthGuard]  },
+    { path: 'table-list',     component: TableListComponent, canActivate: [AuthGuard]  },
+    { path: 'typography',     component: TypographyComponent, canActivate: [AuthGuard]  },
+    { path: 'icons',          component: IconsComponent, canActivate: [AuthGuard]  },
+    { path: 'maps',           component: MapsComponent, canActivate: [AuthGuard]  },
+    { path: 'notifications',  component: NotificationsComponent, canActivate: [AuthGuard]  },
+    { path: 'login',  component: LoginComponent },
 ];

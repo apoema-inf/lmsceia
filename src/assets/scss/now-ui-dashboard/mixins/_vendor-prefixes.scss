@@ -74,6 +74,20 @@
   }
 }
 
+@mixin sidebar-color-gradient(){
+  &:after{
+    background: linear-gradient(to right, #71c8b9 0%,#53b4a6 100%);
+  }
+
+  .nav li.active > a{
+    color: #71c8b9;
+
+    i{
+      color: #53b4a6;
+    }
+  }
+}
+
 @mixin bar-animation($type){
      -webkit-animation: $type 500ms linear 0s;
      -moz-animation: $type 500ms linear 0s;

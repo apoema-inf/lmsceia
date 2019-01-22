@@ -269,6 +269,9 @@
     &[data-color="yellow"]{
       @include sidebar-color($warning-color);
     }
+    &[data-color="gradient"]{
+        @include sidebar-color-gradient();
+      }
 }
 
 .visible-on-sidebar-regular{

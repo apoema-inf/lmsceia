@@ -10,7 +10,7 @@
         <div class="card-body">
           <div class="row">
             <div class="container">
-              <form (keyup.enter)="onSubmitLogin()" (submit)="onSubmitLogin()">
+              <form *ngIf="!(user | async); else nouser" (keyup.enter)="onSubmitLogin()" (submit)="onSubmitLogin()">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email</label>
                   <input [(ngModel)]="email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -22,6 +22,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Entrar</button>
               </form>
+              <ng-template #nouser>
+                <p class="text-success"><b>Você já está conectado.</b></p>
+              </ng-template>
             </div>
           </div>
 

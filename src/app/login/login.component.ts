@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 declare var $: any;
 
@@ -14,11 +15,14 @@ export class LoginComponent implements OnInit {
 
   public email: string;
   private password: string;
+  private user: Observable<firebase.User>;
 
   constructor(
     private authService: AuthService,
     public router: Router
-  ) { }
+  ) {
+    this.user = authService.afAuth.authState;
+  }
 
   ngOnInit() {
   }

@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public router: Router
+    public router: Router,
+    private toastr: ToastrService
   ) {
     this.user = authService.afAuth.authState;
   }
@@ -28,17 +29,66 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitLogin() {
-    var that = this;
-    // Show full page LoadingOverlay
-    $.LoadingOverlay("show");
-    this.authService.loginEmail(this.email, this.password)
-      .then((res) => {
-        $.LoadingOverlay("hide");
-        that.router.navigate(['/dashboard']);
-      }).catch((err) => {
-        $.LoadingOverlay("hide");
-        that.router.navigate(['/login']);
-      });
-  }
+    if (this.validaCampos()) {
+      var that = this;
+      // Show full page LoadingOverlay
+      $.LoadingOverlay("show");
+      this.authService.loginEmail(this.email, this.password)
+        .then((res) => {
+          $.LoadingOverlay("hide");
+          that.router.navigate(['/dashboard']);
+        }).catch((err) => {
+          $.LoadingOverlay("hide");
+          that.router.navigate(['/login']);
+        });
+    }
+    else {
+      return;
+    }
 
-}
+  }
+  validaCampos(): boolean {
+    if (this.email.length < 0 ) {
+      this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span> Preencha o campo email.', '', {
+        timeOut: 5000,
+        enableHtml: true,
+        closeButton: false,
+        toastClass: "alert alert-danger alert-with-icon",
+        positionClass: 'toast-top-center'
+      });
+      return false;
+    }
+    else if (this.email == (null || '')) {
+        this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span> Preencha o campo email.', '', {
+          timeOut: 5000,
+          enableHtml: true,
+          closeButton: false,
+          toastClass: "alert alert-danger alert-with-icon",
+          positionClass: 'toast-top-center'
+        });
+        return false;
+      } else if (this.password == (null || '' || undefined)) {
+        this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span> Preencha o campo senha.', '', {
+          timeOut: 5000,
+          enableHtml: true,
+          closeButton: false,
+          toastClass: "alert alert-danger alert-with-icon",
+          positionClass: 'toast-top-center'
+        });
+        return false;
+
+      } else if (this.password.length < 6) {
+        this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span> Campo senha deve ter no mínimo 6 caracteres.', '', {
+          timeOut: 5000,
+          enableHtml: true,
+          closeButton: false,
+          toastClass: "alert alert-danger alert-with-icon",
+          positionClass: 'toast-top-center'
+        });
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+  }

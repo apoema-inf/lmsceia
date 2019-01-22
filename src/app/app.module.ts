@@ -18,6 +18,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     ChartsModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ToastrModule.forRoot()
   ],
   declarations: [
     AppComponent,

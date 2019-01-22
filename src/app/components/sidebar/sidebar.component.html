@@ -17,7 +17,7 @@
                 <p>{{menuItem.title}}</p>
             </a>
         </li>
-        <li (click)="logout()" class="nav-item">
+        <li *ngIf="user | async" (click)="logout()" class="nav-item">
             <a>
                 <i class="fas fa-sign-out-alt"></i>
                 <p>Log Out</p>

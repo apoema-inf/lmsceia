@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
+import { Observable } from 'rxjs';
 
 declare interface RouteInfo {
     path: string;
@@ -25,8 +26,10 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
-  constructor(private authService: AuthService) { }
+  private user: Observable<firebase.User>;
+  constructor(private authService: AuthService) {
+      this.user = authService.afAuth.authState;
+  }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

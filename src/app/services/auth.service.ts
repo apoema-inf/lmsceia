@@ -3,13 +3,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { map } from "rxjs/operators";
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthService {
 
   constructor(
     public afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   loginEmail(email: string, pass: string) {
@@ -29,7 +31,11 @@ export class AuthService {
       });
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, pass)
-        .then(userData => resolve(userData),
+        .then(userData => {
+          console.log(userData.user.email);
+          localStorage.setItem('posgrad_user_email', userData.user.email);
+          resolve(userData)
+        },
           err => reject(err));
     });
   }
@@ -41,7 +47,29 @@ export class AuthService {
   logout() {
     var that = this;
     return this.afAuth.auth.signOut().then(function () {
+      localStorage.removeItem('posgrad_user_email');
       that.router.navigate(['/login']);
+    });
+  }
+
+  resetPassword(email) {
+    var that = this;
+    this.afAuth.auth.sendPasswordResetEmail(email).then(function () {
+      that.toastr.info('<span class="now-ui-icons ui-1_bell-53"></span> Um email com as instruções para redefinição de senha foi enviado para ' + email, '', {
+        timeOut: 8000,
+        enableHtml: true,
+        closeButton: false,
+        toastClass: "alert alert-info alert-with-icon",
+        positionClass: 'toast-top-center'
+      });
+    }).catch(function (error) {
+      that.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + error, '', {
+        timeOut: 5000,
+        enableHtml: true,
+        closeButton: false,
+        toastClass: "alert alert-danger alert-with-icon",
+        positionClass: 'toast-top-center'
+      });
     });
   }
 

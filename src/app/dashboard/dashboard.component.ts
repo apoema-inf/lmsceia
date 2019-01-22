@@ -9,8 +9,9 @@ import { BaseChartDirective } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { ROUTES } from 'app/components/sidebar/sidebar.component';
 import { chartdata } from 'app/models/chartdata.model';
+import { AuthService } from 'app/services/auth.service';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -58,9 +59,10 @@ export class DashboardComponent implements OnInit {
   modaltitle: string;
   modalbody: string;
   modalbigtitle: string;
+  userEmail: string;
 
-  constructor(private af: AngularFirestore, private element: ElementRef, private router: Router) {
-
+  constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
+    this.userEmail = localStorage.getItem('posgrad_user_email');
     var that = this;
 
     this.sidebarVisible = false;
@@ -511,7 +513,7 @@ export class DashboardComponent implements OnInit {
         // get value by index
         const value = chart.data.datasets[0].data[clickedElementIndex];
         $('.modal').modal('show');
-        if(time)
+        if (time)
           this.modalbigtitle = time + ' - ' + this.title;
         else
           this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
@@ -520,5 +522,9 @@ export class DashboardComponent implements OnInit {
         console.log(clickedElementIndex, label, value)
       }
     }
+  }
+
+  resetPassword(email: string) {
+    this.authService.resetPassword(email);
   }
 }

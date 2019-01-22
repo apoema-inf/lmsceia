@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <app-navbar *ngIf="router.url != '/dashboard'"></app-navbar>
+    <app-navbar *ngIf="router.url != '/dashboard' && router.url != '/login'"></app-navbar>
     <div class="sidebar" data-color="gradient">
         <app-sidebar></app-sidebar>
     </div>

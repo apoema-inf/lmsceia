@@ -20,13 +20,12 @@ declare var $: any;
   providers: [AngularFirestore]
 })
 export class DashboardComponent implements OnInit {
-  private listTitles: any[];
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
   timeAtivo: string = "Seu Time";
   public isCollapsed = true;
-  title: string = "Primeira Temporada";
+  title: string = "Temporada #1";
   fase: string;
   times: Observable<Time[]>;
   fases: Observable<any[]>;
@@ -141,7 +140,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
     this.router.events.subscribe((event) => {

@@ -14,11 +14,11 @@
             <ng-container *ngIf="menuItem.title == 'Dashboard'; else nodashboard">
                 <a [routerLink]="[menuItem.path]">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-8">
                             <i class="now-ui-icons {{menuItem.icon}}"></i>
                             <p>{{menuItem.title}}</p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-4">
                             <span class="badge badge-warning">DEMO</span>
                         </div>
                     </div>

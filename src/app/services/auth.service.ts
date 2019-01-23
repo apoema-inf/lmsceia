@@ -14,7 +14,18 @@ export class AuthService {
     private toastr: ToastrService
   ) { }
 
+  errorToast(message: string): void {
+    this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + message, '', {
+      timeOut: 5000,
+      enableHtml: true,
+      closeButton: false,
+      toastClass: "alert alert-danger alert-with-icon",
+      positionClass: 'toast-top-center'
+    });
+  }
+
   loginEmail(email: string, pass: string) {
+    var that = this;
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(function () {
         // Existing and future Auth states are now persisted in the current
@@ -32,11 +43,26 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, pass)
         .then(userData => {
-          console.log(userData.user.email);
           localStorage.setItem('posgrad_user_email', userData.user.email);
           resolve(userData)
         },
-          err => reject(err));
+          error => {
+            switch (error.code) {
+              case 'auth/wrong-password': {
+                that.errorToast('Senha incorreta.');
+                break;
+              }
+              case 'auth/user-not-found': {
+                that.errorToast('Usuário não encontrado.');
+                break;
+              }
+              default: {
+                that.errorToast(error.message);
+                break;
+              }
+            }
+            reject(error);
+          });
     });
   }
 

@@ -1,4 +1,4 @@
-export class Fase {
+export class Missao {
     id: string;
     nome: string;
     descricao: string;

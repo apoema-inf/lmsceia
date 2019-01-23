@@ -25,16 +25,16 @@ export class DashboardComponent implements OnInit {
   private sidebarVisible: boolean;
   timeAtivo: string = "Seu Time";
   public isCollapsed = true;
-  title: string = "Temporada #1";
+  title: string = "1ª Temporada";
   fase: string;
   times: Observable<Time[]>;
-  fases: Observable<any[]>;
-  produtos: Observable<any[]>;
+  fases: Observable<Fase[]>;
   @ViewChild("bigChart") canvas: ElementRef;
   @ViewChild(BaseChartDirective)
   public chart: BaseChartDirective;
   bigChartValores: Array<string> = [];
   gradient;
+  nomeFases: Array<string> = [];
   chartColor: string;
   lineBigDashboardChartOptions: any;
   lineBigDashboardChartData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
@@ -42,16 +42,17 @@ export class DashboardComponent implements OnInit {
   lineBigDashboardChartType: string;
   gradientChartOptionsConfiguration: any;
   gradientChartOptionsConfigurationWithNumbersAndGrid: any;
-  lineBigDashboardChartLabels: string[] = [];
+  lineBigDashboardChartLabels: string[] = ["Missão 1", "Missão 2", "Missão 3", "Missão 4", "Missão 5"];
   lineTimeDashboardChartColors: { backgroundColor: any; borderColor: string; pointBorderColor: string; pointBackgroundColor: string; pointHoverBackgroundColor: string; pointHoverBorderColor: string; }[];
   lineChartData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   lineChartLabels: string[];
   lineChartWithNumbersAndGridColors: { borderColor: string; pointBorderColor: string; pointBackgroundColor: string; backgroundColor: any; }[];
-  lineChartWithNumbersAndGridLabels: string[] = [];
+  lineChartWithNumbersAndGridLabels: string[] = this.lineBigDashboardChartLabels;
   lineChartWithNumbersAndGridOptions: any;
   lineChartWithNumbersAndGridType: string;
   chartDatas: Array<any> = [];
   chartLines: Array<any> = [];
+  array: Array<Array<Array<any>>> = [[[]]];
   lineChartWithNumbersAndGridData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   timeBig: boolean = false;
   lineBigDashboardChartDataAux: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
@@ -66,23 +67,10 @@ export class DashboardComponent implements OnInit {
 
     this.sidebarVisible = false;
     this.initTimes();
-    this.produtos = this.af.collection('produto').snapshotChanges().pipe(map(
+    this.initFases();
+  }
 
-      changes => {
-
-        return changes.map(
-
-          a => {
-
-            const data = a.payload.doc.data() as any;
-
-            data.id = a.payload.doc.id;
-
-            return data;
-
-          });
-
-      }))
+  initFases() {
     this.fases = this.af.collection('fases').snapshotChanges().pipe(map(
 
       changes => {
@@ -91,25 +79,16 @@ export class DashboardComponent implements OnInit {
 
           a => {
 
-            const data = a.payload.doc.data() as any;
+            const data = a.payload.doc.data() as Fase;
 
             data.id = a.payload.doc.id;
-            Object.keys(a.payload.doc.data()).forEach(element => {
-              if (a.payload.doc.id == this.title) {
-                if (!(this.lineBigDashboardChartLabels.includes(element))) {
-                  this.lineBigDashboardChartLabels.push(element);
-                  this.lineChartWithNumbersAndGridLabels.push(element);
-                  this.chart.chart.update();
 
-                }
-              }
-            });
-
+            this.nomeFases.push(data.nome);
+            this.nomeFases.sort();
             return data;
-
           });
-
       }))
+
   }
 
   private initTimes() {
@@ -432,8 +411,6 @@ export class DashboardComponent implements OnInit {
   };
 
   toogleFase(fase: string) {
-    this.lineBigDashboardChartLabels = [];
-    this.lineChartWithNumbersAndGridLabels = [];
     this.chartDatas.forEach((value, index) => {
       this.chartDatas[index] = [
         {
@@ -449,33 +426,6 @@ export class DashboardComponent implements OnInit {
       ]
     })
     this.title = fase;
-    this.fases = this.af.collection('fases').snapshotChanges().pipe(map(
-
-      changes => {
-
-        return changes.map(
-
-          a => {
-
-            const data = a.payload.doc.data() as any;
-
-            data.id = a.payload.doc.id;
-            Object.keys(a.payload.doc.data()).forEach(element => {
-              if (a.payload.doc.id == this.title) {
-                if (!(this.lineBigDashboardChartLabels.includes(element))) {
-                  this.lineBigDashboardChartLabels.push(element);
-                  this.chart.chart.update();
-                }
-              }
-            });
-
-            this.lineChartWithNumbersAndGridLabels = this.lineBigDashboardChartLabels;
-
-            return data;
-
-          });
-
-      }));
   }
 
   toogleChartType(type: string) {

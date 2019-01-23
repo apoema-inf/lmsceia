@@ -8,12 +8,9 @@ import { ChartsModule } from 'ng2-charts';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from 'environments/environment';
-
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
-
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';

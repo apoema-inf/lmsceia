@@ -8,7 +8,8 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand">{{user.time.nome}}</a>
+      <a *ngIf="!timeBig" class="navbar-brand">{{user.time.nome}}</a>
+      <a *ngIf="timeBig" class="navbar-brand">{{timeAtivo}}</a>
       <div ngbDropdown class="navbar-brand">
         <button type="button" class="btn btn-default dropdown-toggle btn-simple" ngbDropdownToggle>
           {{title}}
@@ -105,7 +106,7 @@
             <div class="card-header">
               <h5 class="card-category" (click)="click()">{{time.nome}}</h5>
               <div ngbDropdown>
-                <button (click)="goToBigChart(time.nome, chartDatas[i])" style="margin-right: 10px" type="button" class="btn btn-round btn-default btn-simple btn-icon no-caret">
+                <button (click)="goToBigChart(time.nome, chartDatas[i], index)" style="margin-right: 10px" type="button" class="btn btn-round btn-default btn-simple btn-icon no-caret">
                   <i class="now-ui-icons arrows-1_minimal-up"></i>
                 </button>
                 <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"

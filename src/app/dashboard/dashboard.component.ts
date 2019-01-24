@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit {
   modalbigtitle: string;
   userEmail: string;
   guardaTimeUser: string;
+  timeAtivo: string;
 
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
     var that = this;
@@ -442,17 +443,17 @@ export class DashboardComponent implements OnInit {
     this.chartLines[ichart] = type;
   }
 
-  goToBigChart(nomeTime: string, data: any) {
+  goToBigChart(nomeTime: string, data: any, index: any) {
     this.lineBigDashboardChartData = data;
     this.timeBig = true;
     this.guardaTimeUser = this.user.time.nome;
-    this.user.time.nome = nomeTime;
+    this.timeAtivo = nomeTime;
   }
 
   backYourTime() {
     this.lineBigDashboardChartData = this.lineBigDashboardChartDataAux;
     this.timeBig = false;
-    this.user.time.nome = this.guardaTimeUser;
+    this.timeAtivo = this.guardaTimeUser;
   }
 
   clickHandler(evt, time) {

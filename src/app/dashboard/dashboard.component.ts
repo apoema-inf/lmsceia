@@ -20,6 +20,7 @@ declare var $: any;
   providers: [AngularFirestore]
 })
 export class DashboardComponent implements OnInit {
+  chartLinesArray: Array<string> = ["line", "pie", "bar", "doughnut"];
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
@@ -108,7 +109,8 @@ export class DashboardComponent implements OnInit {
             data: [this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100()]
           }
         ]);
-        this.chartLines.push("line");
+        var randomIndex = Math.floor(Math.random() * this.chartLinesArray.length); 
+        this.chartLines.push(this.chartLinesArray[randomIndex]);
         return data;
       });
     }));

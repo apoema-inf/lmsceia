@@ -48,7 +48,7 @@
             <i class="now-ui-icons users_single-02"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <a class="dropdown-item" href="#">Minha Conta</a>
+            <a class="dropdown-item" routerLink="/user-profile">Minha Conta</a>
             <a style="cursor: pointer" class="dropdown-item" (click)="resetPassword(this.userEmail)">Redefinir Senha</a>
           </div>
         </li>
@@ -99,7 +99,7 @@
 <div class="main-content">
   <div class="row">
     <div *ngFor="let time of times | async; let i = index" class="col-lg-4">
-      <div class="card card-chart">
+      <div *ngIf="time.nome != timeAtivo" class="card card-chart">
         <div class="card-header">
           <h5 class="card-category" (click)="click()">{{time.nome}}</h5>
           <div ngbDropdown>

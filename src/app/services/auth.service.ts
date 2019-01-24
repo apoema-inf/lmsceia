@@ -80,6 +80,7 @@ export class AuthService {
 
   resetPassword(email) {
     var that = this;
+    this.afAuth.auth.languageCode = 'pt-BR';
     this.afAuth.auth.sendPasswordResetEmail(email).then(function () {
       that.toastr.info('<span class="now-ui-icons ui-1_bell-53"></span> Um email com as instruções para redefinição de senha foi enviado para ' + email, '', {
         timeOut: 8000,

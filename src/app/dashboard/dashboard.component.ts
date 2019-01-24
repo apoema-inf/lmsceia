@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as Chartist from 'chartist';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
-import { map, ignoreElements } from 'rxjs/operators';
+import { map, ignoreElements, findIndex, elementAt } from 'rxjs/operators';
 import { Time } from 'app/models/time.model';
 import { Fase } from 'app/models/fase.model';
 import { BaseChartDirective } from 'ng2-charts';
@@ -11,6 +11,7 @@ import { ROUTES } from 'app/components/sidebar/sidebar.component';
 import { chartdata } from 'app/models/chartdata.model';
 import { AuthService } from 'app/services/auth.service';
 import { Membro } from 'app/models/membro.model';
+import { Atividade } from 'app/models/atividade.model';
 
 declare var $: any;
 
@@ -21,6 +22,7 @@ declare var $: any;
   providers: [AngularFirestore]
 })
 export class DashboardComponent implements OnInit {
+  array = new Array();
   user: Membro = new Membro();
   timeUser: Time = new Time();
   chartLinesArray: Array<string> = ["line", "pie", "bar", "doughnut"];
@@ -55,7 +57,6 @@ export class DashboardComponent implements OnInit {
   lineChartWithNumbersAndGridType: string;
   chartDatas: Array<any> = [];
   chartLines: Array<any> = [];
-  array: Array<Array<Array<any>>> = [[[]]];
   lineChartWithNumbersAndGridData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   timeBig: boolean = false;
   lineBigDashboardChartDataAux: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit {
   userEmail: string;
   guardaTimeUser: string;
   timeAtivo: string;
+  atividades: Observable<Atividade[]>;
 
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
     var that = this;
@@ -73,6 +75,58 @@ export class DashboardComponent implements OnInit {
     this.initTimes();
     this.initFases();
     this.user = this.authService.getAuth();
+    var promiseFases = new Promise(function (resolve, reject) {
+      resolve(that.initFases());
+      reject('erro');
+    });
+    var promiseTimes = new Promise(function (resolve, reject) {
+      resolve(that.initTimes());
+      reject('erro');
+    });
+    var promiseAtividades = new Promise(function (resolve, reject) {
+      resolve(that.initAtividades());
+      reject('erro');
+    });
+
+    Promise.all([promiseFases, promiseTimes, promiseAtividades]).then(function () {
+
+      that.fases.forEach(element => {
+        element.forEach((element, index) => {
+          var i = index;
+          that.array[i] = [];
+          that.times.forEach((element) => {
+            element.forEach((element, index) => {
+              var j = index;
+              that.array[i][j] = [];
+              that.atividades.forEach((element) => {
+                element.forEach((element, index) => {
+                  that.array[i][j][index] = element;
+                });
+              });
+            });
+          });
+        });
+      });
+    })
+  }
+
+  initAtividades() {
+    this.atividades = this.af.collection('atividades').snapshotChanges().pipe(map(
+
+      changes => {
+
+        return changes.map(
+
+          a => {
+
+            const data = a.payload.doc.data() as Atividade;
+
+            data.id = a.payload.doc.id;
+
+            return data;
+          });
+      }))
+    return true;
   }
 
   initFases() {
@@ -93,7 +147,7 @@ export class DashboardComponent implements OnInit {
             return data;
           });
       }))
-
+    return true;
   }
 
   private initTimes() {
@@ -118,6 +172,7 @@ export class DashboardComponent implements OnInit {
         return data;
       });
     }));
+    return true;
   }
 
   private randomNumberAt100() {

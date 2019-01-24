@@ -1,8 +1,11 @@
+import { Membro } from "./membro.model";
+import { Missao } from "./missao.model";
+
 export class Atividade {
     id: string;
     nome: string;
-    idmembro: any;
-    idtemporada: any;
+    membro: Membro;
+    missao: Missao;
     tipo: string;
     feedback: string;
     avaliador: string;

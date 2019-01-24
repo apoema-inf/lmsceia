@@ -98,7 +98,6 @@ export class AuthService {
               documentSnapshot.data().idtime.get().then(function (doc) {
                 if (doc.exists) {
                   that.user.time.id = doc.id;
-                  that.user.time.nome = doc.data().nome;
                 } else {
                   // doc.data() will be undefined in this case
                   console.log("No such document!");

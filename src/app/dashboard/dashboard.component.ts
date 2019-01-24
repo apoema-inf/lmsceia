@@ -1,17 +1,16 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import * as Chartist from 'chartist';
+import { Component, OnInit, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
+import * as Chartist from 'chartist';
 import { Observable } from 'rxjs';
-import { map, ignoreElements, findIndex, elementAt } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Time } from 'app/models/time.model';
 import { Fase } from 'app/models/fase.model';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { Router } from '@angular/router';
-import { ROUTES } from 'app/components/sidebar/sidebar.component';
-import { chartdata } from 'app/models/chartdata.model';
 import { AuthService } from 'app/services/auth.service';
 import { Membro } from 'app/models/membro.model';
 import { Atividade } from 'app/models/atividade.model';
+import { Missao } from 'app/models/missao.model';
 
 declare var $: any;
 
@@ -22,6 +21,9 @@ declare var $: any;
   providers: [AngularFirestore]
 })
 export class DashboardComponent implements OnInit {
+  missoes: Observable<Missao[]>;
+  arrayMissoes = new Array();
+  arrayPontuacao = new Array();
   array = new Array();
   user: Membro = new Membro();
   timeUser: Time = new Time();
@@ -36,23 +38,23 @@ export class DashboardComponent implements OnInit {
   fases: Observable<Fase[]>;
   @ViewChild("bigChart") canvas: ElementRef;
   @ViewChild(BaseChartDirective)
-  public chart: BaseChartDirective;
+  chart: BaseChartDirective;
   bigChartValores: Array<string> = [];
   gradient;
-  nomeFases: Array<string> = [];
   chartColor: string;
   lineBigDashboardChartOptions: any;
   lineBigDashboardChartData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   lineBigDashboardChartColors: { backgroundColor: any; borderColor: string; pointBorderColor: string; pointBackgroundColor: string; pointHoverBackgroundColor: string; pointHoverBorderColor: string; }[];
   lineBigDashboardChartType: string;
   gradientChartOptionsConfiguration: any;
+  labelTemporadas: string[] = [];
   gradientChartOptionsConfigurationWithNumbersAndGrid: any;
-  lineBigDashboardChartLabels: string[] = ["Missão 1", "Missão 2", "Missão 3", "Missão 4", "Missão 5"];
+  lineBigDashboardChartLabels: string[] = [];
   lineTimeDashboardChartColors: { backgroundColor: any; borderColor: string; pointBorderColor: string; pointBackgroundColor: string; pointHoverBackgroundColor: string; pointHoverBorderColor: string; }[];
   lineChartData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   lineChartLabels: string[];
   lineChartWithNumbersAndGridColors: { borderColor: string; pointBorderColor: string; pointBackgroundColor: string; backgroundColor: any; }[];
-  lineChartWithNumbersAndGridLabels: string[] = this.lineBigDashboardChartLabels;
+  lineChartWithNumbersAndGridLabels: string[] = [];
   lineChartWithNumbersAndGridOptions: any;
   lineChartWithNumbersAndGridType: string;
   chartDatas: Array<any> = [];
@@ -72,8 +74,7 @@ export class DashboardComponent implements OnInit {
     var that = this;
 
     this.sidebarVisible = false;
-    this.initTimes();
-    this.initFases();
+
     this.user = this.authService.getAuth();
     var promiseFases = new Promise(function (resolve, reject) {
       resolve(that.initFases());
@@ -87,15 +88,47 @@ export class DashboardComponent implements OnInit {
       resolve(that.initAtividades());
       reject('erro');
     });
+    var promiseMissoes = new Promise(function (resolve, reject) {
+      resolve(that.initMissoes());
+      reject('erro');
+    })
+
+    promiseMissoes.then(function () {
+      that.fases.forEach(element => {
+        element.forEach((element, index) => {
+          var elementId = element.id;
+          var i = index;
+          that.missoes.forEach(element => {
+            element.forEach((element, index) => {
+              if (element.temporada.id == elementId) {
+                that.labelTemporadas.push(element.nome);
+              }
+            })
+
+            that.arrayMissoes[i] = that.labelTemporadas;
+            that.labelTemporadas = [];
+            if (i == 0) {
+              that.lineBigDashboardChartLabels = that.arrayMissoes[0];
+              that.lineChartWithNumbersAndGridLabels = that.lineBigDashboardChartLabels;
+              that.chart.chart.update();
+            }
+          })
+
+        })
+      })
+
+    })
 
     Promise.all([promiseFases, promiseTimes, promiseAtividades]).then(function () {
 
       that.fases.forEach(element => {
         element.forEach((element, index) => {
+          var elementI = element;
           var i = index;
           that.array[i] = [];
           that.times.forEach((element) => {
             element.forEach((element, index) => {
+              var elementJ = element;
               var j = index;
               that.array[i][j] = [];
               that.atividades.forEach((element) => {
@@ -108,6 +141,26 @@ export class DashboardComponent implements OnInit {
         });
       });
     })
+  }
+
+  initMissoes() {
+    this.missoes = this.af.collection('missoes').snapshotChanges().pipe(map(
+
+      changes => {
+
+        return changes.map(
+
+          a => {
+
+            const data = a.payload.doc.data() as Missao;
+
+            data.id = a.payload.doc.id;
+
+            return data;
+          });
+      }))
+
+    return true;
   }
 
   initAtividades() {
@@ -142,8 +195,6 @@ export class DashboardComponent implements OnInit {
 
             data.id = a.payload.doc.id;
 
-            this.nomeFases.push(data.nome);
-            this.nomeFases.sort();
             return data;
           });
       }))
@@ -178,6 +229,7 @@ export class DashboardComponent implements OnInit {
   private randomNumberAt100() {
     return Math.floor(Math.random() * (+100 - +0)) + +0;
   }
+
 
   ngOnInit() {
     const navbar: HTMLElement = this.element.nativeElement;
@@ -471,7 +523,12 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-  toogleFase(fase: string) {
+  toogleFase(fase: string, index: any) {
+    this.lineBigDashboardChartLabels = this.arrayMissoes[index];
+    this.lineChartWithNumbersAndGridLabels = this.arrayMissoes[index];
+    //this.lineBigDashboardChartData = ;
+    //this.lineBigDashboardChartDataAux = ;
+    //this.lineChartWithNumbersAndGridData = ;
     this.chartDatas.forEach((value, index) => {
       this.chartDatas[index] = [
         {
@@ -501,7 +558,7 @@ export class DashboardComponent implements OnInit {
   goToBigChart(nomeTime: string, data: any, index: any) {
     this.lineBigDashboardChartData = data;
     this.timeBig = true;
-    this.guardaTimeUser = this.user.time.nome;
+    this.guardaTimeUser = this.user.time.id;
     this.timeAtivo = nomeTime;
   }
 
@@ -526,7 +583,7 @@ export class DashboardComponent implements OnInit {
         if (time)
           this.modalbigtitle = time + ' - ' + this.title;
         else
-          this.modalbigtitle = this.user.time.nome + ' - ' + this.title;
+          this.modalbigtitle = this.user.time.id + ' - ' + this.title;
         this.modaltitle = label;
         this.modalbody = value;
         console.log(clickedElementIndex, label, value)

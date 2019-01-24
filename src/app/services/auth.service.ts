@@ -4,6 +4,11 @@ import { map } from "rxjs/operators";
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { EventEmitter } from 'events';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Membro } from 'app/models/membro.model';
+import { Time } from 'app/models/time.model';
 
 @Injectable()
 export class AuthService {
@@ -11,8 +16,11 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private af: AngularFirestore
   ) { }
+
+  user: Membro = new Membro();
 
   errorToast(message: string): void {
     this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + message, '', {
@@ -43,7 +51,8 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, pass)
         .then(userData => {
-          localStorage.setItem('posgrad_user_email', userData.user.email);
+          console.log(userData.user.uid);
+          this.findUser();
           resolve(userData)
         },
           error => {
@@ -67,7 +76,47 @@ export class AuthService {
   }
 
   getAuth() {
-    return this.afAuth.authState.pipe(map(auth => auth));
+    this.findUser();
+    return this.user;
+  }
+
+  findUser() {
+    var that = this;
+    this.user.time = new Time();
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var docRef = that.af.collection("membros").doc(user.uid);
+
+        docRef.ref.
+          get().then(documentSnapshot => {
+            if (documentSnapshot.exists) {
+              that.user.email = documentSnapshot.data().email;
+              that.user.curso = documentSnapshot.data().curso;
+              that.user.nome = documentSnapshot.data().nome;
+              that.user.pontuacao = documentSnapshot.data().pontuacao;
+              documentSnapshot.data().idtime.get().then(function (doc) {
+                if (doc.exists) {
+                  that.user.time.id = doc.id;
+                  that.user.time.nome = doc.data().nome;
+                } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+                }
+              }).catch(function (error) {
+                console.log("Error getting document:", error);
+              });
+              
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+          });
+      } else {
+        // No user is signed in.
+      }
+    });
+
   }
 
   logout() {

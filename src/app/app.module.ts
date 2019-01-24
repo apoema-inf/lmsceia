@@ -16,6 +16,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ToastrModule } from 'ngx-toastr';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { ToastrModule } from 'ngx-toastr';
     AdminLayoutComponent,
 
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthGuard, AuthService],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthGuard, AuthService, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

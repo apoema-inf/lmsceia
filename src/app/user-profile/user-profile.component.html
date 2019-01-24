@@ -13,7 +13,7 @@
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" placeholder="Email" value="valeria@email.com">
+                  <input type="email" class="form-control" placeholder="Email" value="{{user.email}}">
                 </div>
               </div>
             </div>
@@ -21,7 +21,7 @@
               <div class="col-md-12 pr-1">
                 <div class="form-group">
                   <label>Nome</label>
-                  <input type="text" class="form-control" placeholder="Nome" value="Valéria Rodrigues">
+                  <input type="text" class="form-control" placeholder="Nome" value="{{user.nome}}">
                 </div>
               </div>
             </div>
@@ -29,13 +29,7 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Curso</label>
-                  <input type="text" class="form-control" placeholder="Curso" value="Design de Sistemas e Soluções de BI">
-                </div>
-              </div>
-              <div class="col-md-6 px-1">
-                <div class="form-group">
-                  <label>Formação</label>
-                  <input type="text" class="form-control" placeholder="Formação" value="Sistemas de Informação">
+                  <input type="text" class="form-control" placeholder="Curso" value="{{user.curso}}">
                 </div>
               </div>
             </div>
@@ -50,8 +44,8 @@
         </div>
         <div class="card-body">
           <div class="author">
-            <img class="avatar border-gray" src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-512.png" alt="...">
-            <h5 class="title">Valéria Rodrigues</h5>
+            <img class="avatar border-gray" src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" alt="...">
+            <h5 class="title">{{user.nome}}</h5>
           </div>
         </div>
       </div>

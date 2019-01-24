@@ -8,7 +8,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand">{{timeAtivo}}</a>
+      <a class="navbar-brand">{{user.time.nome}}</a>
       <div ngbDropdown class="navbar-brand">
         <button type="button" class="btn btn-default dropdown-toggle btn-simple" ngbDropdownToggle>
           {{title}}
@@ -98,39 +98,44 @@
 
 <div class="main-content">
   <div class="row">
-    <div *ngFor="let time of times | async; let i = index" class="col-lg-4">
-      <div *ngIf="time.nome != timeAtivo" class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-category" (click)="click()">{{time.nome}}</h5>
-          <div ngbDropdown>
-            <button (click)="goToBigChart(time.nome, chartDatas[i])" style="margin-right: 10px" type="button" class="btn btn-round btn-default btn-simple btn-icon no-caret">
-              <i class="now-ui-icons arrows-1_minimal-up"></i>
-            </button>
-            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"
-              ngbDropdownToggle>
-              <i class="now-ui-icons loader_gear"></i>
-            </button>
-            <div ngbDropdownMenu class="dropdown-menu-right">
-              <a class="dropdown-item" (click)="toogleChartTypeTime('line', i)">Gráfico em Linhas</a>
-              <a class="dropdown-item" (click)="toogleChartTypeTime('bar', i)">Gráfico em Barras</a>
-              <a class="dropdown-item" (click)="toogleChartTypeTime('pie', i)">Gráfico em Pizza</a>
-              <a class="dropdown-item" (click)="toogleChartTypeTime('doughnut', i)">Gráfico em Doughnut</a>
+    <ng-container *ngFor="let time of times | async; let i = index">
+      <ng-container *ngIf="time.nome != user.time.nome">
+        <div class="col-lg-4">
+          <div class="card card-chart">
+            <div class="card-header">
+              <h5 class="card-category" (click)="click()">{{time.nome}}</h5>
+              <div ngbDropdown>
+                <button (click)="goToBigChart(time.nome, chartDatas[i])" style="margin-right: 10px" type="button" class="btn btn-round btn-default btn-simple btn-icon no-caret">
+                  <i class="now-ui-icons arrows-1_minimal-up"></i>
+                </button>
+                <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"
+                  ngbDropdownToggle>
+                  <i class="now-ui-icons loader_gear"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu-right">
+                  <a class="dropdown-item" (click)="toogleChartTypeTime('line', i)">Gráfico em Linhas</a>
+                  <a class="dropdown-item" (click)="toogleChartTypeTime('bar', i)">Gráfico em Barras</a>
+                  <a class="dropdown-item" (click)="toogleChartTypeTime('pie', i)">Gráfico em Pizza</a>
+                  <a class="dropdown-item" (click)="toogleChartTypeTime('doughnut', i)">Gráfico em Doughnut</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-area">
+                <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineChartWithNumbersAndGridLabels" [colors]="lineChartWithNumbersAndGridColors"
+                  [options]="lineChartWithNumbersAndGridOptions" [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
+                  (chartClick)="clickHandler($event, time.nome)"></canvas>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="now-ui-icons ui-1_check"></i> Atualizado
+              </div>
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="chart-area">
-            <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineChartWithNumbersAndGridLabels" [colors]="lineChartWithNumbersAndGridColors"
-              [options]="lineChartWithNumbersAndGridOptions" [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
-              (chartClick)="clickHandler($event, time.nome)"></canvas>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="stats">
-            <i class="now-ui-icons ui-1_check"></i> Atualizado
-          </div>
-        </div>
-      </div>
-    </div>
+      </ng-container>
+    </ng-container>
+
   </div>
 </div>

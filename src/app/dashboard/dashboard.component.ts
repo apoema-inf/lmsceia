@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ROUTES } from 'app/components/sidebar/sidebar.component';
 import { chartdata } from 'app/models/chartdata.model';
 import { AuthService } from 'app/services/auth.service';
+import { Membro } from 'app/models/membro.model';
 
 declare var $: any;
 
@@ -20,11 +21,12 @@ declare var $: any;
   providers: [AngularFirestore]
 })
 export class DashboardComponent implements OnInit {
+  user: Membro = new Membro();
+  timeUser: Time = new Time();
   chartLinesArray: Array<string> = ["line", "pie", "bar", "doughnut"];
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
-  timeAtivo: string = "Seu Time";
   public isCollapsed = true;
   title: string = "1ª Temporada";
   fase: string;
@@ -61,14 +63,15 @@ export class DashboardComponent implements OnInit {
   modalbody: string;
   modalbigtitle: string;
   userEmail: string;
+  guardaTimeUser: string;
 
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
-    this.userEmail = localStorage.getItem('posgrad_user_email');
     var that = this;
 
     this.sidebarVisible = false;
     this.initTimes();
     this.initFases();
+    this.user = this.authService.getAuth();
   }
 
   initFases() {
@@ -109,7 +112,7 @@ export class DashboardComponent implements OnInit {
             data: [this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100()]
           }
         ]);
-        var randomIndex = Math.floor(Math.random() * this.chartLinesArray.length); 
+        var randomIndex = Math.floor(Math.random() * this.chartLinesArray.length);
         this.chartLines.push(this.chartLinesArray[randomIndex]);
         return data;
       });
@@ -442,13 +445,14 @@ export class DashboardComponent implements OnInit {
   goToBigChart(nomeTime: string, data: any) {
     this.lineBigDashboardChartData = data;
     this.timeBig = true;
-    this.timeAtivo = nomeTime;
+    this.guardaTimeUser = this.user.time.nome;
+    this.user.time.nome = nomeTime;
   }
 
   backYourTime() {
     this.lineBigDashboardChartData = this.lineBigDashboardChartDataAux;
     this.timeBig = false;
-    this.timeAtivo = "Seu Time";
+    this.user.time.nome = this.guardaTimeUser;
   }
 
   clickHandler(evt, time) {
@@ -466,7 +470,7 @@ export class DashboardComponent implements OnInit {
         if (time)
           this.modalbigtitle = time + ' - ' + this.title;
         else
-          this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
+          this.modalbigtitle = this.user.time.nome + ' - ' + this.title;
         this.modaltitle = label;
         this.modalbody = value;
         console.log(clickedElementIndex, label, value)

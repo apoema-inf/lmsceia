@@ -11,6 +11,7 @@ import { AuthService } from 'app/services/auth.service';
 import { Membro } from 'app/models/membro.model';
 import { Atividade } from 'app/models/atividade.model';
 import { Missao } from 'app/models/missao.model';
+import { forEach } from '@angular/router/src/utils/collection';
 
 declare var $: any;
 
@@ -21,6 +22,9 @@ declare var $: any;
   providers: [AngularFirestore]
 })
 export class DashboardComponent implements OnInit {
+
+  indexTimeUser: number = 0;
+  indexTemporada: number = 0;
   missoes: Observable<Missao[]>;
   arrayMissoes = new Array();
   arrayPontuacao = new Array();
@@ -43,11 +47,12 @@ export class DashboardComponent implements OnInit {
   gradient;
   chartColor: string;
   lineBigDashboardChartOptions: any;
-  lineBigDashboardChartData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
+  lineBigDashboardChartData: any[];
   lineBigDashboardChartColors: { backgroundColor: any; borderColor: string; pointBorderColor: string; pointBackgroundColor: string; pointHoverBackgroundColor: string; pointHoverBorderColor: string; }[];
   lineBigDashboardChartType: string;
   gradientChartOptionsConfiguration: any;
   labelTemporadas: string[] = [];
+  dataAtividades: number[] = [];
   gradientChartOptionsConfigurationWithNumbersAndGrid: any;
   lineBigDashboardChartLabels: string[] = [];
   lineTimeDashboardChartColors: { backgroundColor: any; borderColor: string; pointBorderColor: string; pointBackgroundColor: string; pointHoverBackgroundColor: string; pointHoverBorderColor: string; }[];
@@ -61,7 +66,7 @@ export class DashboardComponent implements OnInit {
   chartLines: Array<any> = [];
   lineChartWithNumbersAndGridData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   timeBig: boolean = false;
-  lineBigDashboardChartDataAux: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
+  lineBigDashboardChartDataAux: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[] = [];
   modaltitle: string;
   modalbody: string;
   modalbigtitle: string;
@@ -69,13 +74,39 @@ export class DashboardComponent implements OnInit {
   guardaTimeUser: string;
   timeAtivo: string;
   atividades: Observable<Atividade[]>;
+  arrayPontuacaoBigData = [
+    {
+      label: "Pontuação",
+      pointBorderWidth: 2,
+      pointHoverRadius: 4,
+      pointHoverBorderWidth: 1,
+      pointRadius: 4,
+      fill: true,
+      borderWidth: 2,
+      data: [0]
+    }
+  ];
 
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
     var that = this;
 
+    this.lineBigDashboardChartData = [
+      {
+        label: "Pontuação",
+        pointBorderWidth: 2,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 1,
+        pointRadius: 4,
+        fill: true,
+        borderWidth: 2,
+        data: [this.randomNumberAt100()]
+      }
+    ];
+
     this.sidebarVisible = false;
 
     this.user = this.authService.getAuth();
+
     var promiseFases = new Promise(function (resolve, reject) {
       resolve(that.initFases());
       reject('erro');
@@ -93,15 +124,16 @@ export class DashboardComponent implements OnInit {
       reject('erro');
     })
 
-    promiseMissoes.then(function () {
+    Promise.all([promiseMissoes, promiseFases]).then(function () {
       that.fases.forEach(element => {
         element.forEach((element, index) => {
-          var elementId = element.id;
+          var fase = element;
           var i = index;
           that.missoes.forEach(element => {
+            var missao = element;
             element.forEach((element, index) => {
-              if (element.temporada.id == elementId) {
-                that.labelTemporadas.push(element.nome);
+              if (missao[index].temporada.id == fase.id) {
+                that.labelTemporadas.push(missao[index].nome);
               }
             })
 
@@ -117,6 +149,70 @@ export class DashboardComponent implements OnInit {
         })
       })
 
+    })
+
+    Promise.all([promiseAtividades, promiseMissoes, promiseTimes, promiseFases]).then(function () {
+
+      that.fases.forEach(element => {
+        element.forEach((element, index) => {
+          //Temporadas aparecendo aqui
+          var temporada = element;
+          var i = index;
+          that.arrayPontuacao[i] = [];
+          that.times.forEach(element => {
+            element.forEach((element, index) => {
+              //Encontrando id do time do usuário logado
+              that.authService.getUserTimeId().then(function (id) {
+                if (element.id == id) {
+                  that.indexTimeUser = index;
+                  console.log(index, that.indexTimeUser);
+                }
+              })
+              //Times aparecendo aqui
+              var time = element;
+              var j = index;
+              that.arrayPontuacao[i][j] = [];
+              that.missoes.forEach(element => {
+                element.forEach((element, index) => {
+                  //Missões aparecendo aqui
+                  var missao = element;
+                  var k = index;
+                  that.arrayPontuacao[i][j][k] = 0;
+                  //Verifica se a missão é daquela temporada
+                  if (element.temporada.id == temporada.id) {
+                    that.atividades.forEach(element => {
+                      element.forEach(element => {
+                        var timeDoMembro;
+                        //Atividades aparecendo aqui
+                        var atividade = element;
+                        //Receber um membro que fez a atividade
+                        that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
+                          if (doc.exists) {
+                            timeDoMembro = doc.data().idtime.id;
+                            //Verifica se a atividade pertente a missão
+                            if (element.missao.id == missao.id && timeDoMembro == time.id) {
+                              that.arrayPontuacao[i][j][k] += Number(element.pontuacao);
+                              console.log(i, j, k, 'Recebeu + : ' + that.arrayPontuacao[i][j][k]);
+                              that.setData(that.arrayPontuacao[i][j][k]);
+
+                            }
+                          } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                          }
+                        }).catch(function (error) {
+                          console.log("Error getting document:", error);
+                        });
+
+                      })
+                    });
+                  }
+                })
+              })
+            })
+          })
+        })
+      })
     })
 
     Promise.all([promiseFases, promiseTimes, promiseAtividades]).then(function () {
@@ -208,7 +304,7 @@ export class DashboardComponent implements OnInit {
         data.id = a.payload.doc.id;
         this.chartDatas.push([
           {
-            label: "Nota",
+            label: "Pontuação",
             pointBorderWidth: 2,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 1,
@@ -218,6 +314,7 @@ export class DashboardComponent implements OnInit {
             data: [this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100()]
           }
         ]);
+
         var randomIndex = Math.floor(Math.random() * this.chartLinesArray.length);
         this.chartLines.push(this.chartLinesArray[randomIndex]);
         return data;
@@ -250,21 +347,6 @@ export class DashboardComponent implements OnInit {
     gradientBig.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientBig.addColorStop(1, "rgba(255, 255, 255, 0.24)");
 
-    this.lineBigDashboardChartData = [
-      {
-        label: "Nota",
-
-        pointBorderWidth: 1,
-        pointHoverRadius: 7,
-        pointHoverBorderWidth: 2,
-        pointRadius: 5,
-        fill: true,
-
-        borderWidth: 2,
-        data: [this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100()]
-      }
-    ];
-    this.lineBigDashboardChartDataAux = this.lineBigDashboardChartData;
     this.lineBigDashboardChartColors = [
       {
         backgroundColor: gradientBig,
@@ -524,6 +606,7 @@ export class DashboardComponent implements OnInit {
   };
 
   toogleFase(fase: string, index: any) {
+    this.indexTemporada = index;
     this.lineBigDashboardChartLabels = this.arrayMissoes[index];
     this.lineChartWithNumbersAndGridLabels = this.arrayMissoes[index];
     //this.lineBigDashboardChartData = ;
@@ -532,7 +615,7 @@ export class DashboardComponent implements OnInit {
     this.chartDatas.forEach((value, index) => {
       this.chartDatas[index] = [
         {
-          label: "Nota",
+          label: "Pontuação",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 1,
@@ -582,13 +665,32 @@ export class DashboardComponent implements OnInit {
         $('.modal').modal('show');
         if (time)
           this.modalbigtitle = time + ' - ' + this.title;
-        else
-          this.modalbigtitle = this.user.time.id + ' - ' + this.title;
+        else {
+          if (this.timeBig)
+            this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
+          else
+            this.modalbigtitle = this.user.time.id + ' - ' + this.title;
+        }
         this.modaltitle = label;
         this.modalbody = value;
         console.log(clickedElementIndex, label, value)
       }
     }
+  }
+
+  setData(pontuacao: any) {
+    this.arrayPontuacaoBigData = [
+      {
+        label: "Pontuação",
+        pointBorderWidth: 2,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 1,
+        pointRadius: 4,
+        fill: true,
+        borderWidth: 2,
+        data: [pontuacao, 0, 0, 0]
+      }
+    ];
   }
 
   resetPassword(email: string) {

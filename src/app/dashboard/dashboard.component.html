@@ -61,8 +61,8 @@
   <canvas style="display:none" #bigChart baseChart [datasets]="lineBigDashboardChartData" [labels]="lineBigDashboardChartLabels"
     [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
     (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-  <ng-container *ngFor="let fase of fases | async">
-    <canvas id="ok" *ngIf="title == fase.id" baseChart [datasets]="lineBigDashboardChartData" [labels]="lineBigDashboardChartLabels"
+  <ng-container id="chartTimeUser" *ngFor="let fase of fases | async">
+    <canvas id="ok" *ngIf="title == fase.id" baseChart [datasets]="arrayPontuacaoBigData" [labels]="lineBigDashboardChartLabels"
       [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
       (chartHover)="chartHovered($event)" (chartClick)="clickHandler($event, false)"></canvas>
   </ng-container>

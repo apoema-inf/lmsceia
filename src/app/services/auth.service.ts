@@ -80,6 +80,48 @@ export class AuthService {
     return this.user;
   }
 
+  getUserTimeId() {
+    var that = this;
+    return new Promise(function (resolve, reject) {
+      that.user.time = new Time();
+
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          var docRef = that.af.collection("membros").doc(user.uid);
+
+          docRef.ref.
+            get().then(documentSnapshot => {
+              if (documentSnapshot.exists) {
+                that.user.email = documentSnapshot.data().email;
+                that.user.curso = documentSnapshot.data().curso;
+                that.user.nome = documentSnapshot.data().nome;
+                that.user.pontuacao = documentSnapshot.data().pontuacao;
+                documentSnapshot.data().idtime.get().then(function (doc) {
+                  if (doc.exists) {
+                    that.user.time.id = doc.id;
+                  } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                  }
+                }).catch(function (error) {
+                  console.log("Error getting document:", error);
+                });
+
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+            }).then(function () {
+              resolve(that.user.time.id);
+            });
+        } else {
+          // No user is signed in.
+          reject('erro');
+        }
+      });
+    })
+  }
+
   findUser() {
     var that = this;
     this.user.time = new Time();
@@ -105,7 +147,7 @@ export class AuthService {
               }).catch(function (error) {
                 console.log("Error getting document:", error);
               });
-              
+
             } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");

@@ -12,6 +12,7 @@ import { Membro } from 'app/models/membro.model';
 import { Atividade } from 'app/models/atividade.model';
 import { Missao } from 'app/models/missao.model';
 import { forEach } from '@angular/router/src/utils/collection';
+import { element } from 'protractor';
 
 declare var $: any;
 
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
   missoes: Observable<Missao[]>;
   arrayMissoes = new Array();
   timeUserPontuacao = new Array();
+  timesPontuacao = new Array();
   array = new Array();
   user: Membro = new Membro();
   timeUser: Time = new Time();
@@ -60,7 +62,7 @@ export class DashboardComponent implements OnInit {
   lineChartWithNumbersAndGridColors: { borderColor: string; pointBorderColor: string; pointBackgroundColor: string; backgroundColor: any; }[];
   lineChartWithNumbersAndGridOptions: any;
   lineChartWithNumbersAndGridType: string;
-  chartDatas: Array<any> = [];
+  chartDatas: Array<any[]> = new Array();
   chartLines: Array<any> = [];
   lineChartWithNumbersAndGridData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   timeBig: boolean = false;
@@ -148,6 +150,7 @@ export class DashboardComponent implements OnInit {
 
     })
 
+    //Dado para o time do usuário
     Promise.all([promiseAtividades, promiseMissoes, promiseTimes, promiseFases]).then(function () {
       that.fases.forEach(element => {
         element.forEach((element, index) => {
@@ -155,47 +158,103 @@ export class DashboardComponent implements OnInit {
           var temporada = element;
           var i = index;
           that.timeUserPontuacao[i] = [];
-          that.missoes.forEach(element => {
-            element.forEach((element, index) => {
-              //Missões aparecendo aqui
-              var missao = element;
-              var k = index;
-              //Verifica se a missão é daquela temporada
-              if (element.temporada.id == temporada.id) {
+          that.times.forEach(element => {
+            element.forEach(time => {
+              that.missoes.forEach(element => {
+                element.forEach((element, index) => {
+                  //Missões aparecendo aqui
+                  var missao = element;
+                  var k = index;
+                  //Verifica se a missão é daquela temporada
+                  if (element.temporada.id == temporada.id) {
 
-                that.atividades.forEach(element => {
-                  that.timeUserPontuacao[i][k] = 0;
-                  console.log(that.timeUserPontuacao[i][k]);
-                  element.forEach(element => {
-                    var timeDoMembro;
-                    //Atividades aparecendo aqui
-                    var atividade = element;
+                    that.atividades.forEach(element => {
+                      that.timeUserPontuacao[i][k] = 0;
+                      element.forEach(element => {
+                        var timeDoMembro;
+                        //Atividades aparecendo aqui
 
-                    //Receber um membro que fez a atividade
-                    that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
-                      if (doc.exists) {
-                        timeDoMembro = doc.data().idtime.id;
-                        //Verifica se a atividade pertente a missão
-                        if (element.missao.id == missao.id) {
-                          console.log("Tinha", that.timeUserPontuacao[i][k], "+", element.pontuacao);
-                          that.timeUserPontuacao[i][k] += Number(element.pontuacao);
-                          that.setData(0);
-                        }
-                      } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
-                      }
-                    }).catch(function (error) {
-                      console.log("Error getting document:", error);
+                        //Receber um membro que fez a atividade
+                        that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
+                          if (doc.exists) {
+                            timeDoMembro = doc.data().idtime.id;
+                            //Verifica se a atividade pertente a missão
+                            if (element.missao.id == missao.id && timeDoMembro == time.id) {
+                              that.timeUserPontuacao[i][k] += Number(element.pontuacao);
+                              that.setData(0);
+                            }
+                          } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                          }
+                        }).catch(function (error) {
+                          console.log("Error getting document:", error);
+                        });
+
+                      })
                     });
+                  }
+                })
+              })
+            })
+          })
 
-                  })
-                });
-              }
+        })
+      })
+    })
+
+    //Dado para os times
+    Promise.all([promiseAtividades, promiseMissoes, promiseTimes, promiseFases]).then(function () {
+      that.fases.forEach(element => {
+        element.forEach((element, index) => {
+          //Temporadas aparecendo aqui
+          var temporada = element;
+          var i = index;
+          that.timesPontuacao[i] = [];
+          that.times.forEach(element => {
+            element.forEach((time, j) => {
+              that.timesPontuacao[i][j] = [];
+              that.missoes.forEach(element => {
+                element.forEach((element, k) => {
+                  //Missões aparecendo aqui
+                  var missao = element;
+                  //Verifica se a missão é daquela temporada
+                  if (element.temporada.id == temporada.id) {
+
+                    that.atividades.forEach(element => {
+                      that.timesPontuacao[i][j][k] = 0;
+                      element.forEach(element => {
+                        var timeDoMembro;
+                        //Atividades aparecendo aqui
+
+                        //Receber um membro que fez a atividade
+                        that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
+                          if (doc.exists) {
+                            timeDoMembro = doc.data().idtime.id;
+                            //Verifica se a atividade pertente a missão
+                            if (element.missao.id == missao.id && timeDoMembro == time.id) {
+                              that.timesPontuacao[i][j][k] += Number(element.pontuacao);
+                              that.setDataTimes(0);
+                            }
+                          } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                          }
+                        }).catch(function (error) {
+                          console.log("Error getting document:", error);
+                        });
+
+                      })
+                    })
+                  }
+                })
+              })
             })
           })
         })
       })
+    }).then(function () {
+      that.initSetDataTimes();
     })
 
   }
@@ -260,25 +319,12 @@ export class DashboardComponent implements OnInit {
   }
 
   private initTimes() {
-    this.times = this.af.collection('times').snapshotChanges().pipe(map(changes => {
+    this.times = this.af.collection('times').snapshotChanges().pipe(map((changes, i) => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Time;
         data.id = a.payload.doc.id;
-        this.chartDatas.push([
-          {
-            label: "Pontuação",
-            pointBorderWidth: 2,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 1,
-            pointRadius: 4,
-            fill: true,
-            borderWidth: 2,
-            data: [this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100()]
-          }
-        ]);
 
-        var randomIndex = Math.floor(Math.random() * this.chartLinesArray.length);
-        this.chartLines.push(this.chartLinesArray[randomIndex]);
+        this.chartLines.push('line');
         return data;
       });
     }));
@@ -569,25 +615,10 @@ export class DashboardComponent implements OnInit {
 
   toogleFase(fase: string, index: any) {
     this.setData(index);
+    this.setDataTimes(index);
     this.indexTemporada = index;
     this.lineBigDashboardChartLabels = this.arrayMissoes[index];
-    //this.lineBigDashboardChartData = ;
-    //this.lineBigDashboardChartDataAux = ;
-    //this.lineChartWithNumbersAndGridData = ;
-    this.chartDatas.forEach((value, index) => {
-      this.chartDatas[index] = [
-        {
-          label: "Pontuação",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          borderWidth: 2,
-          data: [this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100(), this.randomNumberAt100()]
-        }
-      ]
-    })
+
     this.title = fase;
   }
 
@@ -663,6 +694,43 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  setDataTimes(fase: number) {
+    var that = this;
+
+    var promiseTimes = new Promise(function (resolve, reject) {
+      resolve(that.initTimes());
+      reject('erro');
+    });
+
+    promiseTimes.then(function () {
+      that.times.forEach(element => {
+        element.forEach((time, index) => {
+          var filtered = that.timesPontuacao[fase][index].filter(function (el) {
+            return el != null;
+          });
+
+          const values = Object.keys(filtered).map(key => filtered[key]);
+
+          that.chartDatas[index] = [
+            {
+              label: "Pontuação",
+              pointBorderWidth: 2,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 1,
+              pointRadius: 4,
+              fill: true,
+              borderWidth: 2,
+              data: values
+            }
+          ]
+
+          console.log(that.chartDatas[index]);
+        })
+      })
+    })
+
+  }
+
   resetPassword(email: string) {
     this.authService.resetPassword(email);
   }
@@ -677,6 +745,26 @@ export class DashboardComponent implements OnInit {
             console.log(index, this.indexTimeUser);
           }
         })
+      })
+    })
+  }
+
+  initSetDataTimes() {
+    this.times.forEach(element => {
+      element.forEach((time, i) => {
+
+        this.chartDatas[i] = [
+          {
+            label: "Pontuação",
+            pointBorderWidth: 2,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 1,
+            pointRadius: 4,
+            fill: true,
+            borderWidth: 2,
+            data: []
+          }
+        ]
       })
     })
   }

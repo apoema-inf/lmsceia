@@ -123,7 +123,7 @@
             </div>
             <div class="card-body">
               <div class="chart-area">
-                <canvas baseChart [datasets]="chartDatas[i]" [labels]="labelTemporadas[0]" [colors]="lineChartWithNumbersAndGridColors"
+                <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineBigDashboardChartLabels" [colors]="lineChartWithNumbersAndGridColors"
                   [options]="lineChartWithNumbersAndGridOptions" [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
                   (chartClick)="clickHandler($event, time.id)"></canvas>
               </div>

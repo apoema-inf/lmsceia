@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as Chartist from 'chartist';
 import { Observable } from 'rxjs';
@@ -23,6 +23,7 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   indexTimeUser: number = 0;
   indexTemporada: number = 0;
   missoes: Observable<Missao[]>;
@@ -41,8 +42,6 @@ export class DashboardComponent implements OnInit {
   times: Observable<Time[]>;
   fases: Observable<Fase[]>;
   @ViewChild("bigChart") canvas: ElementRef;
-  @ViewChild(BaseChartDirective)
-  chart: BaseChartDirective;
   bigChartValores: Array<string> = [];
   gradient;
   chartColor: string;
@@ -59,7 +58,6 @@ export class DashboardComponent implements OnInit {
   lineChartData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
   lineChartLabels: string[];
   lineChartWithNumbersAndGridColors: { borderColor: string; pointBorderColor: string; pointBackgroundColor: string; backgroundColor: any; }[];
-  lineChartWithNumbersAndGridLabels: string[] = [];
   lineChartWithNumbersAndGridOptions: any;
   lineChartWithNumbersAndGridType: string;
   chartDatas: Array<any> = [];
@@ -141,7 +139,6 @@ export class DashboardComponent implements OnInit {
             that.labelTemporadas = [];
             if (i == 0) {
               that.lineBigDashboardChartLabels = that.arrayMissoes[0];
-              that.lineChartWithNumbersAndGridLabels = that.lineBigDashboardChartLabels;
               that.chart.chart.update();
             }
           })
@@ -392,7 +389,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    this.lineBigDashboardChartType = 'line';
+    this.lineBigDashboardChartType = 'bar';
 
     this.lineChartWithNumbersAndGridColors = [
       {
@@ -574,7 +571,6 @@ export class DashboardComponent implements OnInit {
     this.setData(index);
     this.indexTemporada = index;
     this.lineBigDashboardChartLabels = this.arrayMissoes[index];
-    this.lineChartWithNumbersAndGridLabels = this.arrayMissoes[index];
     //this.lineBigDashboardChartData = ;
     //this.lineBigDashboardChartDataAux = ;
     //this.lineChartWithNumbersAndGridData = ;
@@ -645,25 +641,25 @@ export class DashboardComponent implements OnInit {
   }
 
   setData(fase: number) {
-    this.timeUserPontuacaoBigData[0].data = [];
-    if (fase == 0) {
-      this.timeUserPontuacaoBigData = [
-        {
-          label: "Pontuação",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          borderWidth: 2,
-          data: [this.timeUserPontuacao[0][0], this.timeUserPontuacao[0][1], this.timeUserPontuacao[0][2], this.timeUserPontuacao[0][4]]
-        }
-      ]
-    } else {
-      this.timeUserPontuacao[fase].forEach((element, index) => {
-        this.timeUserPontuacaoBigData[0].data.push(element);
+    var that = this;
+
+    var promise = new Promise(function (resolve, reject) {
+      that.timeUserPontuacaoBigData[0].data = [];
+      //Filtro para tirar elementos empty
+      var filtered = that.timeUserPontuacao[fase].filter(function (el) {
+        return el != null;
       });
-    }
+
+      const values = Object.keys(filtered).map(key => filtered[key]);
+
+      that.timeUserPontuacaoBigData[0].data = values;
+      resolve(that.timeUserPontuacaoBigData);
+      reject('erro');
+    })
+
+    promise.then(function () {
+      that.lineBigDashboardChartType = 'line';
+    })
 
   }
 

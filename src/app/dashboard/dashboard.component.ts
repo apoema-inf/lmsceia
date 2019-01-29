@@ -178,7 +178,6 @@ export class DashboardComponent implements OnInit {
                         //Verifica se a atividade pertente a missão
                         if (element.missao.id == missao.id && that.user.time.id == doc.data().idtime.id) {
                           that.timeUserPontuacao[i][k] += Number(element.pontuacao);
-                          console.log(element.pontuacao);
                           that.setData(0);
                         }
                       } else {
@@ -627,15 +626,26 @@ export class DashboardComponent implements OnInit {
     this.chartLines[ichart] = type;
   }
 
-  goToBigChart(nomeTime: string, data: any, index: any) {
-    this.lineBigDashboardChartData = data;
+  goToBigChart(nomeTime: string, data: any) {
+    if (this.lineBigDashboardChartType == 'bar') {
+      this.lineBigDashboardChartType = 'line';
+    } else {
+      this.lineBigDashboardChartType = 'bar'
+    }
+    this.lineBigDashboardChartDataAux[0] = this.timeUserPontuacaoBigData[0];
+    this.timeUserPontuacaoBigData[0] = data;
     this.timeBig = true;
     this.guardaTimeUser = this.user.time.id;
     this.timeAtivo = nomeTime;
   }
 
   backYourTime() {
-    this.lineBigDashboardChartData = this.lineBigDashboardChartDataAux;
+    if (this.lineBigDashboardChartType == 'bar') {
+      this.lineBigDashboardChartType = 'line';
+    } else {
+      this.lineBigDashboardChartType = 'bar'
+    }
+    this.timeUserPontuacaoBigData[0] = this.lineBigDashboardChartDataAux[0];
     this.timeBig = false;
     this.timeAtivo = this.guardaTimeUser;
   }

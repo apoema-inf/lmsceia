@@ -158,44 +158,40 @@ export class DashboardComponent implements OnInit {
           var temporada = element;
           var i = index;
           that.timeUserPontuacao[i] = [];
-          that.times.forEach(element => {
-            element.forEach(time => {
-              that.missoes.forEach(element => {
-                element.forEach((element, index) => {
-                  //Missões aparecendo aqui
-                  var missao = element;
-                  var k = index;
-                  //Verifica se a missão é daquela temporada
-                  if (element.temporada.id == temporada.id) {
+          that.missoes.forEach(element => {
+            element.forEach((element, index) => {
+              //Missões aparecendo aqui
+              var missao = element;
+              var k = index;
+              //Verifica se a missão é daquela temporada
+              if (element.temporada.id == temporada.id) {
 
-                    that.atividades.forEach(element => {
-                      that.timeUserPontuacao[i][k] = 0;
-                      element.forEach(element => {
-                        var timeDoMembro;
-                        //Atividades aparecendo aqui
+                that.atividades.forEach(element => {
+                  that.timeUserPontuacao[i][k] = 0;
+                  element.forEach(element => {
+                    var timeDoMembro;
+                    //Atividades aparecendo aqui
 
-                        //Receber um membro que fez a atividade
-                        that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
-                          if (doc.exists) {
-                            timeDoMembro = doc.data().idtime.id;
-                            //Verifica se a atividade pertente a missão
-                            if (element.missao.id == missao.id && timeDoMembro == time.id) {
-                              that.timeUserPontuacao[i][k] += Number(element.pontuacao);
-                              that.setData(0);
-                            }
-                          } else {
-                            // doc.data() will be undefined in this case
-                            console.log("No such document!");
-                          }
-                        }).catch(function (error) {
-                          console.log("Error getting document:", error);
-                        });
-
-                      })
+                    //Receber um membro que fez a atividade
+                    that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
+                      if (doc.exists) {
+                        //Verifica se a atividade pertente a missão
+                        if (element.missao.id == missao.id && that.user.time.id == doc.data().idtime.id) {
+                          that.timeUserPontuacao[i][k] += Number(element.pontuacao);
+                          console.log(element.pontuacao);
+                          that.setData(0);
+                        }
+                      } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                      }
+                    }).catch(function (error) {
+                      console.log("Error getting document:", error);
                     });
-                  }
-                })
-              })
+
+                  })
+                });
+              }
             })
           })
 
@@ -435,7 +431,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    this.lineBigDashboardChartType = 'bar';
+    this.lineBigDashboardChartType = 'line';
 
     this.lineChartWithNumbersAndGridColors = [
       {
@@ -689,7 +685,11 @@ export class DashboardComponent implements OnInit {
     })
 
     promise.then(function () {
-      that.lineBigDashboardChartType = 'line';
+
+      if (that.lineBigDashboardChartType == 'line')
+        that.lineBigDashboardChartType = 'bar';
+      else
+        that.lineBigDashboardChartType = 'line'
     })
 
   }
@@ -724,7 +724,6 @@ export class DashboardComponent implements OnInit {
             }
           ]
 
-          console.log(that.chartDatas[index]);
         })
       })
     })

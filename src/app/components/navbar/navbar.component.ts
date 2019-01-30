@@ -137,4 +137,8 @@ export class NavbarComponent implements OnInit {
   resetPassword(email: string) {
     this.authService.resetPassword(email);
   }
+
+  logout() {
+    this.authService.logout();
+  }
 }

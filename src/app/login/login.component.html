@@ -10,18 +10,23 @@
         <div class="card-body">
           <div class="row">
             <div class="container">
-              <form *ngIf="!(user | async); else nouser" (keyup.enter)="onSubmitLogin()" (submit)="onSubmitLogin()">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input [(ngModel)]="email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email" autofocus>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Senha</label>
-                  <input [(ngModel)]="password" name="senha" type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
-                </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
-              </form>
+              <ng-container *ngIf="!(user | async); else nouser">
+                <form (keyup.enter)="onSubmitLogin()" (submit)="onSubmitLogin()">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input [(ngModel)]="email" name="email" type="email" class="form-control" id="exampleInputEmail1"
+                      aria-describedby="emailHelp" placeholder="Enter email" autofocus>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Senha</label>
+                    <input [(ngModel)]="password" name="senha" type="password" class="form-control" id="exampleInputPassword1"
+                      placeholder="Senha">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
+                <button class="btn" (click)="resetPassword()">Esqueci minha senha</button>
+              </ng-container>
+
               <ng-template #nouser>
                 <p class="text-success"><b>Você já está conectado.</b></p>
               </ng-template>

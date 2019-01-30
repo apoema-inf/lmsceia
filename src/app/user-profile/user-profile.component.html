@@ -40,11 +40,15 @@
     <div class="col-md-4">
       <div class="card card-user">
         <div class="image">
-          <img src="../assets/img/logo_DSS-BI.jpg" alt="...">
+          <img *ngIf="user.curso == 'DSS-BI'; else espgti" src="../assets/img/logo_DSS-BI.jpg" alt="...">
+          <ng-template #espgti>
+            <img src="../assets/img/logo_ESPGTI.jpg" alt="...">
+          </ng-template>
         </div>
         <div class="card-body">
           <div class="author">
-            <img class="avatar border-gray" src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" alt="...">
+            <img class="avatar border-gray" src="https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"
+              alt="...">
             <h5 class="title">{{user.nome}}</h5>
           </div>
         </div>

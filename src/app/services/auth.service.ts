@@ -180,6 +180,9 @@ export class AuthService {
         positionClass: 'toast-top-center'
       });
     }).catch(function (error) {
+      if(error == "Error: The email address is badly formatted.") {
+        error = "O endereço de email está em um formato inválido";
+      }
       that.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + error, '', {
         timeOut: 5000,
         enableHtml: true,

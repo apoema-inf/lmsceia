@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import * as Chartist from 'chartist';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Time } from 'app/models/time.model';
@@ -11,8 +10,6 @@ import { AuthService } from 'app/services/auth.service';
 import { Membro } from 'app/models/membro.model';
 import { Atividade } from 'app/models/atividade.model';
 import { Missao } from 'app/models/missao.model';
-import { forEach } from '@angular/router/src/utils/collection';
-import { element } from 'protractor';
 
 declare var $: any;
 
@@ -176,10 +173,13 @@ export class DashboardComponent implements OnInit {
                     that.af.collection("membros").doc(element.membro.id).get().toPromise().then(function (doc) {
                       if (doc.exists) {
                         //Verifica se a atividade pertente a missão
-                        if (element.missao.id == missao.id && that.user.time.id == doc.data().idtime.id) {
-                          that.timeUserPontuacao[i][k] += Number(element.pontuacao);
-                          that.setData(0);
-                        }
+                        that.authService.getUserTimeId().then(function (value) {
+                          if (element.missao.id == missao.id && value == doc.data().idtime.id) {
+                            that.timeUserPontuacao[i][k] += Number(element.pontuacao);
+                            that.setData(0);
+                          }
+                        })
+
                       } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");

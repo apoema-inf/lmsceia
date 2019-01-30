@@ -9,10 +9,10 @@
                 </div>
                 <div class="card-body all-icons">
                     <div class="row">
-                        <div *ngFor="let time of times | async" class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                        <div *ngFor="let time of times | async" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
                             <div class="font-icon-detail">
                                 <img class="img-circle" src="{{time.avatar}}">
-                                <p>{{time.id}}</p>
+                                <p class="nome-times">{{time.id}}</p>
                             </div>
                         </div>
                     </div>

@@ -83,7 +83,6 @@ export class AuthService {
   getUserTimeId() {
     var that = this;
     return new Promise(function (resolve, reject) {
-      that.user.time = new Time();
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -92,13 +91,9 @@ export class AuthService {
           docRef.ref.
             get().then(documentSnapshot => {
               if (documentSnapshot.exists) {
-                that.user.email = documentSnapshot.data().email;
-                that.user.curso = documentSnapshot.data().curso;
-                that.user.nome = documentSnapshot.data().nome;
-                that.user.pontuacao = documentSnapshot.data().pontuacao;
                 documentSnapshot.data().idtime.get().then(function (doc) {
                   if (doc.exists) {
-                    that.user.time.id = doc.id;
+                    resolve(doc.id);
                   } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -111,9 +106,7 @@ export class AuthService {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
               }
-            }).then(function () {
-              resolve(that.user.time.id);
-            });
+            })
         } else {
           // No user is signed in.
           reject('erro');

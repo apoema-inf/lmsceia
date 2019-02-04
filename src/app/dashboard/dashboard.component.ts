@@ -430,7 +430,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    this.lineBigDashboardChartType = 'line';
+    this.lineBigDashboardChartType = 'pie';
 
     this.lineChartWithNumbersAndGridColors = [
       {
@@ -627,11 +627,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToBigChart(nomeTime: string, data: any) {
-    if (this.lineBigDashboardChartType == 'bar') {
-      this.lineBigDashboardChartType = 'line';
-    } else {
-      this.lineBigDashboardChartType = 'bar'
-    }
+    this.chartTypeLine();
     this.lineBigDashboardChartDataAux[0] = this.timeUserPontuacaoBigData[0];
     this.timeUserPontuacaoBigData[0] = data;
     this.timeBig = true;
@@ -639,12 +635,18 @@ export class DashboardComponent implements OnInit {
     this.timeAtivo = nomeTime;
   }
 
-  backYourTime() {
+  private chartTypeLine() {
     if (this.lineBigDashboardChartType == 'bar') {
       this.lineBigDashboardChartType = 'line';
-    } else {
-      this.lineBigDashboardChartType = 'bar'
     }
+    else {
+      this.lineBigDashboardChartType = 'bar';
+      this.lineBigDashboardChartType = 'line';
+    }
+  }
+
+  backYourTime() {
+    this.chartTypeLine();
     this.timeUserPontuacaoBigData[0] = this.lineBigDashboardChartDataAux[0];
     this.timeBig = false;
     this.timeAtivo = this.guardaTimeUser;
@@ -696,10 +698,7 @@ export class DashboardComponent implements OnInit {
 
     promise.then(function () {
 
-      if (that.lineBigDashboardChartType == 'line')
-        that.lineBigDashboardChartType = 'bar';
-      else
-        that.lineBigDashboardChartType = 'line'
+      that.chartTypeLine();
     })
 
   }

@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit {
   guardaTimeUser: string;
   timeAtivo: string;
   atividades: Observable<Atividade[]>;
+  atividadesPoint: Array<Atividade> = new Array();
   timeUserPontuacaoBigData = [
     {
       label: "Pontuação",
@@ -83,6 +84,10 @@ export class DashboardComponent implements OnInit {
       data: []
     }
   ];
+  descricao: any;
+  nome: any;
+  pontuacao: any;
+
 
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
     var that = this;
@@ -430,7 +435,7 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    this.lineBigDashboardChartType = 'pie';
+    this.lineBigDashboardChartType = 'line';
 
     this.lineChartWithNumbersAndGridColors = [
       {
@@ -641,7 +646,6 @@ export class DashboardComponent implements OnInit {
     }
     else {
       this.lineBigDashboardChartType = 'bar';
-      this.lineBigDashboardChartType = 'line';
     }
   }
 
@@ -653,6 +657,8 @@ export class DashboardComponent implements OnInit {
   }
 
   clickHandler(evt, time) {
+
+    var that = this;
 
     if (evt.active.length > 0) {
       const chart = evt.active[0]._chart;
@@ -672,8 +678,35 @@ export class DashboardComponent implements OnInit {
           else
             this.modalbigtitle = this.user.time.id + ' - ' + this.title;
         }
-        this.modaltitle = label;
-        this.modalbody = value;
+        this.nome = label;
+        this.pontuacao = value;
+
+        var promiseMissoes = new Promise(function (resolve, reject) {
+          that.initMissoes();
+          that.initAtividades();
+          resolve('ok');
+          reject('erro');
+        })
+
+        promiseMissoes.then(function () {
+          that.missoes.forEach(element => {
+            element.forEach(missao => {
+              if (that.nome == missao.nome) {
+                that.descricao = missao.descricao;
+                that.atividades.forEach(element => {
+                  element.forEach(atividade => {
+                    if(atividade.missao.id == missao.id) {
+                      if(!(that.atividadesPoint.includes(atividade))) {
+                        that.atividadesPoint.push(atividade);
+                      }
+                    }
+                  })
+                })
+              }
+            })
+          })
+        })
+
         console.log(clickedElementIndex, label, value)
       }
     }

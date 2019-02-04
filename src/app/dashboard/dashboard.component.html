@@ -82,14 +82,33 @@
         </button>
       </div>
       <div class="modal-body">
-        <p><b>{{modaltitle}}</b></p>
-        <p><b>Descrição:</b> Descrição da missão.</p>
-        <p><b>Nome da Atividade:</b> Atividade X</p>
-        <p><b>Pontuação:</b> {{modalbody}}</p>
-        <p><b>Feedback:</b> Feedback do avaliador...</p>
-        <p><b>Avaliador:</b> Eliomar Araújo</p>
-        <p><b>Tipo:</b> Desafio/Meta/Build</p>
-        <p><b>Feddback:</b> Feedback do avaliador...</p>
+        <p><b>{{nome}}</b></p>
+        <p><b>Descrição:</b> {{descricao}}</p>
+        <div class="accordion" id="accordionExample">
+          <div class="card" *ngFor="let atividade of atividadesPoint; let i = index">
+            <div class="card-header" id="headingOne">
+              <div class="row">
+                <div class="col-md-10">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#' + 'prefix' + i"
+                    aria-expanded="true">
+                    {{atividade.nome}}
+                  </button>
+                </div>
+                <div style="margin-top: auto; margin-bottom: auto;" class="col-md-2">
+                  <span class="badge badge-success">{{atividade.tipo}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div [attr.id]=" 'prefix' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <p><b>Pontuação:</b> {{atividade.pontuacao}}</p>
+                <p><b>Avaliador:</b> {{atividade.avaliador}}</p>
+                <p><b>Feedback:</b> {{atividade.feedback}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -107,7 +126,8 @@
             <div class="card-header">
               <h5 class="card-category" (click)="click()">{{time.id}}</h5>
               <div ngbDropdown>
-                <button (click)="goToBigChart(time.id, chartDatas[i][0])" style="margin-right: 10px" type="button" class="btn btn-round btn-default btn-simple btn-icon no-caret">
+                <button (click)="goToBigChart(time.id, chartDatas[i][0])" style="margin-right: 10px" type="button"
+                  class="btn btn-round btn-default btn-simple btn-icon no-caret">
                   <i class="now-ui-icons arrows-1_minimal-up"></i>
                 </button>
                 <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"

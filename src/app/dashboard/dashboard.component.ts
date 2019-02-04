@@ -659,6 +659,7 @@ export class DashboardComponent implements OnInit {
   clickHandler(evt, time) {
 
     var that = this;
+    this.atividadesPoint = [];
 
     if (evt.active.length > 0) {
       const chart = evt.active[0]._chart;

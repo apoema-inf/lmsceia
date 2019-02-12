@@ -34,7 +34,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
 
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthGuard, AuthService, AngularFirestore],

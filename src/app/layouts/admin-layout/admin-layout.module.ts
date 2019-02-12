@@ -12,6 +12,7 @@ import { LoginComponent } from 'app/login/login.component';
 import { SelfServiceComponent } from 'app/self-service/self-service.component';
 import { BreakNewsComponent } from 'app/break-news/break-news.component';
 import { TimesComponent } from 'app/times/times.component';
+import { GameComponent } from 'app/game/game.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { TimesComponent } from 'app/times/times.component';
     LoginComponent,
     SelfServiceComponent,
     BreakNewsComponent,
-    TimesComponent
+    TimesComponent,
+    GameComponent
   ]
 })
 

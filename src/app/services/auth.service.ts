@@ -13,12 +13,14 @@ import { Time } from 'app/models/time.model';
 @Injectable()
 export class AuthService {
 
+  userObservable: Observable<firebase.User>;
+
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
     private toastr: ToastrService,
     private af: AngularFirestore
-  ) { }
+  ) { this.userObservable = afAuth.authState; }
 
   user: Membro = new Membro();
 

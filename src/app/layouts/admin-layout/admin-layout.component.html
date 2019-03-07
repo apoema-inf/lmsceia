@@ -1,8 +1,8 @@
 <div class="wrapper">
-    <div class="sidebar" data-color="gradient">
+    <div *ngIf="(authService.userObservable | async)" class="sidebar" data-color="gradient">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="main-panel">
+    <div [ngClass]="{'main-panel' : (authService.userObservable | async)}">
         <app-navbar *ngIf="router.url != '/dashboard' && router.url != '/login'"></app-navbar>
         <router-outlet></router-outlet>
         <app-footer></app-footer>

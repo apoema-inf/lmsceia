@@ -14,9 +14,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'user-profile',   component: UserProfileComponent, canActivate: [AuthGuard]  },
     { path: 'self-service',          component: SelfServiceComponent, canActivate: [AuthGuard]  },
-    { path: 'break-news',           component: BreakNewsComponent, canActivate: [AuthGuard]  },
+    { path: 'breaking-news',           component: BreakNewsComponent, canActivate: [AuthGuard]  },
     { path: 'notifications',  component: NotificationsComponent, canActivate: [AuthGuard]  },
-    { path: 'timework',  component: TimesComponent, canActivate: [AuthGuard]  },
+    { path: 'teamwork',  component: TimesComponent, canActivate: [AuthGuard]  },
     { path: 'game',  component: GameComponent, canActivate: [AuthGuard]  },
     { path: 'login',  component: LoginComponent },
 ];

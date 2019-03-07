@@ -1,4 +1,5 @@
-<nav style="padding-bottom: 0; margin-bottom: 10px;" class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-primary fixed-top">
+<nav style="padding-bottom: 0; margin-bottom: 10px;"
+  class="navbar navbar-expand-lg navbar-transparent navbar-absolute bg-primary fixed-top">
   <div class="container-fluid">
     <div style="max-width:100%" class="navbar-wrapper">
       <div class="navbar-toggle">
@@ -15,7 +16,8 @@
           {{title}}
         </button>
         <div ngbDropdownMenu class="dropdown-menu-right">
-          <a class="dropdown-item" (click)="toogleFase(fase.id, i)" *ngFor="let fase of fases | async; let i = index">{{fase.id}}</a>
+          <a class="dropdown-item" (click)="toogleFase(fase.id, i)"
+            *ngFor="let fase of fases | async; let i = index">{{fase.id}}</a>
         </div>
       </div>
       <div ngbDropdown>
@@ -59,12 +61,14 @@
   </div>
 </nav>
 <div class="panel-header panel-header-lg">
-  <canvas style="display:none" #bigChart baseChart [datasets]="lineBigDashboardChartData" [labels]="lineBigDashboardChartLabels"
-    [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
-    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+  <canvas style="display:none" #bigChart baseChart [datasets]="lineBigDashboardChartData"
+    [labels]="lineBigDashboardChartLabels" [colors]="lineBigDashboardChartColors"
+    [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType" (chartHover)="chartHovered($event)"
+    (chartClick)="chartClicked($event)"></canvas>
   <ng-container id="chartTimeUser" *ngFor="let fase of fases | async">
-    <canvas id="ok" *ngIf="title == fase.id" baseChart [datasets]="timeUserPontuacaoBigData" [labels]="lineBigDashboardChartLabels"
-      [colors]="lineBigDashboardChartColors" [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
+    <canvas id="ok" *ngIf="title == fase.id" baseChart [datasets]="timeUserPontuacaoBigData"
+      [labels]="lineBigDashboardChartLabels" [colors]="lineBigDashboardChartColors"
+      [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
       (chartHover)="chartHovered($event)" (chartClick)="clickHandler($event, false)"></canvas>
   </ng-container>
 
@@ -90,8 +94,8 @@
             <div class="card-header" id="headingOne">
               <div class="row">
                 <div class="col-md-10">
-                  <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#' + 'prefix' + i"
-                    aria-expanded="true">
+                  <button class="btn btn-link" type="button" data-toggle="collapse"
+                    [attr.data-target]="'#' + 'prefix' + i" aria-expanded="true">
                     {{atividade.nome}}
                   </button>
                 </div>
@@ -101,8 +105,10 @@
               </div>
             </div>
 
-            <div [attr.id]=" 'prefix' + i" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div [attr.id]=" 'prefix' + i" class="collapse" aria-labelledby="headingOne"
+              data-parent="#accordionExample">
               <div class="card-body">
+                <p><b>Jogador:</b> {{atividade.membro.id.nome}}</p>
                 <p><b>Pontuação:</b> {{atividade.pontuacao}}</p>
                 <p><b>Avaliador:</b> {{atividade.avaliador}}</p>
                 <p><b>Feedback:</b> {{atividade.feedback}}</p>
@@ -145,8 +151,9 @@
             </div>
             <div class="card-body">
               <div class="chart-area">
-                <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineBigDashboardChartLabels" [colors]="lineChartWithNumbersAndGridColors"
-                  [options]="lineChartWithNumbersAndGridOptions" [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
+                <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineBigDashboardChartLabels"
+                  [colors]="lineChartWithNumbersAndGridColors" [options]="lineChartWithNumbersAndGridOptions"
+                  [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
                   (chartClick)="clickHandler($event, time.id)"></canvas>
               </div>
             </div>

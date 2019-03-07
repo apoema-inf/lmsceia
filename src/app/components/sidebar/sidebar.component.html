@@ -25,10 +25,26 @@
                 </a>
             </ng-container>
             <ng-template #nodashboard>
-                <a [routerLink]="[menuItem.path]">
+                <a *ngIf="menuItem.title != 'Self-Service'; else self" [routerLink]="[menuItem.path]">
                     <i class="now-ui-icons {{menuItem.icon}}"></i>
                     <p>{{menuItem.title}}</p>
                 </a>
+                <ng-template #self>
+                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="now-ui-icons {{menuItem.icon}}"></i>
+                        <p>{{menuItem.title}}</p>
+                    </a>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button">Explorando</button>
+                        <button class="dropdown-item" type="button">Posicionando</button>
+                        <button class="dropdown-item" type="button">Preparando</button>
+                        <button class="dropdown-item" type="button">Arquitetando</button>
+                        <button class="dropdown-item" type="button">Projetizando</button>
+                        <button class="dropdown-item" type="button">Operando</button>
+                        <button class="dropdown-item" type="button">Decidindo</button>
+                        <button class="dropdown-item" type="button">Coordenando</button>
+                    </div>
+                </ng-template>
             </ng-template>
         </li>
         <li *ngIf="user | async" (click)="logout()" class="nav-item">

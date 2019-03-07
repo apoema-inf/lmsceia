@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
@@ -13,6 +13,7 @@ import { SelfServiceComponent } from 'app/self-service/self-service.component';
 import { BreakNewsComponent } from 'app/break-news/break-news.component';
 import { TimesComponent } from 'app/times/times.component';
 import { GameComponent } from 'app/game/game.component';
+import { GetJogadorPipe } from 'app/pipes/get-jogador.pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { GameComponent } from 'app/game/game.component';
     SelfServiceComponent,
     BreakNewsComponent,
     TimesComponent,
-    GameComponent
+    GameComponent,
+    GetJogadorPipe
   ]
 })
 

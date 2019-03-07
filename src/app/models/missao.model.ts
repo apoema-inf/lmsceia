@@ -5,4 +5,5 @@ export class Missao {
     nome: string;
     descricao: string;
     temporada: Fase;
+  order: any;
 }

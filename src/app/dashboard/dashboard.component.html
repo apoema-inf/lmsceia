@@ -108,7 +108,7 @@
             <div [attr.id]=" 'prefix' + i" class="collapse" aria-labelledby="headingOne"
               data-parent="#accordionExample">
               <div class="card-body">
-                <p><b>Jogador:</b> {{atividade.membro.id.nome}}</p>
+                <p><b>Jogador:</b> {{atividade.membro.id | getJogador | async}}</p>
                 <p><b>Pontuação:</b> {{atividade.pontuacao}}</p>
                 <p><b>Avaliador:</b> {{atividade.avaliador}}</p>
                 <p><b>Feedback:</b> {{atividade.feedback}}</p>

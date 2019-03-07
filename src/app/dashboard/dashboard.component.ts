@@ -260,7 +260,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initMissoes() {
-    this.missoes = this.af.collection('missoes').snapshotChanges().pipe(map(
+    this.missoes = this.af.collection('missoes', ref => ref.orderBy('order', 'asc')).snapshotChanges().pipe(map(
 
       changes => {
 
@@ -696,8 +696,8 @@ export class DashboardComponent implements OnInit {
                 that.descricao = missao.descricao;
                 that.atividades.forEach(element => {
                   element.forEach(atividade => {
-                    if(atividade.missao.id == missao.id) {
-                      if(!(that.atividadesPoint.includes(atividade))) {
+                    if (atividade.missao.id == missao.id) {
+                      if (!(that.atividadesPoint.includes(atividade))) {
                         that.atividadesPoint.push(atividade);
                       }
                     }

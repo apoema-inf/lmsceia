@@ -4,8 +4,7 @@ import { map } from "rxjs/operators";
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EventEmitter } from 'events';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Membro } from 'app/models/membro.model';
 import { Time } from 'app/models/time.model';
@@ -20,7 +19,7 @@ export class AuthService {
     private router: Router,
     private toastr: ToastrService,
     private af: AngularFirestore
-  ) { this.userObservable = afAuth.authState; }
+  ) { this.userObservable = afAuth.authState;}
 
   user: Membro = new Membro();
 

@@ -10,42 +10,56 @@
 </div>
 <div class="sidebar-wrapper">
     <ul class="nav">
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <ng-container *ngIf="menuItem.title == 'Dashboard'; else nodashboard">
-                <a [routerLink]="[menuItem.path]">
-                    <div class="row">
-                        <div class="col-8">
-                            <i class="now-ui-icons {{menuItem.icon}}"></i>
-                            <p>{{menuItem.title}}</p>
-                        </div>
-                        <div class="col-4">
-                            <span class="badge badge-warning">DEMO</span>
-                        </div>
+        <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/dashboard">
+                <div class="row">
+                    <div class="col-8">
+                        <i class="now-ui-icons design_app"></i>
+                        <p>Dashboard</p>
                     </div>
-                </a>
-            </ng-container>
-            <ng-template #nodashboard>
-                <a *ngIf="menuItem.title != 'Self-Service'; else self" [routerLink]="[menuItem.path]">
-                    <i class="now-ui-icons {{menuItem.icon}}"></i>
-                    <p>{{menuItem.title}}</p>
-                </a>
-                <ng-template #self>
-                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="now-ui-icons {{menuItem.icon}}"></i>
-                        <p>{{menuItem.title}}</p>
-                    </a>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Explorando</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Posicionando</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Preparando</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Arquitetando</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Projetizando</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Operando</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Decidindo</a></button>
-                        <button class="dropdown-item" type="button"><a routerLink="/self-service">Coordenando</a></button>
+                    <div class="col-4">
+                        <span class="badge badge-warning">DEMO</span>
                     </div>
-                </ng-template>
-            </ng-template>
+                </div>
+            </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="now-ui-icons shopping_box"></i>
+                <p>Self-Service</p>
+            </a>
+            <div class="dropdown-menu">
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">1º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">2º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">3º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">4º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">5º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">6º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">7º Temporada</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/self-service">8º Temporada</a></button>
+            </div>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="now-ui-icons education_paper"></i>
+                <p>News</p>
+            </a>
+            <div class="dropdown-menu">
+                <button class="dropdown-item" type="button"><a routerLink="/breaking-news">Breaking News</a></button>
+                <button class="dropdown-item" type="button"><a routerLink="/notifications">Notificações</a></button>
+            </div>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/teamwork">
+                <i class="now-ui-icons location_map-big"></i>
+                <p>TeamWork</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+            <a routerLink="/game">
+                <i class="now-ui-icons tech_controller-modern"></i>
+                <p>Game</p>
+            </a>
         </li>
         <li *ngIf="user | async" (click)="logout()" class="nav-item">
             <a>

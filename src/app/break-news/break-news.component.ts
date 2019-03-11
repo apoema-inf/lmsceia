@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var $: any;
 
 @Component({
   selector: 'app-break-news',
@@ -10,6 +11,7 @@ export class BreakNewsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

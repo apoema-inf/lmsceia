@@ -15,7 +15,7 @@ const routes: Routes =[
     component: AdminLayoutComponent,
     children: [
         {
-      path: '',
+      path: '', 
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
   {

@@ -21,7 +21,7 @@ export class AuthService {
     private af: AngularFirestore
   ) { this.userObservable = afAuth.authState;}
 
-  user: Membro = new Membro();
+  user: any;
 
   errorToast(message: string): void {
     this.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + message, '', {
@@ -77,8 +77,20 @@ export class AuthService {
   }
 
   getAuth() {
-    this.findUser();
-    return this.user;
+    return this.findUser();
+  }
+
+  getUsersByTime(time) {
+    return new Promise((resolve, reject) => {
+      let reference = this.af.collection("times").doc(time.id);
+      let members = [];
+      this.af.collection("membros").ref.where('idtime', '==', reference.ref).get().then(membros => {
+        membros.forEach(element => {
+          members.push(element.data());
+        });
+        resolve(members);
+      });
+    });
   }
 
   getUserTimeId() {
@@ -117,47 +129,48 @@ export class AuthService {
   }
 
   findUser() {
-    var that = this;
-    this.user.time = new Time();
-
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var docRef = that.af.collection("membros").doc(user.uid);
-
-        docRef.ref.
-          get().then(documentSnapshot => {
-            if (documentSnapshot.exists) {
-              that.user.email = documentSnapshot.data().email;
-              that.user.curso = documentSnapshot.data().curso;
-              that.user.nome = documentSnapshot.data().nome;
-              that.user.pontuacao = documentSnapshot.data().pontuacao;
-              documentSnapshot.data().idtime.get().then(function (doc) {
-                if (doc.exists) {
-                  that.user.time.id = doc.id;
-                } else {
-                  // doc.data() will be undefined in this case
-                  console.log("No such document!");
-                }
-              }).catch(function (error) {
-                console.log("Error getting document:", error);
-              });
-
+    let that = this;
+    let localUser = new Membro();
+    localUser.time = new Time();
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged(function (user) {
+        if(user) {
+          let docRef = that.af.collection("membros").doc(user.uid);
+          docRef.ref.get().then((docSnapshot) => {
+            if(docSnapshot.exists) {
+              localUser.email = docSnapshot.data().email;
+                localUser.curso = docSnapshot.data().curso;
+                localUser.nome = docSnapshot.data().nome;
+                localUser.pontuacao = docSnapshot.data().pontuacao;
+                docSnapshot.data().idtime.get().then((doc) => {
+                  if(doc.exists) {
+                    localUser.time.id = doc.id;
+                    localUser.time.avatar = doc.data().avatar;
+                    resolve(localUser);
+                  } else {
+                    console.log("No such document.");
+                    reject(null);
+                  }
+                }).catch(e => {
+                  console.log("Error getting document: ", e);
+                  reject(e);
+                });
             } else {
-              // doc.data() will be undefined in this case
-              console.log("No such document!");
+              console.log("No such document.");
+              reject(null);
             }
           });
-      } else {
-        // No user is signed in.
-      }
+        } else {
+          console.log("Error getting user", user);
+          reject(null);
+        }
+      });
     });
-
   }
 
   logout() {
     var that = this;
     return this.afAuth.auth.signOut().then(function () {
-      localStorage.removeItem('posgrad_user_email');
       that.router.navigate(['/login']);
     });
   }

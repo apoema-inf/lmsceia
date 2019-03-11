@@ -88,7 +88,6 @@ export class DashboardComponent implements OnInit {
   nome: any;
   pontuacao: any;
 
-
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
     var that = this;
 
@@ -107,7 +106,9 @@ export class DashboardComponent implements OnInit {
 
     this.sidebarVisible = false;
 
-    this.user = this.authService.getAuth();
+    this.authService.getAuth().then(user => {
+      this.user = user as Membro;
+    });
 
     var promiseFases = new Promise(function (resolve, reject) {
       resolve(that.initFases());

@@ -16,7 +16,6 @@ export class NavbarComponent implements OnInit {
   public isCollapsed = true;
 
   constructor(private authService: AuthService, private element: ElementRef, private router: Router) {
-    this.userEmail = localStorage.getItem('posgrad_user_email');
     this.sidebarVisible = false;
   }
 

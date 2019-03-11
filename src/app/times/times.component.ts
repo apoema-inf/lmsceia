@@ -16,6 +16,7 @@ export class TimesComponent implements OnInit {
 
   times: Observable<Time[]>;
   user: any;
+  membros: {};
 
   constructor(private af: AngularFirestore, private authService: AuthService) {
     $.LoadingOverlay("show");
@@ -31,6 +32,7 @@ export class TimesComponent implements OnInit {
       this.user = user;
       $.LoadingOverlay("hide");
       this.authService.getUsersByTime(this.user.time).then(membros => {
+        this.membros = membros;
         console.log(membros);
       });
     });

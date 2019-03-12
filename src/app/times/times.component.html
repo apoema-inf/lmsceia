@@ -14,15 +14,12 @@
                             <div class="font-icon-detail">
                                 <img class="img-circle" src="{{user.time.avatar}}">
                                 <p class="nome-times">{{user.time.id}}</p>
-
                             </div>
                         </div>
-                        <div class="all-icons">
+                        <div class="all-icon">
                             <ul *ngFor="let membro of membros" class="list-group list-group-flush">
-                                <li class="list-group-item">{{membro.nome}}</li>
+                                <li *ngIf="membro.nome != user.nome" class="list-group-item">{{membro.nome}}</li>
                             </ul>
-                        </div>
-                        <div>
                         </div>
                     </div>
                 </div>
@@ -32,12 +29,13 @@
                     <div class="row">
                         <ng-container *ngFor="let time of times | async">
                             <div *ngIf="time && user && time.id != user.time.id"
-                                class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                                <div class="font-icon-detail">
-                                    <a (click)="findTime(time)" href="#" data-toggle="modal" data-target="#timeDetalhe">
-                                        <img class="img-circle" src="{{time.avatar}}">
-                                        <p class="nome-times">{{time.id}}</p>
-                                    </a>
+                                 class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
+                                <div class="font-icon-detail outros-times">
+                                    <img class="img-circle" src="{{time.avatar}}">
+                                    <p class="nome-times">{{time.id}}</p>
+                                    <button (click)="findTime(time)" data-toggle="modal" data-target="#timeDetalhe"
+                                            type="button" class="btn btn-primary btn-sm">Participantes
+                                    </button>
                                 </div>
                             </div>
                         </ng-container>
@@ -49,7 +47,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="timeDetalhe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-center">
@@ -58,8 +56,9 @@
                     <h5 align="center" class="modal-title title" id="exampleModalLabel">{{time.id}}</h5>
                 </div>
                 <div>
-                    <button style="margin-right: 0px; position: absolute; top: 10px; right: 5px" type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
+                    <button style="margin-right: 0px; position: absolute; top: 10px; right: 5px" type="button"
+                            class="close" data-dismiss="modal"
+                            aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

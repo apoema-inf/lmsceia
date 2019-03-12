@@ -14,10 +14,17 @@ declare let $: any;
 })
 export class TimesComponent implements OnInit {
 
+  //Todos os times
   times: Observable<Time[]>;
+
+  //User logado e seu time/membros
   user: any;
   membros: {};
 
+  //Time/membro que vai para o modal
+  time: Time = new Time;
+  membrosTimeFound: {};
+  
   constructor(private af: AngularFirestore, private authService: AuthService) {
     $.LoadingOverlay("show");
     this.times = this.af.collection('times').snapshotChanges().pipe(map(changes => {
@@ -33,7 +40,6 @@ export class TimesComponent implements OnInit {
       $.LoadingOverlay("hide");
       this.authService.getUsersByTime(this.user.time).then(membros => {
         this.membros = membros;
-        console.log(membros);
       });
     });
   }
@@ -41,6 +47,13 @@ export class TimesComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  findTime(time) {
+    $("#timeDetalhe").LoadingOverlay("show");
+    this.time = time;
+    this.authService.getUsersByTime(time).then(membros => {
+      this.membrosTimeFound = membros;
+      $("#timeDetalhe").LoadingOverlay("hide");
+    });
+  }
 
 }

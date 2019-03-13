@@ -18,7 +18,9 @@
                         </div>
                         <div class="all-icon">
                             <ul *ngFor="let membro of membros" class="list-group list-group-flush">
-                                <li *ngIf="membro.nome != user.nome" class="list-group-item">{{membro.nome}}</li>
+                                <li *ngIf="membro.nome != user.nome" class="list-group-item"><img
+                                        style="margin-right:10px" width="50" src="{{membro.avatar}}">{{membro.nome}}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -28,13 +30,13 @@
                     <h5 class="title">Outros times</h5>
                     <div class="row">
                         <ng-container *ngFor="let time of times | async">
-                            <div *ngIf="time && user && time.id != user.time.id"
-                                 class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
+                            <div *ngIf="time && user && time.id != user.time.id && time.id != 'Supervisão' && time.id != 'Dev'"
+                                class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6 ">
                                 <div class="font-icon-detail outros-times">
                                     <img class="img-circle" src="{{time.avatar}}">
                                     <p class="nome-times">{{time.id}}</p>
                                     <button (click)="findTime(time)" data-toggle="modal" data-target="#timeDetalhe"
-                                            type="button" class="btn btn-primary btn-sm">Participantes
+                                        type="button" class="btn btn-primary btn-sm">Participantes
                                     </button>
                                 </div>
                             </div>
@@ -47,7 +49,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="timeDetalhe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-center">
@@ -57,8 +59,7 @@
                 </div>
                 <div>
                     <button style="margin-right: 0px; position: absolute; top: 10px; right: 5px" type="button"
-                            class="close" data-dismiss="modal"
-                            aria-label="Close">
+                        class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -67,7 +68,8 @@
             <div class="modal-body">
 
                 <ul *ngFor="let membro of membrosTimeFound" class="list-group list-group-flush">
-                    <li class="list-group-item">{{membro.nome}}</li>
+                    <li class="list-group-item"><img style="margin-right:10px" width="50"
+                            src="{{membro.avatar}}">{{membro.nome}}</li>
                 </ul>
             </div>
         </div>

@@ -7,4 +7,5 @@ export class Membro {
     pontuacao: number;
     email: string;
     curso: string;
+    avatar: string;
 }

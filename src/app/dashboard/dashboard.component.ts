@@ -221,12 +221,14 @@ export class DashboardComponent implements OnInit {
                 element.forEach((element, k) => {
                   //Missões aparecendo aqui
                   var missao = element;
+
                   //Verifica se a missão é daquela temporada
                   if (element.temporada.id == temporada.id) {
 
                     that.atividades.forEach(element => {
                       that.timesPontuacao[i][j][k] = 0;
                       element.forEach(element => {
+
                         var timeDoMembro;
                         //Atividades aparecendo aqui
 
@@ -768,6 +770,7 @@ export class DashboardComponent implements OnInit {
           });
 
           const values = Object.keys(filtered).map(key => filtered[key]);
+          values[0] = values[0] / 2;
 
           that.chartDatas[index] = [
             {

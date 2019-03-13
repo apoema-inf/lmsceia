@@ -770,9 +770,6 @@ export class DashboardComponent implements OnInit {
           });
 
           const values = Object.keys(filtered).map(key => filtered[key]);
-          values[0] = parseFloat((values[0] / 2).toFixed(2));
-          values[1] = parseFloat((values[1] / 2).toFixed(2));
-          values[2] = parseFloat((values[2] / 3).toFixed(2));
 
           that.chartDatas[index] = [
             {

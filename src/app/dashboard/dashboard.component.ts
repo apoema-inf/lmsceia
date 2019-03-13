@@ -67,6 +67,8 @@ export class DashboardComponent implements OnInit {
   modaltitle: string;
   modalbody: string;
   modalbigtitle: string;
+  timeModal: string;
+  timeMembroModal: any;
   userEmail: string;
   guardaTimeUser: string;
   timeAtivo: string;
@@ -658,7 +660,6 @@ export class DashboardComponent implements OnInit {
   }
 
   clickHandler(evt, time) {
-
     var that = this;
     this.atividadesPoint = [];
 
@@ -672,8 +673,10 @@ export class DashboardComponent implements OnInit {
         // get value by index
         const value = chart.data.datasets[0].data[clickedElementIndex];
         $('.modal').modal('show');
-        if (time)
+        if (time) {
+          this.timeModal = time;
           this.modalbigtitle = time + ' - ' + this.title;
+        }
         else {
           if (this.timeBig)
             this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
@@ -699,6 +702,9 @@ export class DashboardComponent implements OnInit {
                   element.forEach(atividade => {
                     if (atividade.missao.id == missao.id) {
                       if (!(that.atividadesPoint.includes(atividade))) {
+                        that.getMembro(atividade.membro).then(doc => {
+                          atividade.membro = doc as Membro;
+                        })
                         that.atividadesPoint.push(atividade);
                       }
                     }
@@ -712,6 +718,14 @@ export class DashboardComponent implements OnInit {
         console.log(clickedElementIndex, label, value)
       }
     }
+  }
+
+  getMembro(membro) {
+    return new Promise((resolve, reject) => {
+      this.af.collection("membros").ref.doc(membro.id).get().then(doc => {
+        resolve(doc.data());
+      })
+    })
   }
 
   setData(fase: number) {

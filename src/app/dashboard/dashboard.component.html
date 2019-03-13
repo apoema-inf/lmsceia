@@ -131,7 +131,8 @@
 <div class="main-content">
   <div class="row">
     <ng-container *ngFor="let time of times | async; let i = index">
-      <ng-container *ngIf="time?.id != user.time?.id && time?.id != timeAtivo">
+      <ng-container
+        *ngIf="time?.id != user.time?.id && time?.id != timeAtivo && time.id != 'Dev' && time.id != 'Supervisão'">
         <div class="col-lg-4">
           <div class="card card-chart">
             <div class="card-header">

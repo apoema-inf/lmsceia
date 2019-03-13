@@ -91,7 +91,7 @@
         <p><b>Descrição:</b> {{descricao}}</p>
         <div class="accordion" id="accordionExample">
           <ng-container *ngFor="let atividade of atividadesPoint; let i = index">
-            <div class="card" *ngIf="timeModal == atividade.membro.idtime.id">
+            <div class="card" *ngIf="timeModal == atividade.membro.idtime?.id">
               <div class="card-header" id="headingOne">
                 <div class="row">
                   <div class="col-md-10">
@@ -109,7 +109,7 @@
               <div [attr.id]=" 'prefix' + i" class="collapse" aria-labelledby="headingOne"
                 data-parent="#accordionExample">
                 <div class="card-body">
-                  <p><b>Jogador:</b> {{atividade.membro.id | getJogador | async}}</p>
+                  <p><b>Jogador:</b> {{atividade.membro.nome}}</p>
                   <p><b>Pontuação:</b> {{atividade.pontuacao}}</p>
                   <p><b>Avaliador:</b> {{atividade.avaliador}}</p>
                   <p><b>Feedback:</b> {{atividade.feedback}}</p>

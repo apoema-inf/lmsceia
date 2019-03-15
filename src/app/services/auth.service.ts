@@ -35,44 +35,39 @@ export class AuthService {
 
   loginEmail(email: string, pass: string) {
     var that = this;
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(function () {
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state even
-        // if a user forgets to sign out.
-        // ...
-        // New sign-in will be persisted with session persistence.
-        return firebase.auth().signInWithEmailAndPassword(email, pass);
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
     return new Promise((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(email, pass)
-        .then(userData => {
-          console.log(userData.user.uid);
-          this.findUser();
-          resolve(userData)
-        },
-          error => {
-            switch (error.code) {
-              case 'auth/wrong-password': {
-                that.errorToast('Senha incorreta.');
-                break;
-              }
-              case 'auth/user-not-found': {
-                that.errorToast('Usuário não encontrado.');
-                break;
-              }
-              default: {
-                that.errorToast(error.message);
-                break;
-              }
-            }
-            reject(error);
-          });
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then( value => {
+          this.afAuth.auth.signInWithEmailAndPassword(email, pass)
+            .then(userData => {
+              console.log(userData.user.uid);
+              this.findUser();
+              resolve(userData)
+            },
+              error => {
+                switch (error.code) {
+                  case 'auth/wrong-password': {
+                    that.errorToast('Senha incorreta.');
+                    break;
+                  }
+                  case 'auth/user-not-found': {
+                    that.errorToast('Usuário não encontrado.');
+                    break;
+                  }
+                  default: {
+                    that.errorToast(error.message);
+                    break;
+                  }
+                }
+                reject(error);
+              });
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
+
     });
   }
 

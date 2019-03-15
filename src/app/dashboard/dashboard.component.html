@@ -9,8 +9,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a *ngIf="!timeBig" class="navbar-brand">{{user.time?.id}}</a>
-      <a *ngIf="timeBig" class="navbar-brand">{{timeAtivo}}</a>
+      <a class="navbar-brand">{{timeAtivo}}</a>
       <div ngbDropdown class="navbar-brand">
         <button type="button" class="btn btn-default dropdown-toggle btn-simple" ngbDropdownToggle>
           {{title}}
@@ -32,8 +31,10 @@
           <a class="dropdown-item" (click)="toogleChartType('doughnut')">Gráfico em Doughnut</a>
         </div>
       </div>
-      <button *ngIf="timeBig" (click)="backYourTime()" type="button" class="btn btn-default btn-simple">
-        <i class="fas fa-undo" style="margin-right:1em"></i>Gráfico Principal para seu Time
+      <button style="margin-left:1em" *ngIf="timeAtivo != user.time?.id" (click)="backYourTime()" type="button"
+        class="btn btn-default btn-simple" data-toggle="tooltip" data-placement="bottom"
+        title="Voltar Gráfico para seu Time">
+        <i class="fas fa-undo"></i>
       </button>
       <button class="navbar-toggler" type="button" (click)="collapse()" [attr.aria-expanded]="!isCollapsed"
         aria-controls="collapseExample">
@@ -52,7 +53,8 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <a class="dropdown-item" routerLink="/user-profile">Minha Conta</a>
-            <a style="cursor: pointer" class="dropdown-item" (click)="resetPassword(this.userEmail)">Redefinir Senha</a>
+            <a style="cursor: pointer" class="dropdown-item" (click)="resetPassword(this.user.email)">Redefinir
+              Senha</a>
             <a style="cursor: pointer; color: red;" class="dropdown-item" (click)="logout()">Logout</a>
           </div>
         </li>
@@ -66,10 +68,10 @@
     [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType" (chartHover)="chartHovered($event)"
     (chartClick)="chartClicked($event)"></canvas>
   <ng-container id="chartTimeUser" *ngFor="let fase of fases | async">
-    <canvas id="ok" *ngIf="title == fase.id" baseChart [datasets]="timeUserPontuacaoBigData"
+    <canvas *ngIf="title == fase.id" baseChart [datasets]="timeUserPontuacaoBigData"
       [labels]="lineBigDashboardChartLabels" [colors]="lineBigDashboardChartColors"
       [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
-      (chartHover)="chartHovered($event)" (chartClick)="clickHandler($event, false)"></canvas>
+      (chartHover)="chartHovered($event)" (chartClick)="clickHandler($event, timeAtivo)"></canvas>
   </ng-container>
 
 </div>
@@ -135,7 +137,7 @@
         <div class="col-lg-4">
           <div class="card card-chart">
             <div class="card-header">
-              <h5 class="card-category" (click)="click()">{{time.id}}</h5>
+              <h5 class="card-category">{{time.id}}</h5>
               <div ngbDropdown>
                 <button (click)="goToBigChart(time.id, chartDatas[i][0])" style="margin-right: 10px" type="button"
                   class="btn btn-round btn-default btn-simple btn-icon no-caret">

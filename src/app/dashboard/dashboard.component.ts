@@ -30,8 +30,6 @@ export class DashboardComponent implements OnInit {
   timesPontuacao = new Array();
   array = new Array();
   user: Membro = new Membro();
-  timeUser: Time = new Time();
-  chartLinesArray: Array<string> = ["line", "pie", "bar", "doughnut"];
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
@@ -62,15 +60,12 @@ export class DashboardComponent implements OnInit {
   chartDatas: Array<any[]> = new Array();
   chartLines: Array<any> = [];
   lineChartWithNumbersAndGridData: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[];
-  timeBig: boolean = false;
   lineBigDashboardChartDataAux: { label: string; pointBorderWidth: number; pointHoverRadius: number; pointHoverBorderWidth: number; pointRadius: number; fill: boolean; borderWidth: number; data: number[]; }[] = [];
   modaltitle: string;
   modalbody: string;
   modalbigtitle: string;
   timeModal: string;
   timeMembroModal: any;
-  userEmail: string;
-  guardaTimeUser: string;
   timeAtivo: string;
   atividades: Observable<Atividade[]>;
   atividadesPoint: Array<Atividade> = new Array();
@@ -91,6 +86,7 @@ export class DashboardComponent implements OnInit {
   pontuacao: any;
 
   constructor(private authService: AuthService, private af: AngularFirestore, private element: ElementRef, private router: Router) {
+
     var that = this;
 
     this.lineBigDashboardChartData = [
@@ -110,6 +106,7 @@ export class DashboardComponent implements OnInit {
 
     this.authService.getAuth().then(user => {
       this.user = user as Membro;
+      this.timeAtivo = this.user.time.id;
     });
 
     var promiseFases = new Promise(function (resolve, reject) {
@@ -516,7 +513,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
@@ -637,28 +633,16 @@ export class DashboardComponent implements OnInit {
   }
 
   goToBigChart(nomeTime: string, data: any) {
-    this.chartTypeLine();
     this.lineBigDashboardChartDataAux[0] = this.timeUserPontuacaoBigData[0];
     this.timeUserPontuacaoBigData[0] = data;
-    this.timeBig = true;
-    this.guardaTimeUser = this.user.time.id;
+    this.timeUserPontuacaoBigData = this.timeUserPontuacaoBigData.slice();
     this.timeAtivo = nomeTime;
   }
 
-  private chartTypeLine() {
-    if (this.lineBigDashboardChartType == 'bar') {
-      this.lineBigDashboardChartType = 'line';
-    }
-    else {
-      this.lineBigDashboardChartType = 'bar';
-    }
-  }
-
   backYourTime() {
-    this.chartTypeLine();
     this.timeUserPontuacaoBigData[0] = this.lineBigDashboardChartDataAux[0];
-    this.timeBig = false;
-    this.timeAtivo = this.guardaTimeUser;
+    this.timeAtivo = this.user.time.id;
+    this.timeUserPontuacaoBigData = this.timeUserPontuacaoBigData.slice();
   }
 
   clickHandler(evt, time) {
@@ -680,10 +664,7 @@ export class DashboardComponent implements OnInit {
           this.modalbigtitle = time + ' - ' + this.title;
         }
         else {
-          if (this.timeBig)
-            this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
-          else
-            this.modalbigtitle = this.user.time.id + ' - ' + this.title;
+          this.modalbigtitle = this.timeAtivo + ' - ' + this.title;
         }
         this.nome = label;
         this.pontuacao = value;
@@ -747,9 +728,8 @@ export class DashboardComponent implements OnInit {
       reject('erro');
     })
 
-    promise.then(function () {
-
-      that.chartTypeLine();
+    promise.then( value => {
+      this.timeUserPontuacaoBigData = this.timeUserPontuacaoBigData.slice();
     })
 
   }

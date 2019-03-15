@@ -19,7 +19,7 @@ export class AuthService {
     private router: Router,
     private toastr: ToastrService,
     private af: AngularFirestore
-  ) { this.userObservable = afAuth.authState;}
+  ) { this.userObservable = afAuth.authState; }
 
   user: any;
 
@@ -35,44 +35,39 @@ export class AuthService {
 
   loginEmail(email: string, pass: string) {
     var that = this;
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(function () {
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state even
-        // if a user forgets to sign out.
-        // ...
-        // New sign-in will be persisted with session persistence.
-        return firebase.auth().signInWithEmailAndPassword(email, pass);
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
     return new Promise((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(email, pass)
-        .then(userData => {
-          console.log(userData.user.uid);
-          this.findUser();
-          resolve(userData)
-        },
-          error => {
-            switch (error.code) {
-              case 'auth/wrong-password': {
-                that.errorToast('Senha incorreta.');
-                break;
-              }
-              case 'auth/user-not-found': {
-                that.errorToast('Usuário não encontrado.');
-                break;
-              }
-              default: {
-                that.errorToast(error.message);
-                break;
-              }
-            }
-            reject(error);
-          });
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then( value => {
+          this.afAuth.auth.signInWithEmailAndPassword(email, pass)
+            .then(userData => {
+              console.log(userData.user.uid);
+              this.findUser();
+              resolve(userData)
+            },
+              error => {
+                switch (error.code) {
+                  case 'auth/wrong-password': {
+                    that.errorToast('Senha incorreta.');
+                    break;
+                  }
+                  case 'auth/user-not-found': {
+                    that.errorToast('Usuário não encontrado.');
+                    break;
+                  }
+                  default: {
+                    that.errorToast(error.message);
+                    break;
+                  }
+                }
+                reject(error);
+              });
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
+
     });
   }
 
@@ -134,27 +129,27 @@ export class AuthService {
     localUser.time = new Time();
     return new Promise((resolve, reject) => {
       firebase.auth().onAuthStateChanged(function (user) {
-        if(user) {
+        if (user) {
           let docRef = that.af.collection("membros").doc(user.uid);
           docRef.ref.get().then((docSnapshot) => {
-            if(docSnapshot.exists) {
+            if (docSnapshot.exists) {
               localUser.email = docSnapshot.data().email;
-                localUser.curso = docSnapshot.data().curso;
-                localUser.nome = docSnapshot.data().nome;
-                localUser.pontuacao = docSnapshot.data().pontuacao;
-                docSnapshot.data().idtime.get().then((doc) => {
-                  if(doc.exists) {
-                    localUser.time.id = doc.id;
-                    localUser.time.avatar = doc.data().avatar;
-                    resolve(localUser);
-                  } else {
-                    console.log("No such document.");
-                    reject(null);
-                  }
-                }).catch(e => {
-                  console.log("Error getting document: ", e);
-                  reject(e);
-                });
+              localUser.curso = docSnapshot.data().curso;
+              localUser.nome = docSnapshot.data().nome;
+              localUser.pontuacao = docSnapshot.data().pontuacao;
+              docSnapshot.data().idtime.get().then((doc) => {
+                if (doc.exists) {
+                  localUser.time.id = doc.id;
+                  localUser.time.avatar = doc.data().avatar;
+                  resolve(localUser);
+                } else {
+                  console.log("No such document.");
+                  reject(null);
+                }
+              }).catch(e => {
+                console.log("Error getting document: ", e);
+                reject(e);
+              });
             } else {
               console.log("No such document.");
               reject(null);
@@ -187,7 +182,7 @@ export class AuthService {
         positionClass: 'toast-top-center'
       });
     }).catch(function (error) {
-      if(error == "Error: The email address is badly formatted.") {
+      if (error == "Error: The email address is badly formatted.") {
         error = "O endereço de email está em um formato inválido";
       }
       that.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + error, '', {

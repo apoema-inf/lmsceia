@@ -728,7 +728,7 @@ export class DashboardComponent implements OnInit {
       reject('erro');
     })
 
-    promise.then( value => {
+    promise.then(value => {
       this.timeUserPontuacaoBigData = this.timeUserPontuacaoBigData.slice();
     })
 

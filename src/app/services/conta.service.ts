@@ -13,6 +13,13 @@ export class ContaService {
 
   private serverApi = 'http://localhost:3000';
 
+  public getItens(): Observable<any[]> {
+    let URI = `${this.serverApi}/mercador`;
+    return this.http.get(URI)
+      .map(res => res.json())
+      .map(res => <any[]>res);
+  }
+
   public getUserConta(user): Observable<Conta[]> {
     let timeId = user.time.id;
     let URI = `${this.serverApi}/conta/${timeId}`;

@@ -13,6 +13,7 @@ declare var $: any;
 export class GameComponent implements OnInit {
 
   contas: Conta[];
+  itens: any[];
   user: any;
   msg: string = "";
   valor: any;
@@ -28,17 +29,19 @@ export class GameComponent implements OnInit {
         })
       })
     })
-
+    contaService.getItens().toPromise().then(item => {
+      this.itens = item;
+    })
   }
 
   ngOnInit() {
     $("#valor").mask('#.###,00', { reverse: true });
   }
 
-  ifnull(): boolean {
-    if (this.valor == null ||
-      this.valor == '' ||
-      this.valor ==  undefined) {
+  ifnull(valor): boolean {
+    if (valor == null ||
+      valor == '' ||
+      valor ==  undefined) {
       this.msg = "Sem valor indicado";
       return false;
     } else {
@@ -47,9 +50,10 @@ export class GameComponent implements OnInit {
   }
 
   credita() {
-    if (this.ifnull()) {
+    if (this.ifnull(this.valor)) {
       this.msg = "";
       let valor = parseFloat(this.valor.replace(",", "."));
+      console.log(valor);
       this.contas[0].saldo = this.contas[0].saldo + valor;
       this.contaService.updateConta(this.contas[0]).subscribe(
         response => {
@@ -65,14 +69,15 @@ export class GameComponent implements OnInit {
 
   }
 
-  saque() {
-    if (this.ifnull()) {
-      if (this.contas[0].saldo < this.valor) {
+  saque(valor) {
+    console.log(valor);
+    if (this.ifnull(valor)) {
+      if (this.contas[0].saldo < valor) {
         this.msg = "Sem limite para o saldo solicitado: " + this.contas[0].saldo;
         return;
       } else {
         this.msg = "";
-        let valor = parseFloat(this.valor.replace(",", "."));
+        //let valore = parseFloat(valor.replace(",", "."));
         this.contas[0].saldo = this.contas[0].saldo - valor;
         this.contaService.updateConta(this.contas[0]).subscribe(
           response => {

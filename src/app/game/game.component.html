@@ -6,29 +6,44 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-      aria-selected="true">Conta</a>
+      aria-selected="true">Loja</a>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-    <div *ngFor="let conta of contas">
-      <table>
-        <tr>
-          <th>Conta do {{time?.nome}}</th>
-        </tr>
-        <tr>
-          <td>Saldo</td>
-          <td>{{conta.saldo}}</td>
-        </tr>
-      </table>
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Itens no Mercador</h5>
+        <div *ngFor="let item of itens">
+          <p><b>Nome: </b>{{item.nome}}</p>
+          <p><b>Descrição: </b>{{item.descricao}}</p>
+          <p><b>Preço: </b>{{item.preco}} x <img width="20" title="I9coins" src="https://icon-icons.com/icons2/389/PNG/32/Coins_96x96-32_37900.png"></p>
+          <button style="margin-left: 20px" type="button" (click)="saque(item.preco)">Comprar</button>
+          <hr>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div *ngFor="let conta of contas">
+          <table>
+            <tr>
+              <th>Conta do {{time?.nome}}</th>
+            </tr>
+            <tr>
+              <td>Saldo</td>
+              <td>{{conta.saldo}}</td>
+            </tr>
+          </table>
+        </div>
+        <br>
+        <form>
+          <input [(ngModel)]="valor" type="text" placeholder="Valor" name="valor" id="valor" maxlength="7">
+        </form>
+        <br>
+        <button style="margin-right: 20px" type="button" (click)="credita()">+</button>
+        <button type="button" (click)="saque(valor)">-</button>
+        <p style="color: red">{{msg}}</p>
+      </div>
     </div>
-    <br>
-    <form>
-      <input [(ngModel)]="valor" type="text" placeholder="Valor" name="valor" id="valor" maxlength="7">
-    </form>
-    <br>
-    <button style="margin-right: 20px" type="button" (click)="credita()">+</button>
-    <button type="button" (click)="saque()">-</button>
-    <p style="color: red">{{msg}}</p>
+
   </div>
 </div>

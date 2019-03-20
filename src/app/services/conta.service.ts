@@ -20,6 +20,25 @@ export class ContaService {
       .map(res => <any[]>res);
   }
 
+  public setInventario(inventario) {
+    let URI = `${this.serverApi}/inventario`;
+    let headers = new Headers;
+    let body = JSON.stringify(inventario);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(URI, body, { headers: headers })
+      .map(res => res);
+  }
+
+  public setExtrato(extrato) {
+    console.log(extrato);
+    let URI = `${this.serverApi}/extrato`;
+    let headers = new Headers;
+    let body = JSON.stringify(extrato);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(URI, body, { headers: headers })
+      .map(res => res);
+  }
+
   public getUserConta(user): Observable<Conta[]> {
     let timeId = user.time.id;
     let URI = `${this.serverApi}/conta/${timeId}`;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-self-service',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelfServiceComponent implements OnInit {
 
-  constructor() { }
+  onda: String = '';
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.onda = '';
+      this.onda = params.onda + 'ª Onda';
+    });
   }
 
 }

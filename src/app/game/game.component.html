@@ -31,6 +31,9 @@
             <div class="col-md-12">
               1ª Temporada
             </div>
+            <div *ngIf="primeira" class="col-md-12">
+              <a class="btn btn-blue" target="_blank" href="assets/1aTemporada-bpmn/index.html" role="button">BPMN - 1ª Temporada</a>
+            </div>
             <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/mp.png"></div>
             <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/mc.png"></div>
             <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/md.png"></div>
@@ -40,19 +43,22 @@
       </div>
     </div>
     <div class="row">
-        <div [ngClass]="{'col-md-12 bg-white': segunda}" class="col-md-4">
-            <div (click)="toogleTemps(2)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-              <div class="row">
-                <div class="col-md-12">
-                  2ª Temporada
-                </div>
-                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/mp.png"></div>
-                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/mc.png"></div>
-                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/md.png"></div>
-                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/ms.png"></div>
-              </div>
+      <div [ngClass]="{'col-md-12 bg-white': segunda}" class="col-md-4">
+        <div (click)="toogleTemps(2)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+          <div class="row">
+            <div class="col-md-12">
+              2ª Temporada
             </div>
+            <div *ngIf="segunda" class="col-md-12">
+                <a class="btn btn-blue" target="_blank" href="assets/2aTemporada/index.html" role="button">BPMN - 2ª Temporada</a>
+              </div>
+            <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/ms.png"></div>
           </div>
+        </div>
+      </div>
       <div [ngClass]="{'col-md-12 bg-white': terceira}" class="col-md-4">
         <div (click)="toogleTemps(3)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
           <div class="row">

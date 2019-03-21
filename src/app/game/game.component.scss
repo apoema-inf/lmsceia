@@ -9,14 +9,22 @@
   margin-top: 20px;
 }
 
+.btn-blue {
+  background-color: #3386FF;
+}
+
 .bg-white {
   div {
     background-color: white;
     color: orangered;
   }
   .col-md-12 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
+}
+
+img {
+  opacity: .7;
 }
 
 .temp-card {

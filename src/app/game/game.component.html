@@ -2,17 +2,29 @@
   <div class="header text-center">
     <h2 class="title">Game</h2>
   </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="competicao-tab" data-toggle="tab" href="#competicao" role="tab"
+        aria-controls="competicao" aria-selected="true">Competição</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="loja-tab" data-toggle="tab" href="#loja" role="tab" aria-controls="loja"
+        aria-selected="true">Loja</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="conta-tab" data-toggle="tab" href="#conta" role="tab" aria-controls="conta"
+        aria-selected="false">Conta</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="guias-tab" data-toggle="tab" href="#guias" role="tab" aria-controls="guias"
+        aria-selected="true">Guias</a>
+    </li>
+  </ul>
 </div>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Competição</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Conta</a>
-  </li>
 
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+<div class="tab-content container" id="myTabContent">
+  <div class="tab-pane fade show active" id="competicao" role="tabpanel" aria-labelledby="competicao-tab">...</div>
+  <div class="tab-pane fade" id="guias" role="tabpanel" aria-labelledby="guias-tab">...</div>
+  <div class="tab-pane fade" id="loja" role="tabpanel" aria-labelledby="loja-tab">...</div>
+  <div class="tab-pane fade" id="conta" role="tabpanel" aria-labelledby="conta-tab">...</div>
 </div>

@@ -30,8 +30,7 @@ export class BreakNewsComponent implements OnInit {
       link: "https://drive.google.com/file/d/1ywRcCSHNH10nnI8zzdO9Mpo0odD0JivD/view?usp=sharing"
     },
     {
-      nome: `SOLUÇÃO DE BUSINESS INTELLIGENCE SOB A ÓTICA DA GESTÃO DA INFORMAÇÃO E DO
-      CONHECIMENTO:
+      nome: `Solução de Business Intelligence Sob a Ótica da Gestão da Informação e do Conhecimento: 
       Com aplicabilidade na Inteligência competitiva e Gestão de Processos.`,
       link: "https://drive.google.com/file/d/1lz1UjzUvwepwKVsvwEpye6EYwf_yWMF5/view?usp=sharing"
     },

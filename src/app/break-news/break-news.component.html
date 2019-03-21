@@ -12,33 +12,43 @@
                     <div class="carousel-inner w-100" role="listbox">
                         <div class="carousel-item row no-gutters active">
                             <div class="col-md-4 float-left">
-                                <div class="card" style="width: 18rem;">
+                                <div class="card" style="width: 18rem; min-height: 350px;">
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <h5 class="card-title"><b>Em direção ao Self-Service BI & Analytics</b></h5>
+                                        <p class="card-text ap-text-card">É preciso prover o acesso direto ao conteúdo analítico
+                                            relevante em tempo real para que usuários de negócio possam habilitar a
+                                            empresa em resposta às demandas intempestivas e emergenciais.
+                                        </p>
+                                        <a href="http://www.inf.ufg.br/espbi/publicacoes/01.html" target="_blank"
+                                            class="btn btn-primary ap-botao-card">Acesse</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 float-left">
-                                <div class="card" style="width: 18rem;">
+                                <div class="card" style="width: 18rem; min-height: 350px;">
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <h5 class="card-title"><b>Ativando o futuro digital : velocidade, agilidade e
+                                                resiliência</b></h5>
+                                        <p class="card-text ap-text-card">A adoção de tecnologias e metodologias de rápida evolução -
+                                            da Cloud, Edge Computing e IoT a DevOps e AIOps - está indo além das
+                                            funcionalidades das equipes de infraestrutura e operações, desafiando suas
+                                            habilidades.
+                                        </p>
+                                        <a href="https://www.gartner.com/pt-br/conferences/la/infrastructure-operations-cloud-brazil"
+                                            class="btn btn-primary ap-botao-card" target="_blank">Acesse</a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4 float-left">
-                                <div class="card" style="width: 18rem;">
+                                <div class="card" style="width: 18rem; min-height: 350px;">
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <h5 class="card-title"><b>Estruturas, Processos e Mecanismos de Governança de
+                                                TI</b></h5>
+                                        <p class="card-text ap-text-card">O que é preciso observar em termos de capacidades
+                                            organizacionais para se estabelecer controles efetivos para implementar a TI
+                                            harmônica com o negócio?</p>
+                                        <a href="#" class="btn btn-primary ap-botao-card" target="_blank">Acesse</a>
                                     </div>
                                 </div>
                             </div>
@@ -71,14 +81,13 @@
 
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li *ngFor="let trabalho of trabalhos" class="list-group-item">
+                            <ol class="list-group list-group-flush">
+                                <li *ngFor="let trabalho of trabalhos; let i = index" class="list-group-item">
                                     <a target="_blank" href="{{trabalho.link}}">
-                                        <p>{{trabalho.nome}}</p>
+                                        <p>{{i+1}} - {{trabalho.nome}}</p>
                                     </a>
                                 </li>
-                            </ul>
-
+                            </ol>
                         </div>
                     </div>
                 </div>

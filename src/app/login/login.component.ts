@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       this.authService.loginEmail(this.email, this.password)
         .then((res) => {
           $.LoadingOverlay("hide");
-          that.router.navigate(['/dashboard']);
+          that.router.navigate(['/game']);
         }).catch((err) => {
           $.LoadingOverlay("hide");
           that.router.navigate(['/login']);

@@ -23,7 +23,118 @@
 </div>
 
 <div class="tab-content container" id="myTabContent">
-  <div class="tab-pane fade show active" id="competicao" role="tabpanel" aria-labelledby="competicao-tab">...</div>
+  <div class="tab-pane fade show active" id="competicao" role="tabpanel" aria-labelledby="competicao-tab">
+    <div class="row d-flex justify-content-center">
+      <div [ngClass]="{'col-md-12 bg-white': primeira}" class="col-md-4">
+        <div (click)="toogleTemps(1)" class="card temp-card shadow p-3 mb-5 bg-orange rounded  ">
+          <div class="row">
+            <div class="col-md-12">
+              1ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="primeira" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div [ngClass]="{'col-md-12 bg-white': segunda}" class="col-md-4">
+            <div (click)="toogleTemps(2)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+              <div class="row">
+                <div class="col-md-12">
+                  2ª Temporada
+                </div>
+                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/mp.png"></div>
+                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/mc.png"></div>
+                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/md.png"></div>
+                <div class="col-md-3"><img width="180" *ngIf="segunda" src="assets/img/ms.png"></div>
+              </div>
+            </div>
+          </div>
+      <div [ngClass]="{'col-md-12 bg-white': terceira}" class="col-md-4">
+        <div (click)="toogleTemps(3)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+          <div class="row">
+            <div class="col-md-12">
+              3ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="terceira" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="terceira" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="terceira" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="terceira" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{'col-md-12 bg-white': quarta}" class="col-md-4">
+        <div (click)="toogleTemps(4)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+          <div class="row">
+            <div class="col-md-12">
+              4ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="quarta" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="quarta" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="quarta" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="quarta" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{'col-md-12 bg-white': quinta}" class="col-md-4">
+        <div (click)="toogleTemps(5)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+          <div class="row">
+            <div class="col-md-12">
+              5ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="quinta" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="quinta" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="quinta" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="quinta" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{'col-md-12 bg-white': sexta}" class="col-md-4">
+        <div (click)="toogleTemps(6)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+          <div class="row">
+            <div class="col-md-12">
+              6ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="sexta" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="sexta" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="sexta" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="sexta" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{'col-md-12 bg-white': setima}" class="col-md-4">
+        <div (click)="toogleTemps(7)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+          <div class="row">
+            <div class="col-md-12">
+              7ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="setima" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="setima" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="setima" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="setima" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div [ngClass]="{'col-md-12 bg-white': oitava}" class="col-md-4">
+        <div (click)="toogleTemps(8)" class="card temp-card shadow p-3 mb-5 bg-orange rounded ">
+          <div class="row">
+            <div class="col-md-12">
+              8ª Temporada
+            </div>
+            <div class="col-md-3"><img width="180" *ngIf="oitava" src="assets/img/mp.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="oitava" src="assets/img/mc.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="oitava" src="assets/img/md.png"></div>
+            <div class="col-md-3"><img width="180" *ngIf="oitava" src="assets/img/ms.png"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="tab-pane fade" id="guias" role="tabpanel" aria-labelledby="guias-tab">...</div>
   <div class="tab-pane fade" id="loja" role="tabpanel" aria-labelledby="loja-tab">...</div>
   <div class="tab-pane fade" id="conta" role="tabpanel" aria-labelledby="conta-tab">...</div>

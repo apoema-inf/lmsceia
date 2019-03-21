@@ -1,7 +1,31 @@
 .nav-tabs {
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    border-bottom: none;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  border-bottom: none;
 }
 
+.tab-content {
+  margin-top: 20px;
+}
+
+.bg-white {
+  div {
+    background-color: white;
+    color: orangered;
+  }
+  .col-md-12 {
+    margin-bottom: 10px;
+  }
+}
+
+.temp-card {
+  text-align: center;
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+.bg-orange {
+  background-color: rgba(255, 68, 0, 0.733);
+  color: whitesmoke;
+}

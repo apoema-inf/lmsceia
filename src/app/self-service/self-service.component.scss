@@ -1,33 +1,46 @@
 p {
-    height: 50px;
+  height: 50px;
 }
 
 span {
-    position: relative;
-    bottom: 0;
+  position: relative;
+  bottom: 0;
 }
 
 .badge-orange {
-    background-color: orangered;
-    color: white;
+  background-color: orangered;
+  color: white;
 }
 
 .font-icon-detail {
-    p {
-        font-size: 1em;
-    }
+  p {
+    font-size: 1em;
+  }
 }
 
-.btn-dssbi {
-    background-color: #2580c0;
-}
-.btn-espgti {
-    background-color: #43ab5e;
+.btn-link {
+  color: white;
+  &:hover,
+  &:active,
+  &:focus {
+    color: whitesmoke;
+    background-color: transparent !important;
+  }
 }
 
+.btn-primary {
+  background-color: #ff6933;
+}
+
+.bg-dssbi {
+  background-color: #257fc0d5;
+}
+.bg-espgti {
+  background-color: #43ab5fc4;
+}
 
 .btn-light {
-    background-color: whitesmoke;
-    color: orangered;
-    border-radius: 15px;
+  background-color: whitesmoke;
+  color: orangered;
+  border-radius: 15px;
 }

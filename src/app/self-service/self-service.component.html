@@ -13,142 +13,121 @@
         </div>
         <div class="card-body all-icons">
           <div class="row" align="center">
-            <div class="col-md-4">
-              <p>
-
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#firstCollapse"
-                  aria-expanded="false" aria-controls="collapseExample">
-                  <img width="30" src="assets/img/background.png">
-                  Background
-                </button>
-              </p>
-            </div>
-            <div class="col-md-4">
-              <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#secondCollapse"
-                  aria-expanded="false" aria-controls="collapseExample">
-                  <img width="30" src="assets/img/toolkit.png">
-                  Toolkit
-                </button>
-              </p>
-            </div>
-            <div class="col-md-4">
-              <p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#thirdCollapse"
-                  aria-expanded="false" aria-controls="collapseExample">
-                  <img width="30" src="assets/img/diy.png">
-                  DIY
-                </button>
-              </p>
-            </div>
-            <div style="margin-top: 20px" class="col-md-12">
-              <div *ngIf="onda == '1ª Onda'" class="collapse" id="firstCollapse">
-                <div class="card card-body">
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <div class="font-icon-list">
-                        <div class="font-icon-detail">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <img src="assets/img/DSSBI.png">
-                            </div>
-                            <div class="col-md-12">
-                              <button class="btn btn-dssbi" type="button" data-toggle="collapse" data-target="#dssbi"
-                                aria-expanded="false" aria-controls="dssbi">
-                                DSSBI
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="font-icon-list">
-                        <div class="font-icon-detail">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <img src="assets/img/ESPGTI.png">
-                            </div>
-                            <div class="col-md-12">
-                              <button class="btn btn-espgti" type="button" data-toggle="collapse" data-target="#espgti"
-                                aria-expanded="false" aria-controls="espgti">
-                                ESPGTI
-                              </button>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
+            <div class="col-md-12">
+              <div *ngIf="onda == '1ª Onda'" class="accordion" id="accordionExample">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dssbi"
+                        aria-expanded="true" aria-controls="dssbi">
+                        <img src="assets/img/DSSBI.png">
+                      </button>
+                    </h2>
                   </div>
-                  <div class="collapse" id="dssbi">
+
+                  <div id="dssbi" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
                       <div class="row">
+                        <div class="col-md-4">
+                          <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#dssbi-content"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              <img width="30" src="assets/img/background.png">
+                              Background
+                            </button>
+                          </p>
+                        </div>
+                        <div class="col-md-4">
+                          <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                              data-target="#secondCollapse" aria-expanded="false" aria-controls="collapseExample">
+                              <img width="30" src="assets/img/toolkit.png">
+                              Toolkit
+                            </button>
+                          </p>
+                        </div>
+                        <div class="col-md-4">
+                          <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                              data-target="#thirdCollapse" aria-expanded="false" aria-controls="collapseExample">
+                              <img width="30" src="assets/img/diy.png">
+                              DIY
+                            </button>
+                          </p>
+                        </div>
                         <div class="col-md-12">
-                          <div class="card" style="width: 18rem;">
-                            <img class="card-img-top">
+                          <div class="collapse" id="dssbi-content">
                             <div class="card-body">
-                              <img class="card-img-top" src="assets/img/logoBigData.jpg">
-                              <a data-toggle="collapse" href="#bigdata" role="button" aria-expanded="false"
-                                aria-controls="bigdata">
-                                Revisão de Big Data
-                              </a>
-                              <div class="collapse" id="bigdata">
-                                <div class="card-body">
-                                  <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                      <a class="nav-item nav-link active" id="nav-conteudo-tab" data-toggle="tab"
-                                        href="#nav-conteudo" role="tab" aria-controls="nav-conteudo"
-                                        aria-selected="true">Conteúdo</a>
-                                      <a class="nav-item nav-link" id="nav-atividades-tab" data-toggle="tab"
-                                        href="#nav-atividades" role="tab" aria-controls="nav-atividades"
-                                        aria-selected="false">Atividades</a>
-                                    </div>
-                                  </nav>
-                                  <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-conteudo" role="tabpanel"
-                                      aria-labelledby="nav-conteudo-tab">
-                                      <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/1.Introdu%C3%A7%C3%A3o.pdf?forcedownload=1"
-                                            target="_blank">Introdução</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/2.Analise%20de%20Dados%20Cl%C3%A1ssica%20VS%20Big%20Data.pdf?forcedownload=1"
-                                            target="_blank">Análise Clássica e Big Data</a>
-                                        </li>
-                                        <li class="list-group-item"><a
-                                            href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/3.%20Arquitetura%20de%20Dados.pdf?forcedownload=1"
-                                            target="_blank">Arquitetura de Dados</a></li>
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/4.%20Analytics.pdf?forcedownload=1"
-                                            target="_blank">Analytics</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/5.Outros%20Aspectos.pdf?forcedownload=1"
-                                            target="_blank">Outros Aspectos</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/6.Cases.pdf?forcedownload=1"
-                                            target="_blank">Cases</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-atividades" role="tabpanel"
-                                      aria-labelledby="nav-atividades-tab">
-                                      <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19677"
-                                            target="_blank">Quiz 01 - Big Data</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19678"
-                                            target="_blank">Quiz 02 - Big Data</a>
-                                        </li>
-                                      </ul>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top">
+                                    <div class="card-body">
+                                      <img class="card-img-top" src="assets/img/logoBigData.jpg">
+                                      <a data-toggle="collapse" href="#bigdata" role="button" aria-expanded="false"
+                                        aria-controls="bigdata">
+                                        Revisão de Big Data
+                                      </a>
+                                      <div class="collapse" id="bigdata">
+                                        <div class="card-body">
+                                          <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                              <a class="nav-item nav-link active" id="nav-conteudo-tab"
+                                                data-toggle="tab" href="#nav-conteudo-dssbi" role="tab"
+                                                aria-controls="nav-conteudo" aria-selected="true">Conteúdo</a>
+                                              <a class="nav-item nav-link" id="nav-atividades-tab" data-toggle="tab"
+                                                href="#nav-atividades-dssbi" role="tab" aria-controls="nav-atividades"
+                                                aria-selected="false">Atividades</a>
+                                            </div>
+                                          </nav>
+                                          <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="nav-conteudo-dssbi" role="tabpanel"
+                                              aria-labelledby="nav-conteudo-tab">
+                                              <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/1.Introdu%C3%A7%C3%A3o.pdf?forcedownload=1"
+                                                    target="_blank">Introdução</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/2.Analise%20de%20Dados%20Cl%C3%A1ssica%20VS%20Big%20Data.pdf?forcedownload=1"
+                                                    target="_blank">Análise Clássica e Big Data</a>
+                                                </li>
+                                                <li class="list-group-item"><a
+                                                    href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/3.%20Arquitetura%20de%20Dados.pdf?forcedownload=1"
+                                                    target="_blank">Arquitetura de Dados</a></li>
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/4.%20Analytics.pdf?forcedownload=1"
+                                                    target="_blank">Analytics</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/5.Outros%20Aspectos.pdf?forcedownload=1"
+                                                    target="_blank">Outros Aspectos</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/pluginfile.php/168950/mod_folder/content/0/Big%20Data/6.Cases.pdf?forcedownload=1"
+                                                    target="_blank">Cases</a>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-atividades-dssbi" role="tabpanel"
+                                              aria-labelledby="nav-atividades-tab">
+                                              <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19677"
+                                                    target="_blank">Quiz 01 - Big Data</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19678"
+                                                    target="_blank">Quiz 02 - Big Data</a>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
-
                                 </div>
                               </div>
                             </div>
@@ -157,70 +136,115 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse" id="espgti">
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#espgti"
+                        aria-expanded="false" aria-controls="espgti">
+                        <img src="assets/img/ESPGTI.png">
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="espgti" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
                       <div class="row">
+                        <div class="col-md-4">
+                          <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#espgti-content"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              <img width="30" src="assets/img/background.png">
+                              Background
+                            </button>
+                          </p>
+                        </div>
+                        <div class="col-md-4">
+                          <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                              data-target="#secondCollapse" aria-expanded="false" aria-controls="collapseExample">
+                              <img width="30" src="assets/img/toolkit.png">
+                              Toolkit
+                            </button>
+                          </p>
+                        </div>
+                        <div class="col-md-4">
+                          <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                              data-target="#thirdCollapse" aria-expanded="false" aria-controls="collapseExample">
+                              <img width="30" src="assets/img/diy.png">
+                              DIY
+                            </button>
+                          </p>
+                        </div>
                         <div class="col-md-12">
-                          <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="assets/img/logo_strategy.jpg">
+                          <div class="collapse" id="espgti-content">
                             <div class="card-body">
-                              <a data-toggle="collapse" href="#strategy" role="button" aria-expanded="false"
-                                aria-controls="strategy">
-                                Fundamentos de Gerenciamento Estratégico
-                              </a>
-                              <div class="collapse" id="strategy">
-                                <div class="card-body">
-                                  <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                      <a class="nav-item nav-link active" id="nav-conteudo-tab" data-toggle="tab"
-                                        href="#nav-conteudo" role="tab" aria-controls="nav-conteudo"
-                                        aria-selected="true">Conteúdo</a>
-                                      <a class="nav-item nav-link" id="nav-atividades-tab" data-toggle="tab"
-                                        href="#nav-atividades" role="tab" aria-controls="nav-atividades"
-                                        aria-selected="false">Atividades</a>
-                                    </div>
-                                  </nav>
-                                  <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-conteudo" role="tabpanel"
-                                      aria-labelledby="nav-conteudo-tab">
-                                      <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                          <a href="https://drive.google.com/file/d/1wfIwLhJtBfJ3_bDsvzGBi2J9CU3x2u7n/view?usp=sharing"
-                                            target="_blank">O
-                                            que é estratégia?</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                          <a href="https://drive.google.com/file/d/1wpjV_5v_n8Mbvx_DFfQaw_3HmIYqV5Ca/view?usp=sharing"
-                                            target="_blank">Fundamentos
-                                            - Gerenciamento Estratégico - Parte I</a>
-                                        </li>
-                                        <li class="list-group-item"><a
-                                            href="https://drive.google.com/file/d/19vz0mLBuBOT8d9stPdOjGXqcqm8tMRli/view?usp=sharing"
-                                            target="_blank">Fundamentos
-                                            - Gerenciamento Estratégico - Parte II</a></li>
-                                        <li class="list-group-item">
-                                          <a href="https://drive.google.com/file/d/1TKGyV20I0h3pOKxidhPRYcgOqg2WvQg-/view?usp=sharing"
-                                            target="_blank">A
-                                            Disciplina para Atingir Resultados</a>
-                                        </li>
-                                      </ul>
-                                    </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" src="assets/img/logo_strategy.jpg">
+                                    <div class="card-body">
+                                      <a data-toggle="collapse" href="#strategy" role="button" aria-expanded="false"
+                                        aria-controls="strategy">
+                                        Fundamentos de Gerenciamento Estratégico
+                                      </a>
+                                      <div class="collapse" id="strategy">
+                                        <div class="card-body">
+                                          <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                              <a class="nav-item nav-link active" id="nav-conteudo-tab"
+                                                data-toggle="tab" href="#nav-conteudo-espgti" role="tab"
+                                                aria-controls="nav-conteudo" aria-selected="true">Conteúdo</a>
+                                              <a class="nav-item nav-link" id="nav-atividades-tab" data-toggle="tab"
+                                                href="#nav-atividades-espgti" role="tab" aria-controls="nav-atividades"
+                                                aria-selected="false">Atividades</a>
+                                            </div>
+                                          </nav>
+                                          <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="nav-conteudo-espgti" role="tabpanel"
+                                              aria-labelledby="nav-conteudo-tab">
+                                              <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                  <a href="https://drive.google.com/file/d/1wfIwLhJtBfJ3_bDsvzGBi2J9CU3x2u7n/view?usp=sharing"
+                                                    target="_blank">O
+                                                    que é estratégia?</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  <a href="https://drive.google.com/file/d/1wpjV_5v_n8Mbvx_DFfQaw_3HmIYqV5Ca/view?usp=sharing"
+                                                    target="_blank">Fundamentos
+                                                    - Gerenciamento Estratégico - Parte I</a>
+                                                </li>
+                                                <li class="list-group-item"><a
+                                                    href="https://drive.google.com/file/d/19vz0mLBuBOT8d9stPdOjGXqcqm8tMRli/view?usp=sharing"
+                                                    target="_blank">Fundamentos
+                                                    - Gerenciamento Estratégico - Parte II</a></li>
+                                                <li class="list-group-item">
+                                                  <a href="https://drive.google.com/file/d/1TKGyV20I0h3pOKxidhPRYcgOqg2WvQg-/view?usp=sharing"
+                                                    target="_blank">A
+                                                    Disciplina para Atingir Resultados</a>
+                                                </li>
+                                              </ul>
+                                            </div>
 
-                                    <div class="tab-pane fade" id="nav-atividades" role="tabpanel"
-                                      aria-labelledby="nav-atividades-tab">
-                                      <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19663"
-                                            target="_blank">Quiz 01 - GE</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                          <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19662"
-                                            target="_blank">Quiz 02 - GE</a>
-                                        </li>
-                                      </ul>
+                                            <div class="tab-pane fade" id="nav-atividades-espgti" role="tabpanel"
+                                              aria-labelledby="nav-atividades-tab">
+                                              <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19663"
+                                                    target="_blank">Quiz 01 - GE</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  <a href="https://ensino.ead.ufg.br/mod/quiz/view.php?id=19662"
+                                                    target="_blank">Quiz 02 - GE</a>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
-
                                 </div>
                               </div>
                             </div>

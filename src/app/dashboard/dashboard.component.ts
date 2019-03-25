@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Time } from 'app/models/time.model';
 import { Fase } from 'app/models/fase.model';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
@@ -256,6 +256,7 @@ export class DashboardComponent implements OnInit {
       })
     }).then(function () {
       that.initSetDataTimes();
+      
     })
 
   }
@@ -319,7 +320,7 @@ export class DashboardComponent implements OnInit {
     return true;
   }
 
-  private initTimes() {
+  initTimes() {
     this.times = this.af.collection('times').snapshotChanges().pipe(map((changes, i) => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Time;
@@ -735,13 +736,9 @@ export class DashboardComponent implements OnInit {
   setDataTimes(fase: number) {
     var that = this;
 
-    var promiseTimes = new Promise(function (resolve, reject) {
-      resolve(that.initTimes());
-      reject('erro');
-    });
+    console.log(this.timesPontuacao[0][0]);
 
-    promiseTimes.then(function () {
-      that.times.forEach(element => {
+      that.times.subscribe(element => {
         element.forEach((time, index) => {
           var filtered = that.timesPontuacao[fase][index].filter(function (el) {
             return el != null;
@@ -764,7 +761,6 @@ export class DashboardComponent implements OnInit {
 
         })
       })
-    })
 
   }
 

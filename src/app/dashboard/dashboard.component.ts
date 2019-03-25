@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   indexTimeUser: number = 0;
-  indexTemporada: number = 0;
   missoes: Observable<Missao[]>;
   arrayMissoes = new Array();
   timeUserPontuacao = new Array();
@@ -617,7 +616,6 @@ export class DashboardComponent implements OnInit {
   toogleFase(fase: string, index: any) {
     this.setData(index);
     this.setDataTimes(index);
-    this.indexTemporada = index;
     this.lineBigDashboardChartLabels = this.arrayMissoes[index];
 
     this.title = fase;

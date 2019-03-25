@@ -7,6 +7,18 @@
   white-space: normal;
 }
 
+.carousel-control-prev-icon, .carousel-control-next-icon  {
+  background-color: black;
+}
+
+.carousel-control-prev {
+  left: -70px;
+}
+
+.carousel-control-next {
+  right: -70px;
+}
+
 .ap-text-card {
   position: absolute; 
   top: 117px;

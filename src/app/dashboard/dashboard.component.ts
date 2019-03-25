@@ -256,7 +256,7 @@ export class DashboardComponent implements OnInit {
       })
     }).then(function () {
       that.initSetDataTimes();
-      
+
     })
 
   }
@@ -736,9 +736,13 @@ export class DashboardComponent implements OnInit {
   setDataTimes(fase: number) {
     var that = this;
 
-    console.log(this.timesPontuacao[0][0]);
+    var promiseTimes = new Promise(function (resolve, reject) {
+      resolve(that.initTimes());
+      reject('erro');
+    });
 
-      that.times.subscribe(element => {
+    promiseTimes.then(function () {
+      that.times.forEach(element => {
         element.forEach((time, index) => {
           var filtered = that.timesPontuacao[fase][index].filter(function (el) {
             return el != null;
@@ -761,6 +765,7 @@ export class DashboardComponent implements OnInit {
 
         })
       })
+    })
 
   }
 

@@ -169,7 +169,7 @@ export class GameComponent implements OnInit {
           atividades.forEach(atividade => {
             pontuacao += atividade.data().pontuacao;
           });
-          this.barChartData[0].data.push(pontuacao);
+          this.barChartData[0].data.push(pontuacao/4);
           pontuacao = 0;
         });
       });

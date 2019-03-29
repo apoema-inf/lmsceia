@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { FirebaseService } from 'app/services/firebase.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-game',
@@ -6,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-
+  
   primeira: boolean = false;
   segunda: boolean = false;
   terceira: boolean = false;
@@ -16,7 +20,37 @@ export class GameComponent implements OnInit {
   setima: boolean = false;
   oitava: boolean = false;
 
-  constructor() { }
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { 
+      xAxes: [{}], 
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        }
+      }] 
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+
+  public barChartData: ChartDataSets[] = [
+    { data: [], label: 'Pontuação' }
+  ];
+
+  //Gráfico de barras
+  public barChartLabels = [];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+
+  constructor(private af: AngularFirestore, private fbs: FirebaseService) {
+    this.getAtividadesTime();
+  }
 
   ngOnInit() {
   }
@@ -124,6 +158,22 @@ export class GameComponent implements OnInit {
         }
       }
     }
+  }
+
+  getAtividadesTime() {
+    let pontuacao = 0;
+    this.fbs.getTimes().then(times => {
+      (times as Array<any>).forEach(time => {
+        this.barChartLabels.push(time.id);
+        this.af.collection("atividadesComTime").ref.where("time", "==", time.ref).get().then(atividades => {
+          atividades.forEach(atividade => {
+            pontuacao += atividade.data().pontuacao;
+          });
+          this.barChartData[0].data.push(pontuacao);
+          pontuacao = 0;
+        });
+      });
+    })
   }
 
 }

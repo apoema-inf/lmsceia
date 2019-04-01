@@ -3,6 +3,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FirebaseService } from 'app/services/firebase.service';
 import { BaseChartDirective } from 'ng2-charts';
+import { a } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-game',
@@ -162,18 +163,32 @@ export class GameComponent implements OnInit {
 
   getAtividadesTime() {
     let pontuacao = 0;
-    this.fbs.getTimes().then(times => {
-      (times as Array<any>).forEach(time => {
-        this.barChartLabels.push(time.id);
-        this.af.collection("atividadesComTime").ref.where("time", "==", time.ref).get().then(atividades => {
-          atividades.forEach(atividade => {
-            pontuacao += atividade.data().pontuacao;
-          });
-          this.barChartData[0].data.push(pontuacao/4);
-          pontuacao = 0;
+    let nomeTime;
+    let arrayTimes = [];
+    let promise = new Promise((resolve, reject) => {
+      this.fbs.getTimes().then(times => {
+        (times as Array<any>).forEach((time, index) => {
+          this.af.collection("atividadesComTime").ref.where("time", "==", time.ref).get().then(atividades => {
+            atividades.forEach(atividade => {
+              pontuacao += atividade.data().pontuacao;
+              nomeTime = atividade.data().time.id;
+            });
+            arrayTimes.push({time: nomeTime, pontuacao: pontuacao/4});
+            pontuacao = 0;
+            if(index == 10) {
+              resolve(arrayTimes);
+            }
+          })
         });
-      });
+      })
     })
+    promise.then((value) => {
+      arrayTimes.sort((a, b) => {return b.pontuacao-a.pontuacao;});
+      arrayTimes.forEach(data => {
+        this.barChartLabels.push(data.time);
+        this.barChartData[0].data.push(data.pontuacao);
+      });
+    });
   }
 
 }

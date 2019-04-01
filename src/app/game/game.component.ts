@@ -11,7 +11,7 @@ import { a } from '@angular/core/src/render3';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  
+
   primeira: boolean = false;
   segunda: boolean = false;
   terceira: boolean = false;
@@ -24,13 +24,13 @@ export class GameComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { 
-      xAxes: [{}], 
+    scales: {
+      xAxes: [{}],
       yAxes: [{
         ticks: {
           beginAtZero: true,
         }
-      }] 
+      }]
     },
     plugins: {
       datalabels: {
@@ -39,6 +39,24 @@ export class GameComponent implements OnInit {
       }
     }
   };
+
+  private barColors = [
+    {
+      backgroundColor: [
+        '#c14462',
+        '#41d1c1',
+        '#b64d18',
+        '#3f4fb8',
+        '#10253a',
+        '#79715f',
+        '#990c06',
+        '#ee6465',
+        '#a0b703',
+        '#1d034b',
+        '#0d873a',
+      ]
+    }
+  ];
 
   public barChartData: ChartDataSets[] = [
     { data: [], label: 'Pontuação' }
@@ -173,9 +191,9 @@ export class GameComponent implements OnInit {
               pontuacao += atividade.data().pontuacao;
               nomeTime = atividade.data().time.id;
             });
-            arrayTimes.push({time: nomeTime, pontuacao: pontuacao/4});
+            arrayTimes.push({ time: nomeTime, pontuacao: pontuacao / 4 });
             pontuacao = 0;
-            if(index == 10) {
+            if (index == 10) {
               resolve(arrayTimes);
             }
           })
@@ -183,7 +201,7 @@ export class GameComponent implements OnInit {
       })
     })
     promise.then((value) => {
-      arrayTimes.sort((a, b) => {return b.pontuacao-a.pontuacao;});
+      arrayTimes.sort((a, b) => { return b.pontuacao - a.pontuacao; });
       arrayTimes.forEach(data => {
         this.barChartLabels.push(data.time);
         this.barChartData[0].data.push(data.pontuacao);

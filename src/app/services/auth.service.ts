@@ -136,7 +136,7 @@ export class AuthService {
               localUser.email = docSnapshot.data().email;
                 localUser.curso = docSnapshot.data().curso;
                 localUser.nome = docSnapshot.data().nome;
-                localUser.pontuacao = docSnapshot.data().pontuacao;
+                localUser.avatar = docSnapshot.data().avatar;
                 docSnapshot.data().idtime.get().then((doc) => {
                   if(doc.exists) {
                     localUser.time.id = doc.id;

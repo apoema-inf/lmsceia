@@ -9,6 +9,7 @@ import { SelfServiceComponent } from 'app/self-service/self-service.component';
 import { BreakNewsComponent } from 'app/break-news/break-news.component';
 import { TimesComponent } from 'app/times/times.component';
 import { GameComponent } from 'app/game/game.component';
+import { AdminComponent } from 'app/admin/admin.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
@@ -19,4 +20,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'teamwork',  component: TimesComponent, canActivate: [AuthGuard]  },
     { path: 'game',  component: GameComponent, canActivate: [AuthGuard]  },
     { path: 'login',  component: LoginComponent },
+    { path: 'admin',  component: AdminComponent },
 ];

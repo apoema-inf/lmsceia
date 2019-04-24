@@ -36,44 +36,50 @@ export class DashboardComponent implements OnInit {
 
     this.authService.getAuth().then(user => {
       this.user = user as Membro;
-      this.carregarDados();
+      this.setupPage();
     });
-
-    this.initMissoes();
-
   }
 
-  private initMissoes() {
-    this.firebaseService.getMissões().then(missoes => {
+  private setupPage() {
+    let promises = [];
+    promises.push(this.carregarDados());
+    promises.push(this.firebaseService.getMissões());
+    Promise.all(promises).then(([atividades, missoes]) => {
+      console.log(atividades, missoes);
+      this.atividades = atividades;
       this.missoes = missoes;
     });
   }
 
-  private carregarDados() {
-    if (this.times.length != 0) {
-      this.times.forEach((time, index) => {
-        this.firebaseService.getAtividadesByTime(time.ref).then(atividades => {
-          if (time.id == this.user.time.id) {
-            this.indexTimeUser = index;
-            this.timeOnTheBig = atividades[index];
-          }
-          this.atividades.push(atividades);
-        });
-      });
-    } else {
-      this.firebaseService.getTimes().then(times => {
-        (times as Array<any>).forEach((time, index) => {
-          this.times.push({id: time.id, ref: time.ref});
+  private carregarDados(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let localAtividades = [];
+      if (this.times.length != 0) {
+        this.times.forEach((time, index) => {
           this.firebaseService.getAtividadesByTime(time.ref).then(atividades => {
             if (time.id == this.user.time.id) {
               this.indexTimeUser = index;
               this.timeOnTheBig = atividades[index];
             }
-            this.atividades.push(atividades);
+            localAtividades.push(atividades);
           });
         });
-      });
-    }
+      } else {
+        this.firebaseService.getTimes().then(times => {
+          (times as Array<any>).forEach((time, index) => {
+            this.times.push({id: time.id, ref: time.ref});
+            this.firebaseService.getAtividadesByTime(time.ref).then(atividades => {
+              if (time.id == this.user.time.id) {
+                this.indexTimeUser = index;
+                this.timeOnTheBig = atividades[index];
+              }
+              localAtividades.push(atividades);
+            });
+          });
+        });
+      }
+      resolve(localAtividades);
+    });
   }
 
   ngOnInit() {
@@ -93,8 +99,7 @@ export class DashboardComponent implements OnInit {
     this.atividades = [];
     this.firebaseService.setTemporadaEmDestaque(temporada);
     this.temporadaDestaque = this.firebaseService.getTemporadaEmDestaque();
-    this.carregarDados();
-    this.initMissoes();
+    this.setupPage();
   }
 
   collapse() {

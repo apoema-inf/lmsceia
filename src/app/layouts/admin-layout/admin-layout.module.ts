@@ -14,6 +14,8 @@ import { BreakNewsComponent } from 'app/break-news/break-news.component';
 import { TimesComponent } from 'app/times/times.component';
 import { GameComponent } from 'app/game/game.component';
 import { GetJogadorPipe } from 'app/pipes/get-jogador.pipe';
+import { TimeItemComponent } from 'app/time-item/time-item.component';
+import { TimeBigComponent } from 'app/time-big/time-big.component';
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import { GetJogadorPipe } from 'app/pipes/get-jogador.pipe';
     BreakNewsComponent,
     TimesComponent,
     GameComponent,
-    GetJogadorPipe
+    GetJogadorPipe,
+    TimeItemComponent,
+    TimeBigComponent
   ]
 })
 

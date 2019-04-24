@@ -1,0 +1,35 @@
+<div class="card card-chart">
+  <div class="card-header">
+    <h5 class="card-category">{{time}}</h5>
+    <div ngbDropdown>
+      <button (click)="goToBigChart()" style="margin-right: 10px" type="button"
+        class="btn btn-round btn-default btn-simple btn-icon no-caret">
+        <i class="now-ui-icons arrows-1_minimal-up"></i>
+      </button>
+      <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"
+        ngbDropdownToggle>
+        <i class="now-ui-icons loader_gear"></i>
+      </button>
+      <div ngbDropdownMenu class="dropdown-menu-right">
+        <a class="dropdown-item" (click)="toogleChartType('line')">Gráfico em Linhas</a>
+        <a class="dropdown-item" (click)="toogleChartType('bar')">Gráfico em Barras</a>
+        <a class="dropdown-item" (click)="toogleChartType('pie')">Gráfico em Pizza</a>
+        <a class="dropdown-item" (click)="toogleChartType('doughnut')">Gráfico em Doughnut</a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div style="height: 150px" class="chart-area">
+      <div style="display: block;">
+        <canvas #chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="stats">
+      <i class="now-ui-icons ui-1_check"></i> Atualizado
+    </div>
+  </div>
+</div>

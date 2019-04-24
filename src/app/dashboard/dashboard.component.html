@@ -9,33 +9,16 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand">{{timeAtivo}}</a>
+      <a class="navbar-brand">{{user.time?.id}}</a>
       <div ngbDropdown class="navbar-brand">
         <button type="button" class="btn btn-default dropdown-toggle btn-simple" ngbDropdownToggle>
-          {{title}}
+          {{temporadaDestaque}}
         </button>
         <div ngbDropdownMenu class="dropdown-menu-right">
-          <a class="dropdown-item" (click)="toogleFase(fase.id, i)"
-            *ngFor="let fase of fases | async; let i = index">{{fase.id}}</a>
+          <a class="dropdown-item" (click)="toogleFase(fase)"
+            *ngFor="let fase of fases">{{fase}}</a>
         </div>
       </div>
-      <div ngbDropdown>
-        <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"
-          ngbDropdownToggle title="Visualizar Gráficos">
-          <i class="now-ui-icons loader_gear"></i>
-        </button>
-        <div ngbDropdownMenu class="dropdown-menu-right">
-          <a class="dropdown-item" (click)="toogleChartType('line')">Gráfico em Linhas</a>
-          <a class="dropdown-item" (click)="toogleChartType('bar')">Gráfico em Barras</a>
-          <a class="dropdown-item" (click)="toogleChartType('pie')">Gráfico em Pizza</a>
-          <a class="dropdown-item" (click)="toogleChartType('doughnut')">Gráfico em Doughnut</a>
-        </div>
-      </div>
-      <button style="margin-left:1em" *ngIf="timeAtivo != user.time?.id" (click)="backYourTime()" type="button"
-        class="btn btn-default btn-simple" data-toggle="tooltip" data-placement="bottom"
-        title="Voltar Gráfico para seu Time">
-        <i class="fas fa-undo"></i>
-      </button>
       <button class="navbar-toggler" type="button" (click)="collapse()" [attr.aria-expanded]="!isCollapsed"
         aria-controls="collapseExample">
         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -63,36 +46,39 @@
   </div>
 </nav>
 <div class="panel-header panel-header-lg">
-  <canvas style="display:none" #bigChart baseChart [datasets]="lineBigDashboardChartData"
-    [labels]="lineBigDashboardChartLabels" [colors]="lineBigDashboardChartColors"
-    [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType" (chartHover)="chartHovered($event)"
-    (chartClick)="chartClicked($event)"></canvas>
-  <ng-container id="chartTimeUser" *ngFor="let fase of fases | async">
-    <canvas *ngIf="title == fase.id" baseChart [datasets]="timeUserPontuacaoBigData"
-      [labels]="lineBigDashboardChartLabels" [colors]="lineBigDashboardChartColors"
-      [options]="lineBigDashboardChartOptions" [chartType]="lineBigDashboardChartType"
-      (chartHover)="chartHovered($event)" (chartClick)="clickHandler($event, timeAtivo)"></canvas>
-  </ng-container>
+  <app-time-big [time]="time" [flag]="flag" [atividades]="timeOnTheBig" [missoes]="missoes"
+  (respostaVoltar)="receberVoltarDataset($event)"></app-time-big>
+</div>
 
+<div class="main-content">
+  <div class="row">
+    <ng-container *ngFor="let time of times; let i = index">
+      <div class="col-lg-4">
+        <app-time-item [time]="time.id" [atividades]="atividades[i]" [missoes]="missoes"
+        (respostaModal)="receberModal($event)" (respostaDataset)="receberDataset($event)"></app-time-item>
+      </div>
+    </ng-container>
+
+  </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">{{modalbigtitle}}</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">{{modal.title}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p><b>{{nome}}</b></p>
-        <p><b>Pontuação total na missão:</b> {{pontuacao}}</p>
-        <p><b>Descrição:</b> {{descricao}}</p>
+        <p><b>{{modal.missao}}</b></p>
+        <p><b>Pontuação total na missão:</b> {{modal.pontuacao}}</p>
+        <p><b>Descrição:</b> {{modal.descricao}}</p>
         <div class="accordion" id="accordionExample">
-          <ng-container *ngFor="let atividade of atividadesPoint; let i = index">
+          <ng-container *ngFor="let atividade of atividadesModal; let i = index">
             <div class="card" *ngIf="timeModal == atividade.membro.idtime?.id">
               <div class="card-header" id="headingOne">
                 <div class="row">
@@ -126,52 +112,5 @@
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="main-content">
-  <div class="row">
-    <ng-container *ngFor="let time of times | async; let i = index">
-      <ng-container
-        *ngIf="time?.id != user.time?.id && time?.id != timeAtivo && time.id != 'Dev' && time.id != 'Supervisão'">
-        <div class="col-lg-4">
-          <div class="card card-chart">
-            <div class="card-header">
-              <h5 class="card-category">{{time.id}}</h5>
-              <div ngbDropdown>
-                <button (click)="goToBigChart(time.id, chartDatas[i][0])" style="margin-right: 10px" type="button"
-                  class="btn btn-round btn-default btn-simple btn-icon no-caret">
-                  <i class="now-ui-icons arrows-1_minimal-up"></i>
-                </button>
-                <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret"
-                  ngbDropdownToggle>
-                  <i class="now-ui-icons loader_gear"></i>
-                </button>
-                <div ngbDropdownMenu class="dropdown-menu-right">
-                  <a class="dropdown-item" (click)="toogleChartTypeTime('line', i)">Gráfico em Linhas</a>
-                  <a class="dropdown-item" (click)="toogleChartTypeTime('bar', i)">Gráfico em Barras</a>
-                  <a class="dropdown-item" (click)="toogleChartTypeTime('pie', i)">Gráfico em Pizza</a>
-                  <a class="dropdown-item" (click)="toogleChartTypeTime('doughnut', i)">Gráfico em Doughnut</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="chart-area">
-                <canvas baseChart [datasets]="chartDatas[i]" [labels]="lineBigDashboardChartLabels"
-                  [colors]="lineChartWithNumbersAndGridColors" [options]="lineChartWithNumbersAndGridOptions"
-                  [chartType]="chartLines[i]" (chartHover)="chartHovered($event)"
-                  (chartClick)="clickHandler($event, time.id)"></canvas>
-              </div>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="now-ui-icons ui-1_check"></i> Atualizado
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-    </ng-container>
-
   </div>
 </div>

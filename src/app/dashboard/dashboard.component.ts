@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { Membro } from 'app/models/membro.model';
 import { FirebaseService } from 'app/services/firebase.service';
+import { SetupService } from 'app/services/setup.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,8 +33,10 @@ export class DashboardComponent implements OnInit {
   public isCollapsed = true;
   indexTimeUser: number;
 
-  constructor(private firebaseService: FirebaseService, private authService: AuthService, private af: AngularFirestore, private router: Router, private element: ElementRef) {
-
+  constructor(private firebaseService: FirebaseService, private authService: AuthService,
+    private af: AngularFirestore, private router: Router, private element: ElementRef,
+    private setupService: SetupService) {
+    
     this.authService.getAuth().then(user => {
       this.user = user as Membro;
       this.setupPage();
@@ -45,7 +48,6 @@ export class DashboardComponent implements OnInit {
     promises.push(this.carregarDados());
     promises.push(this.firebaseService.getMissões());
     Promise.all(promises).then(([atividades, missoes]) => {
-      console.log(atividades, missoes);
       this.atividades = atividades;
       this.missoes = missoes;
     });

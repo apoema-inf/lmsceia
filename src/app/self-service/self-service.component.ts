@@ -8,14 +8,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SelfServiceComponent implements OnInit {
 
-  onda: String = '';
+  curso: String = '';
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.onda = '';
-      this.onda = params.onda + 'ª Onda';
+    this.route.queryParams.subscribe(params => {
+      this.curso = params.curso;
+      console.log(this.curso);
     });
   }
 

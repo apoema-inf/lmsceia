@@ -13,7 +13,7 @@ import { GameComponent } from 'app/game/game.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'user-profile',   component: UserProfileComponent, canActivate: [AuthGuard]  },
-    { path: 'self-service/:onda',          component: SelfServiceComponent, canActivate: [AuthGuard]  },
+    { path: 'self-service/',          component: SelfServiceComponent, canActivate: [AuthGuard]  },
     { path: 'breaking-news',           component: BreakNewsComponent, canActivate: [AuthGuard]  },
     { path: 'notifications',  component: NotificationsComponent, canActivate: [AuthGuard]  },
     { path: 'teamwork',  component: TimesComponent, canActivate: [AuthGuard]  },

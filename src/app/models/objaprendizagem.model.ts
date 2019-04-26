@@ -1,9 +1,8 @@
-import { Enfase } from "./enfase.model";
+import { Card } from "./card.model";
 
 export class ObjAprendizagem {
-    id: string;
-    enfase: Enfase;
-    tipo: string;
-    hiperlink: string;
-    titulo: string;
+    id: String;
+    nome: String;
+    link: String;
+    tipo: String;
 }

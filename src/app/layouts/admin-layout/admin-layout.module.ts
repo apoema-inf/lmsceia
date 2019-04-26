@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
@@ -16,6 +16,7 @@ import { GameComponent } from 'app/game/game.component';
 import { GetJogadorPipe } from 'app/pipes/get-jogador.pipe';
 import { TimeItemComponent } from 'app/time-item/time-item.component';
 import { TimeBigComponent } from 'app/time-big/time-big.component';
+import { AdminComponent } from 'app/admin/admin.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { TimeBigComponent } from 'app/time-big/time-big.component';
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ChartsModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
@@ -36,7 +38,8 @@ import { TimeBigComponent } from 'app/time-big/time-big.component';
     GameComponent,
     GetJogadorPipe,
     TimeItemComponent,
-    TimeBigComponent
+    TimeBigComponent,
+    AdminComponent
   ]
 })
 

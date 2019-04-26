@@ -6,6 +6,8 @@ import { ObjAprendizagem } from 'app/models/objaprendizagem.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+declare var $: any;
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -14,8 +16,11 @@ import { map } from 'rxjs/operators';
 export class AdminComponent implements OnInit {
 
   formulario: FormGroup;
+  formularioEdicao: FormGroup;
   conteudos: FormArray;
+  conteudosEdicao: FormArray;
   itens: Observable<ObjAprendizagem[]>;
+  idItem: String;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +53,15 @@ export class AdminComponent implements OnInit {
       ciclo: ['Onda', Validators.required],
       formacao: ['Curso', Validators.required],
       conteudos: this.formBuilder.array([this.criarItem()])
+    });
+
+    this.formularioEdicao = this.formBuilder.group({
+      nome: [null, Validators.required],
+      img: [null, Validators.required],
+      enfase: ['Categoria', Validators.required],
+      ciclo: ['Onda', Validators.required],
+      formacao: ['Curso', Validators.required],
+      conteudosEdicao: this.formBuilder.array([this.criarItem()])
     });
   }
 
@@ -121,6 +135,68 @@ export class AdminComponent implements OnInit {
 
   resetar() {
     this.formulario.reset();
+  }
+
+  editarConteudo(id){
+    var docRef = this.af.collection("self").doc(id);
+    this.idItem = id;
+    docRef.ref.get().then( doc => {
+      if(doc.exists){
+        this.formularioEdicao.controls.nome.setValue(doc.data().nome);
+        this.formularioEdicao.controls.img.setValue(doc.data().img);
+        this.formularioEdicao.controls.enfase.setValue(doc.data().enfase);
+        this.formularioEdicao.controls.ciclo.setValue(doc.data().ciclo);
+        this.formularioEdicao.controls.formacao.setValue(doc.data().formacao);
+
+        let aux = this.formBuilder.array([]);
+        doc.data().conteudos.forEach(element => {
+          aux.push(this.formBuilder.group(element));
+        });
+        this.formularioEdicao.controls.conteudosEdicao = aux;
+      }
+    });
+  }
+
+  acrescentaLinha() {
+    this.conteudosEdicao = this.formularioEdicao.get('conteudosEdicao') as FormArray;
+    this.conteudosEdicao.push(this.criarItem());
+  }
+
+  decrementaLinha(id) {
+    this.conteudosEdicao = this.formularioEdicao.get('conteudosEdicao') as FormArray;
+    this.conteudosEdicao.removeAt(id);
+  }
+
+  updateForm(){
+    let docRef = this.af.collection("self").doc(this.idItem.toString());
+
+    docRef.update({
+      nome: this.formularioEdicao.controls.nome.value,
+      img: this.formularioEdicao.controls.img.value,
+      enfase: this.formularioEdicao.controls.enfase.value,
+      ciclo: this.formularioEdicao.controls.ciclo.value,
+      formacao: this.formularioEdicao.controls.formacao.value,
+      conteudos: this.formularioEdicao.controls.conteudosEdicao.value
+    }).then(value => {
+      this.toastr.success('Card editado com sucesso!', '', {
+        timeOut: 0,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: "alert alert-success alert-with-icon",
+        positionClass: 'toast-' + 'top' + '-' + 'center'
+      });
+      $('#editarModal').modal('hide');
+    })
+    .catch( error => {
+      console.log(error);
+      this.toastr.warning(error.message, '', {
+        timeOut: 0,
+        closeButton: true,
+        enableHtml: true,
+        toastClass: "alert alert-warning alert-with-icon",
+        positionClass: 'toast-' + 'top' + '-' + 'center'
+      });
+    });
   }
 
 }

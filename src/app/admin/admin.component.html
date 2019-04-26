@@ -96,7 +96,7 @@
             <div *ngFor="let item of itens | async" class="col-md-12">
               <p>{{item.formacao}} - {{item.ciclo}} - {{item.enfase}} - {{item.nome}}
                 <button class="btn btn-danger" type="button" (click)="excluirConteudo(item.id)">Excluir</button>
-                <button class="btn btn-primary" type="button" data-toggle="modal"
+                <button class="btn btn-primary" type="button" data-toggle="modal" (click)="editarConteudo(item.id)"
                   data-target="#editarModal">Editar</button></p>
             </div>
           </div>
@@ -109,85 +109,108 @@
   <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar Card</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nome">
+      <form [formGroup]="formularioEdicao" (ngSubmit)="updateForm()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Card</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Link da Imagem">
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-4">
-                <select class="custom-select">
-                  <option selected disabled>Onda</option>
-                  <option value="1">1ª Onda</option>
-                  <option value="2">2ª Onda</option>
-                  <option value="3">3ª Onda</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select class="custom-select">
-                  <option selected disabled>Categoria</option>
-                  <option value="Background">Background</option>
-                  <option value="Toolkit">Toolkit</option>
-                  <option value="DIY">DIY</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select class="custom-select">
-                  <option selected disabled>Curso</option>
-                  <option value="ESPGTI">ESPGTI</option>
-                  <option value="DSSBI">DSSBI</option>
-                  <option value="Ambos">Ambos</option>
-                </select>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Nome" formControlName="nome">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Link da Imagem" formControlName="img">
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <select class="custom-select" formControlName="ciclo">
+                    <option selected disabled>Onda</option>
+                    <option value="1">1ª Onda</option>
+                    <option value="2">2ª Onda</option>
+                    <option value="3">3ª Onda</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select class="custom-select" formControlName="enfase">
+                    <option selected disabled>Categoria</option>
+                    <option value="Background">Background</option>
+                    <option value="Toolkit">Toolkit</option>
+                    <option value="DIY">DIY</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select class="custom-select" formControlName="formacao">
+                    <option selected disabled>Curso</option>
+                    <option value="ESPGTI">ESPGTI</option>
+                    <option value="DSSBI">DSSBI</option>
+                    <option value="Ambos">Ambos</option>
+                  </select>
+                </div>
               </div>
             </div>
+            <hr>
+            <h5>Conteúdo Adicionado</h5>
+            <div class="form-group">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr formArrayName="conteudosEdicao"
+                    *ngFor="let conteudo of formularioEdicao.get('conteudosEdicao').controls; let i = index">
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <input type="text" class="form-control" placeholder="Nome" formControlName="nome">
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <input type="text" class="form-control" placeholder="Link da Imagem" formControlName="link">
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <select class="custom-select" formControlName="tipo">
+                          <option selected disabled>Tipo</option>
+                          <option value="C">Conteúdo</option>
+                          <option value="Q">Quiz</option>
+                        </select>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <button type="button" class="btn btn-danger" (click)="decrementaLinha(i)"><a><img
+                              src="assets/img/remove-symbol.png"></a></button>
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+                <button type="button" class="btn btn-light" (click)="acrescentaLinha()"><a><img
+                      src="assets/img/add.png"></a></button>
+              </table>
+            </div>
+
           </div>
-          <hr>
-          <h5>Conteúdo Adicionado</h5>
-          <div class="form-group">
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Link</th>
-                  <th scope="col">Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input type="text" class="form-control" placeholder="Nome" aria-label="Recipient's username"
-                      aria-describedby="basic-addon2">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" placeholder="Link" aria-label="Recipient's username"
-                      aria-describedby="basic-addon2">
-                  </td>
-                  <td>
-                    <select formControlName="tipo" class="custom-select">
-                      <option selected disabled>Tipo</option>
-                      <option value="C">Conteúdo</option>
-                      <option value="Q">Quiz</option>
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+      </form>
     </div>
   </div>

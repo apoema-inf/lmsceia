@@ -45,7 +45,6 @@ export class DashboardComponent implements OnInit {
     promises.push(this.carregarDados());
     promises.push(this.firebaseService.getMissões());
     Promise.all(promises).then(([atividades, missoes]) => {
-      console.log(atividades, missoes);
       this.atividades = atividades;
       this.missoes = missoes;
     });

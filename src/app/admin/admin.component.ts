@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ObjAprendizagem } from 'app/models/objaprendizagem.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AdminGuard } from 'app/services/admin-guard.service';
 
 declare var $: any;
 

@@ -15,6 +15,12 @@
                 <p>Dashboard</p>
             </a>
         </li>
+        <li *ngIf="admins.includes(emailUsuario) && user | async" routerLinkActive="active" class="nav-item">
+            <a routerLink="/admin">
+                <i class="now-ui-icons business_globe"></i>
+                <p>Admin</p>
+            </a>
+        </li>
         <li routerLinkActive="active" class="nav-item">
             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="now-ui-icons shopping_box"></i>

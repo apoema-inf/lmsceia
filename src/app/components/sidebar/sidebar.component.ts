@@ -10,8 +10,8 @@ import { SetupService } from 'app/services/setup.service';
 })
 export class SidebarComponent implements OnInit {
   cursos: any;
-  menuItems: any[];
   private user: Observable<firebase.User>;
+
   constructor(private authService: AuthService, private setupService: SetupService) {
       this.setupService.getCursosInfo().then(cursosInfo => {
         this.cursos = cursosInfo[0].cursos;
@@ -20,16 +20,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-  isMobileMenu() {
-      if ( window.innerWidth > 991) {
-          return false;
-      }
-      return true;
-  };
 
-  userOn() {
-    
   }
 
   logout() {

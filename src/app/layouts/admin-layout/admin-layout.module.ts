@@ -16,6 +16,7 @@ import { GameComponent } from 'app/game/game.component';
 import { GetJogadorPipe } from 'app/pipes/get-jogador.pipe';
 import { TimeItemComponent } from 'app/time-item/time-item.component';
 import { TimeBigComponent } from 'app/time-big/time-big.component';
+import { SelfCursoComponent} from '../../components/self-curso/self-curso.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { TimeBigComponent } from 'app/time-big/time-big.component';
     GameComponent,
     GetJogadorPipe,
     TimeItemComponent,
-    TimeBigComponent
+    TimeBigComponent,
+    SelfCursoComponent
   ]
 })
 

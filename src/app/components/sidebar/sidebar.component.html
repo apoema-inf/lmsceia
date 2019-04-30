@@ -21,7 +21,7 @@
                 <p>Self-Service</p>
             </a>
             <div class="dropdown-menu">
-                <button *ngFor="let curso of cursos;" class="dropdown-item" type="button"><a routerLink="['self-service/']" [queryParams]="{ curso: curso.desc }">{{ curso.desc }}</a></button>
+                <button *ngFor="let curso of cursos;" class="dropdown-item" type="button"><a [routerLink]="['/self-service', curso.desc]">{{ curso.desc }}</a></button>
             </div>
         </li>
         <li routerLinkActive="active" class="nav-item">

@@ -23,29 +23,3 @@ span {
   left: -15px;
 }
 
-.btn-link {
-  color: white;
-  &:hover,
-  &:active,
-  &:focus {
-    color: whitesmoke;
-    background-color: transparent !important;
-  }
-}
-
-.btn-primary {
-  background-color: #ff6933;
-}
-
-.bg-dssbi {
-  background-color: #257fc0d5;
-}
-.bg-espgti {
-  background-color: #43ab5fc4;
-}
-
-.btn-light {
-  background-color: whitesmoke;
-  color: orangered;
-  border-radius: 15px;
-}

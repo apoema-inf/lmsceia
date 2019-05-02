@@ -12,10 +12,25 @@ export class SetupService {
 
   getCursosInfo() {
     return new Promise((resolve, reject) => {
-      let result = [];
-      this.af.collection("meta-info").ref.get().then(cursos => {
+      const result = [];
+      this.af.collection('meta-info').ref.get().then(cursos => {
         cursos.forEach(curso => {
           result.push(curso.data());
+        });
+        resolve(result);
+      });
+    });
+  }
+
+  getEnfaseData(formacao, ciclo, enfase) {
+    const cicloConsulta = 'Ciclo ' + ciclo;
+    return new Promise((resolve, reject) => {
+      const result = [];
+      this.af.collection('self').ref.where('formacao', '==', formacao)
+          .where('ciclo', '==', cicloConsulta)
+          .where('enfase', '==', enfase).get().then(documentos => {
+        documentos.forEach(documento => {
+          result.push(documento.data());
         });
         resolve(result);
       });

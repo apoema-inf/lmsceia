@@ -9,21 +9,87 @@
         </div>
         <div id="childCiclosAccordion" class="collapse" data-parent="#accordionCiclosParent">
             <div class="card-body">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" *ngFor="let ciclo of ciclos;">
-                        <a href="#ciclo-{{ciclo}}" class="nav-link" id="#ciclo-{{ciclo}}-tab" data-toggle="pill" role="tab" aria-controls="#ciclo-{{ciclo}}">
-                            <button class="btn btn-primary" type="button" (click)="cicloChanged(ciclo)">
-                                {{ciclo}}ª ciclo
-                            </button>
+                <div class="row justify-content-center">
+                    <div *ngFor="let ciclo of ciclos;" class="col-auto">
+                        <button type="radio" (click)="setCiclo(ciclo)" class="btn btn-info">{{ ciclo }}º ciclo</button>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <h5>Ciclo atual: {{ cicloOpen }}º</h5>
+                </div>
+                <div class="row justify-content-center">
+                    <div *ngFor="let enfase of curso.enfases;">
+                        <button type="button" (click)="setEnfase(enfase)" class="btn btn-info btn-enfase">{{ enfase }}</button>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <h5>{{ enfaseSelecionada }}</h5>
+                </div>
+
+                <div class="card-deck">
+                    <div *ngFor="let conteudo of conteudos;" class="card col-md-3">
+                        <a (click)="openConteudoModal(conteudo)" style="cursor: pointer;">
+                            <img src="{{ conteudo.img }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ conteudo.nome }}</h5>
+                            </div>
                         </a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="pills-tabContent">
-                    <div *ngFor="let ciclo of ciclos;" class="tab-pane fade" id="#ciclo-{{ciclo}}" role="tabpanel" aria-labelledby="ciclo-{{ciclo}}">{{ciclo}}</div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
+<div class="modal fade" id="content-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 *ngIf="conteudoSelected" class="modal-title" id="exampleModalLabel"><b>{{ conteudoSelected.nome }}</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <img *ngIf="conteudoSelected" src="{{ conteudoSelected.img }}" class="card-img-top" alt="..." style="height: 180px; width: 320px;">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <ul class="nav nav-tabs" id="conteudoTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#conteudos">Conteúdos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#atividades" >Atividades</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="conteudo">
+                            <div class="tab-pane fade show active" id="conteudos" role="tabpanel" aria-labelledby="home-tab">
+                                <div *ngFor="let conteudo of conteudoSelected?.conteudos;">
+                                    <li class="list-group-item">
+                                        <a><img src="{{ conteudo.tipo == 'pdf' ? 'assets/img/youtube.png' : 'assets/img/pdf.png' }}">
+                                            {{ conteudo.nome }}
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="atividades" role="tabpanel" aria-labelledby="profile-tab">
+                                <div *ngFor="let atividade of conteudoSelected?.atividades;">
+                                    <li class="list-group-item">
+                                        <a><img src="{{ atividade.tipo == 'pdf' ? 'assets/img/youtube.png' : 'assets/img/pdf.png' }}">
+                                            {{ atividade.nome }}
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

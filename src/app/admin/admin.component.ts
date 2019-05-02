@@ -6,6 +6,7 @@ import { ObjAprendizagem } from 'app/models/objaprendizagem.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdminGuard } from 'app/services/admin-guard.service';
+import { FirebaseService } from 'app/services/firebase.service';
 
 declare var $: any;
 
@@ -22,11 +23,16 @@ export class AdminComponent implements OnInit {
   conteudosEdicao: FormArray;
   itens: Observable<ObjAprendizagem[]>;
   idItem: String;
+  arrayDados: Array<any> = new Array();
+  arrayCiclos: Array<any> = new Array();
+  arrayEnfase: Array<any> = new Array();
+  flagModalEditar: Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private af: AngularFirestore,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private afs: FirebaseService
   ) {
     this.itens = this.af.collection('self').snapshotChanges().pipe(map(
 
@@ -44,24 +50,29 @@ export class AdminComponent implements OnInit {
           });
       }))
 
+    this.buscaMetaDados();
+
   }
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
       img: [null, Validators.required],
-      enfase: ['Categoria', Validators.required],
-      ciclo: ['Onda', Validators.required],
-      formacao: ['Curso', Validators.required],
+      enfase: ['Enfase', Validators.required],
+      ciclo: ['Ciclo', Validators.required],
+      formacao: ['Formação', Validators.required],
       conteudos: this.formBuilder.array([this.criarItem()])
     });
+
+    this.formulario.controls.ciclo.disable();
+    this.formulario.controls.enfase.disable();
 
     this.formularioEdicao = this.formBuilder.group({
       nome: [null, Validators.required],
       img: [null, Validators.required],
-      enfase: ['Categoria', Validators.required],
-      ciclo: ['Onda', Validators.required],
-      formacao: ['Curso', Validators.required],
+      enfase: ['Enfase', Validators.required],
+      ciclo: ['Ciclo', Validators.required],
+      formacao: ['Formação', Validators.required],
       conteudosEdicao: this.formBuilder.array([this.criarItem()])
     });
   }
@@ -75,7 +86,7 @@ export class AdminComponent implements OnInit {
         toastClass: "alert alert-success alert-with-icon",
         positionClass: 'toast-' + 'top' + '-' + 'center'
       });
-    }).catch (err => {
+    }).catch(err => {
       this.toastr.warning(err.message, '', {
         timeOut: 0,
         closeButton: true,
@@ -105,6 +116,10 @@ export class AdminComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.validaFormulario()) {
+      return;
+    }
+
     this.af.collection("self").add({
       nome: this.formulario.controls.nome.value,
       img: this.formulario.controls.img.value,
@@ -115,6 +130,7 @@ export class AdminComponent implements OnInit {
     }).then(value => {
       console.log(value);
       this.formulario.reset();
+      this.putValuesOnSelect();
       this.toastr.success('Conteúdo criado com sucesso!', '', {
         timeOut: 0,
         closeButton: true,
@@ -134,15 +150,55 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  resetar() {
-    this.formulario.reset();
+  validaFormulario() {
+    let obj = {
+      timeOut: 0,
+      closeButton: true,
+      enableHtml: true,
+      toastClass: "alert alert-warning alert-with-icon",
+      positionClass: 'toast-' + 'top' + '-' + 'center'
+    };
+
+    if (this.formulario.controls.nome.value == null || this.formulario.controls.nome.value == '') {
+      this.toastr.warning('O campo Nome não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formulario.controls.img.value == null || this.formulario.controls.img.value == '') {
+      this.toastr.warning('O campo Link da Imagem não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formulario.controls.formacao.value == 'Formação') {
+      this.toastr.warning('O campo Formação não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formulario.controls.ciclo.value == 'Ciclo') {
+      this.toastr.warning('O campo Ciclo não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formulario.controls.enfase.value == 'Enfase') {
+      this.toastr.warning('O campo Enfase não foi informado.', '', obj);
+      return true;
+    }
   }
 
-  editarConteudo(id){
+  putValuesOnSelect() {
+    this.formulario.controls.formacao.setValue("Formação");
+    this.formulario.controls.ciclo.setValue("Ciclo");
+    this.formulario.controls.enfase.setValue("Enfase");
+    //desabilita os campos
+    this.formulario.controls.ciclo.disable();
+    this.formulario.controls.enfase.disable();
+  }
+
+  editarConteudo(id, flagEditar) {
     var docRef = this.af.collection("self").doc(id);
     this.idItem = id;
-    docRef.ref.get().then( doc => {
-      if(doc.exists){
+    docRef.ref.get().then(doc => {
+      if (doc.exists) {
         this.formularioEdicao.controls.nome.setValue(doc.data().nome);
         this.formularioEdicao.controls.img.setValue(doc.data().img);
         this.formularioEdicao.controls.enfase.setValue(doc.data().enfase);
@@ -156,6 +212,7 @@ export class AdminComponent implements OnInit {
         this.formularioEdicao.controls.conteudosEdicao = aux;
       }
     });
+    this.flagModalEditar = true;
   }
 
   acrescentaLinha() {
@@ -168,8 +225,12 @@ export class AdminComponent implements OnInit {
     this.conteudosEdicao.removeAt(id);
   }
 
-  updateForm(){
+  updateForm() {
     let docRef = this.af.collection("self").doc(this.idItem.toString());
+
+    if (this.validaEditarFormulario()) {
+      return;
+    }
 
     docRef.update({
       nome: this.formularioEdicao.controls.nome.value,
@@ -188,16 +249,102 @@ export class AdminComponent implements OnInit {
       });
       $('#editarModal').modal('hide');
     })
-    .catch( error => {
-      console.log(error);
-      this.toastr.warning(error.message, '', {
-        timeOut: 0,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: "alert alert-warning alert-with-icon",
-        positionClass: 'toast-' + 'top' + '-' + 'center'
+      .catch(error => {
+        console.log(error);
+        this.toastr.warning(error.message, '', {
+          timeOut: 0,
+          closeButton: true,
+          enableHtml: true,
+          toastClass: "alert alert-warning alert-with-icon",
+          positionClass: 'toast-' + 'top' + '-' + 'center'
+        });
       });
+
+      this.flagModalEditar = false;
+  }
+
+  validaEditarFormulario() {
+    let obj = {
+      timeOut: 0,
+      closeButton: true,
+      enableHtml: true,
+      toastClass: "alert alert-warning alert-with-icon",
+      positionClass: 'toast-' + 'top' + '-' + 'center'
+    };
+
+    if (this.formularioEdicao.controls.nome.value == null || this.formularioEdicao.controls.nome.value == '') {
+      this.toastr.warning('O campo Nome não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formularioEdicao.controls.img.value == null || this.formularioEdicao.controls.img.value == '') {
+      this.toastr.warning('O campo Link da Imagem não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formularioEdicao.controls.formacao.value == 'Formação') {
+      this.toastr.warning('O campo Formação não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formularioEdicao.controls.ciclo.value == 'Ciclo') {
+      this.toastr.warning('O campo Ciclo não foi informado.', '', obj);
+      return true;
+    }
+
+    if (this.formularioEdicao.controls.enfase.value == 'Enfase') {
+      this.toastr.warning('O campo Enfase não foi informado.', '', obj);
+      return true;
+    }
+  }
+
+  buscaMetaDados() {
+    return new Promise((resolve, reject) => {
+      this.afs.getMetaDados().then(dados => {
+        dados.cursos.forEach(element => {
+          this.arrayDados.push(element);
+        });
+
+        resolve(this.arrayDados);
+      })
+    })
+  }
+
+  buscaCiclosEnfase(descCurso) {
+    //Quando o usuário trocar o curso limpa os campos de Ciclo e Enfase
+    this.arrayCiclos = [];
+
+    //Se estiver alterando os valores dos campos da modal editar
+    if (this.flagModalEditar) {
+      this.formularioEdicao.controls.ciclo.setValue("Ciclo");
+      this.formularioEdicao.controls.enfase.setValue("Enfase");
+    } else {
+      this.formulario.controls.ciclo.setValue("Ciclo");
+      this.formulario.controls.enfase.setValue("Enfase");
+    }
+
+    //Busca os ciclos e enfase de acordo com o curso selecionado
+    this.arrayDados.forEach(element => {
+      if (element.desc === descCurso) {
+        for (var i = 1; i <= element.ciclos; i++) {
+          this.arrayCiclos.push("Ciclo " + i.toString());
+        }
+        this.arrayEnfase = element.enfases;
+
+        //Se for alterações no modal de editar card
+        if (this.flagModalEditar) {
+          this.formularioEdicao.controls.ciclo.enable();
+          this.formularioEdicao.controls.enfase.enable();
+        } else {
+          this.formulario.controls.ciclo.enable();
+          this.formulario.controls.enfase.enable();
+        }
+
+      }
     });
   }
 
+  setFlagModalEditar(){
+    this.flagModalEditar = false;
+  }
 }

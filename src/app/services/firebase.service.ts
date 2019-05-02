@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { resolve } from 'dns';
-import { reject } from 'q';
 
 @Injectable({
   providedIn: 'root'

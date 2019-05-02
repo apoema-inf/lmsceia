@@ -25,27 +25,22 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
+                  <select class="custom-select" formControlName="formacao"
+                    (change)="buscaCiclosEnfase($event.target.value)">
+                    <option selected disabled>Formação</option>
+                    <option *ngFor="let curso of arrayDados">{{curso.desc}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
                   <select formControlName="ciclo" class="custom-select">
-                    <option selected disabled>Onda</option>
-                    <option value="1">1ª Onda</option>
-                    <option value="2">2ª Onda</option>
-                    <option value="3">3ª Onda</option>
+                    <option selected disabled>Ciclo</option>
+                    <option *ngFor="let ciclo of arrayCiclos">{{ciclo}}</option>
                   </select>
                 </div>
                 <div class="col-md-4">
                   <select formControlName="enfase" class="custom-select">
-                    <option selected disabled>Categoria</option>
-                    <option value="Background">Background</option>
-                    <option value="Toolkit">Toolkit</option>
-                    <option value="DIY">DIY</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <select formControlName="formacao" class="custom-select">
-                    <option selected disabled>Curso</option>
-                    <option value="ESPGTI">ESPGTI</option>
-                    <option value="DSSBI">DSSBI</option>
-                    <option value="Ambos">Ambos</option>
+                    <option selected disabled>Enfase</option>
+                    <option *ngFor="let enfase of arrayEnfase">{{enfase}}</option>
                   </select>
                 </div>
               </div>
@@ -96,7 +91,7 @@
             <div *ngFor="let item of itens | async" class="col-md-12">
               <p>{{item.formacao}} - {{item.ciclo}} - {{item.enfase}} - {{item.nome}}
                 <button class="btn btn-danger" type="button" (click)="excluirConteudo(item.id)">Excluir</button>
-                <button class="btn btn-primary" type="button" data-toggle="modal" (click)="editarConteudo(item.id)"
+                <button class="btn btn-primary" type="button" data-toggle="modal" (click)="editarConteudo(item.id, true)"
                   data-target="#editarModal">Editar</button></p>
             </div>
           </div>
@@ -128,27 +123,22 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
-                  <select class="custom-select" formControlName="ciclo">
-                    <option selected disabled>Onda</option>
-                    <option value="1">1ª Onda</option>
-                    <option value="2">2ª Onda</option>
-                    <option value="3">3ª Onda</option>
+                  <select class="custom-select" formControlName="formacao"
+                    (change)="buscaCiclosEnfase($event.target.value)">
+                    <option selected disabled>Formação</option>
+                    <option *ngFor="let curso of arrayDados">{{curso.desc}}</option>
                   </select>
                 </div>
                 <div class="col-md-4">
-                  <select class="custom-select" formControlName="enfase">
-                    <option selected disabled>Categoria</option>
-                    <option value="Background">Background</option>
-                    <option value="Toolkit">Toolkit</option>
-                    <option value="DIY">DIY</option>
+                  <select formControlName="ciclo" class="custom-select">
+                    <option selected disabled>Ciclo</option>
+                    <option *ngFor="let ciclo of arrayCiclos">{{ciclo}}</option>
                   </select>
                 </div>
                 <div class="col-md-4">
-                  <select class="custom-select" formControlName="formacao">
-                    <option selected disabled>Curso</option>
-                    <option value="ESPGTI">ESPGTI</option>
-                    <option value="DSSBI">DSSBI</option>
-                    <option value="Ambos">Ambos</option>
+                  <select formControlName="enfase" class="custom-select">
+                    <option selected disabled>Enfase</option>
+                    <option *ngFor="let enfase of arrayEnfase">{{enfase}}</option>
                   </select>
                 </div>
               </div>
@@ -207,7 +197,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="setFlagModalEditar()">Fechar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
           </div>
         </div>

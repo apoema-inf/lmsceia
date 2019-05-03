@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { ObjAprendizagem } from 'app/models/objaprendizagem.model';
@@ -19,8 +19,8 @@ export class AdminComponent implements OnInit {
 
   formulario: FormGroup;
   formularioEdicao: FormGroup;
-  conteudos: FormArray;
-  conteudosEdicao: FormArray;
+  arrayObjAprendizagem: FormArray;
+  arrayObjAprendizagemEdicao: FormArray;
   itens: Observable<ObjAprendizagem[]>;
   idItem: String;
   arrayDados: Array<any> = new Array();
@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit {
       enfase: ['Enfase', Validators.required],
       ciclo: ['Ciclo', Validators.required],
       formacao: ['Formação', Validators.required],
-      conteudos: this.formBuilder.array([this.criarItem()])
+      arrayObjAprendizagem: this.formBuilder.array([this.criarItem()])
     });
 
     this.formulario.controls.ciclo.disable();
@@ -73,7 +73,7 @@ export class AdminComponent implements OnInit {
       enfase: ['Enfase', Validators.required],
       ciclo: ['Ciclo', Validators.required],
       formacao: ['Formação', Validators.required],
-      conteudosEdicao: this.formBuilder.array([this.criarItem()])
+      arrayObjAprendizagemEdicao: this.formBuilder.array([this.criarItem()])
     });
   }
 
@@ -101,34 +101,38 @@ export class AdminComponent implements OnInit {
     return this.formBuilder.group({
       nome: '',
       link: '',
-      tipo: 'Tipo'
+      tipo: '',
+      formato: ''
     });
   }
 
-  acrescentaInput() {
-    this.conteudos = this.formulario.get('conteudos') as FormArray;
-    this.conteudos.push(this.criarItem());
+  acrescentaLinha() {
+    this.arrayObjAprendizagem = this.formulario.get('arrayObjAprendizagem') as FormArray;
+    this.arrayObjAprendizagem.push(this.criarItem());
   }
 
-  decrementaInput() {
-    this.conteudos = this.formulario.get('conteudos') as FormArray;
-    this.conteudos.removeAt(this.conteudos.length - 1);
+  decrementaLinha(id) {
+    this.arrayObjAprendizagem = this.formulario.get('arrayObjAprendizagem') as FormArray;
+    this.arrayObjAprendizagem.removeAt(id);
   }
 
   onSubmit() {
+    //valida os campos do formulário
     if (this.validaFormulario()) {
       return;
     }
 
-    this.af.collection("self").add({
+    let objCard = {
       nome: this.formulario.controls.nome.value,
       img: this.formulario.controls.img.value,
       enfase: this.formulario.controls.enfase.value,
       ciclo: this.formulario.controls.ciclo.value,
       formacao: this.formulario.controls.formacao.value,
-      conteudos: this.formulario.controls.conteudos.value
-    }).then(value => {
-      console.log(value);
+      arrayObjAprendizagem: this.formulario.controls.arrayObjAprendizagem.value
+    };
+
+    this.af.collection("self").add(objCard).then(value => {
+      //console.log(value);
       this.formulario.reset();
       this.putValuesOnSelect();
       this.toastr.success('Conteúdo criado com sucesso!', '', {
@@ -197,40 +201,41 @@ export class AdminComponent implements OnInit {
   editarConteudo(id, flagEditar) {
     var docRef = this.af.collection("self").doc(id);
     this.idItem = id;
+    this.flagModalEditar = true;
     docRef.ref.get().then(doc => {
       if (doc.exists) {
         this.formularioEdicao.controls.nome.setValue(doc.data().nome);
         this.formularioEdicao.controls.img.setValue(doc.data().img);
-        this.formularioEdicao.controls.enfase.setValue(doc.data().enfase);
-        this.formularioEdicao.controls.ciclo.setValue(doc.data().ciclo);
         this.formularioEdicao.controls.formacao.setValue(doc.data().formacao);
+        this.buscaCiclosEnfase(doc.data().formacao);
+        this.formularioEdicao.controls.ciclo.setValue(doc.data().ciclo);
+        this.formularioEdicao.controls.enfase.setValue(doc.data().enfase);
 
-        let aux = this.formBuilder.array([]);
-        doc.data().conteudos.forEach(element => {
-          aux.push(this.formBuilder.group(element));
+        let material = this.formBuilder.array([]);
+        doc.data().arrayObjAprendizagem.forEach(element => {
+          material.push(this.formBuilder.group(element));
         });
-        this.formularioEdicao.controls.conteudosEdicao = aux;
+        this.formularioEdicao.controls.arrayObjAprendizagemEdicao = material;
       }
     });
-    this.flagModalEditar = true;
   }
 
-  acrescentaLinha() {
-    this.conteudosEdicao = this.formularioEdicao.get('conteudosEdicao') as FormArray;
-    this.conteudosEdicao.push(this.criarItem());
+  acrescentaLinhaModalEdicao() {
+    this.arrayObjAprendizagemEdicao = this.formularioEdicao.get('arrayObjAprendizagemEdicao') as FormArray;
+    this.arrayObjAprendizagemEdicao.push(this.criarItem());
   }
 
-  decrementaLinha(id) {
-    this.conteudosEdicao = this.formularioEdicao.get('conteudosEdicao') as FormArray;
-    this.conteudosEdicao.removeAt(id);
+  decrementaLinhaModalEdicao(id) {
+    this.arrayObjAprendizagemEdicao = this.formularioEdicao.get('arrayObjAprendizagemEdicao') as FormArray;
+    this.arrayObjAprendizagemEdicao.removeAt(id);
   }
 
   updateForm() {
-    let docRef = this.af.collection("self").doc(this.idItem.toString());
-
     if (this.validaEditarFormulario()) {
       return;
     }
+
+    let docRef = this.af.collection("self").doc(this.idItem.toString());
 
     docRef.update({
       nome: this.formularioEdicao.controls.nome.value,
@@ -238,7 +243,7 @@ export class AdminComponent implements OnInit {
       enfase: this.formularioEdicao.controls.enfase.value,
       ciclo: this.formularioEdicao.controls.ciclo.value,
       formacao: this.formularioEdicao.controls.formacao.value,
-      conteudos: this.formularioEdicao.controls.conteudosEdicao.value
+      arrayObjAprendizagem: this.formularioEdicao.controls.arrayObjAprendizagemEdicao.value
     }).then(value => {
       this.toastr.success('Card editado com sucesso!', '', {
         timeOut: 0,
@@ -247,6 +252,7 @@ export class AdminComponent implements OnInit {
         toastClass: "alert alert-success alert-with-icon",
         positionClass: 'toast-' + 'top' + '-' + 'center'
       });
+      this.flagModalEditar = false;
       $('#editarModal').modal('hide');
     })
       .catch(error => {
@@ -259,8 +265,6 @@ export class AdminComponent implements OnInit {
           positionClass: 'toast-' + 'top' + '-' + 'center'
         });
       });
-
-      this.flagModalEditar = false;
   }
 
   validaEditarFormulario() {
@@ -344,7 +348,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  setFlagModalEditar(){
+  setFlagModalEditar() {
     this.flagModalEditar = false;
   }
 }

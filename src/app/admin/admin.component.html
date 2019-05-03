@@ -46,31 +46,65 @@
               </div>
             </div>
             <hr>
-            <h6>Adicionar conteúdo</h6>
-            <br>
+            <h5>Conteúdo Adicionado</h5>
             <div class="form-group">
-              <div class="row">
-                <div class="col-md-4" formArrayName="conteudos"
-                  *ngFor="let conteudo of formulario.get('conteudos').controls; let i = index">
-                  <div [formGroupName]="i">
-                    <input formControlName="nome" type="text" class="form-control" placeholder="Nome">
-                    <input formControlName="link" type="text" class="form-control" placeholder="Link">
-                    <select formControlName="tipo" class="custom-select">
-                      <option selected disabled>Tipo</option>
-                      <option value="C">Conteúdo</option>
-                      <option value="Q">Quiz</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-md-12">
-                  <button type="button" class="btn btn-light" (click)="acrescentaInput()">+</button>
-                  <button type="button" class="btn btn-red" (click)="decrementaInput()">-</button>
-                </div>
-              </div>
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Formato</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr formArrayName="arrayObjAprendizagem"
+                    *ngFor="let objAprendizagem of formulario.get('arrayObjAprendizagem').controls; let i = index">
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <input type="text" class="form-control" placeholder="Nome" formControlName="nome">
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <input type="text" class="form-control" placeholder="Link da Imagem" formControlName="link">
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <select class="custom-select" formControlName="tipo">
+                          <option selected disabled>Tipo</option>
+                          <option value="C">Conteúdo</option>
+                          <option value="A">Atividade</option>
+                        </select>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <select class="custom-select" formControlName="formato">
+                          <option selected disabled>Formato</option>
+                          <option value="video">Vídeo</option>
+                          <option value="pdf">PDF</option>
+                        </select>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <img class="pointer" (click)="decrementaLinha(i)" src="assets/img/remove-symbol.png">
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+                  <img class="pointer" (click)="acrescentaLinha()" src="assets/img/add.png">
+
+              </table>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
           </form>
@@ -91,8 +125,8 @@
             <div *ngFor="let item of itens | async" class="col-md-12">
               <p>{{item.formacao}} - {{item.ciclo}} - {{item.enfase}} - {{item.nome}}
                 <button class="btn btn-danger" type="button" (click)="excluirConteudo(item.id)">Excluir</button>
-                <button class="btn btn-primary" type="button" data-toggle="modal" (click)="editarConteudo(item.id, true)"
-                  data-target="#editarModal">Editar</button></p>
+                <button class="btn btn-primary" type="button" data-toggle="modal"
+                  (click)="editarConteudo(item.id, true)" data-target="#editarModal">Editar</button></p>
             </div>
           </div>
         </div>
@@ -152,12 +186,13 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Link</th>
                     <th scope="col">Tipo</th>
+                    <th scope="col">Formato</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr formArrayName="conteudosEdicao"
-                    *ngFor="let conteudo of formularioEdicao.get('conteudosEdicao').controls; let i = index">
+                  <tr formArrayName="arrayObjAprendizagemEdicao"
+                    *ngFor="let material of formularioEdicao.get('arrayObjAprendizagemEdicao').controls; let i = index">
 
                     <td>
                       <div [formGroupName]="i">
@@ -176,28 +211,37 @@
                         <select class="custom-select" formControlName="tipo">
                           <option selected disabled>Tipo</option>
                           <option value="C">Conteúdo</option>
-                          <option value="Q">Quiz</option>
+                          <option value="A">Atividade</option>
                         </select>
                       </div>
                     </td>
 
                     <td>
                       <div [formGroupName]="i">
-                        <button type="button" class="btn btn-danger" (click)="decrementaLinha(i)"><a><img
-                              src="assets/img/remove-symbol.png"></a></button>
+                        <select class="custom-select" formControlName="formato">
+                          <option selected disabled>Formato</option>
+                          <option value="video">Vídeo</option>
+                          <option value="pdf">PDF</option>
+                        </select>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div [formGroupName]="i">
+                        <img class="pointer" (click)="decrementaLinhaModalEdicao(i)" src="assets/img/remove-symbol.png">
                       </div>
                     </td>
 
                   </tr>
                 </tbody>
-                <button type="button" class="btn btn-light" (click)="acrescentaLinha()"><a><img
-                      src="assets/img/add.png"></a></button>
+                <img class="pointer" (click)="acrescentaLinhaModalEdicao()" src="assets/img/add.png">
               </table>
             </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="setFlagModalEditar()">Fechar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+              (click)="setFlagModalEditar()">Fechar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
           </div>
         </div>

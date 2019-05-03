@@ -5,4 +5,5 @@ export class ObjAprendizagem {
     nome: String;
     link: String;
     tipo: String;
+    formato: String;
 }

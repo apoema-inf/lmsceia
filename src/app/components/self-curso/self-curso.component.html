@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="card-deck justify-content-center">
+                <div *ngIf="!isLoadingMaterias" class="card-deck justify-content-center">
                     <div *ngFor="let materia of materias;" class="card col-md-3" style="margin-top: 25px;">
                         <a (click)="openConteudoModal(materia)" style="cursor: pointer;">
                             <img src="{{ materia.img }}" class="card-img-top" alt="...">
@@ -28,6 +28,11 @@
                                 <h5 class="card-title">{{ materia.nome }}</h5>
                             </div>
                         </a>
+                    </div>
+                </div>
+
+                <div *ngIf="isLoadingMaterias" class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
                     </div>
                 </div>
             </div>

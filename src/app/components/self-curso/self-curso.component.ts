@@ -25,6 +25,8 @@ export class SelfCursoComponent implements OnInit, OnChanges {
 
   noContent = false;
 
+  isLoadingMaterias = false;
+
   constructor(private setupService: SetupService) {
 
   }
@@ -53,6 +55,7 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   }
 
   populateEnfase() {
+    this.isLoadingMaterias = true;
     this.atividades = [];
     this.conteudos = [];
     this.setupService.getEnfaseData(this.curso.desc, this.cicloSelecionado, this.enfaseSelecionada).then((documentos) => {
@@ -60,13 +63,14 @@ export class SelfCursoComponent implements OnInit, OnChanges {
       documentos.forEach(documento => {
           if (documento.arrayObjAprendizagem.length > 0) {
             documento.arrayObjAprendizagem.forEach(objeto => {
-              if (objeto.tipo === 'C' && documento.nome === this.materiaSelected.nome) { this.conteudos.push(objeto); }
-              else if (objeto.tipo === 'A' && documento.nome === this.materiaSelected.nome) { this.atividades.push(objeto); }
+              if (objeto.tipo === 'C' && (this.materiaSelected && documento.nome === this.materiaSelected.nome)) { this.conteudos.push(objeto); }
+              else if (objeto.tipo === 'A' && (this.materiaSelected && documento.nome === this.materiaSelected.nome)) { this.atividades.push(objeto); }
             });
           } else {
             this.noContent = true;
           }
       });
+      this.isLoadingMaterias = false;
     });
   }
 

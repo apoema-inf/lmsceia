@@ -10,6 +10,15 @@ export class FirebaseService {
 
   constructor(private angularFirestore: AngularFirestore) { }
 
+  getMetaDados(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.angularFirestore.collection("meta-info").get().toPromise().then(infos => {
+        resolve(infos.docs[0].data());
+      })
+    })
+
+  }
+
   setTemporadaEmDestaque(nome: string) {
     this.temporadaDestaque = nome;
   }

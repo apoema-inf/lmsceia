@@ -18,6 +18,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { FirebaseService } from './services/firebase.service';
+import { SetupService } from './services/setup.service';
 import { AdminGuard } from './services/admin-guard.service';
 
 @NgModule({
@@ -38,7 +39,7 @@ import { AdminGuard } from './services/admin-guard.service';
     AppComponent,
     AdminLayoutComponent
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AdminGuard, AuthGuard, AuthService, AngularFirestore, FirebaseService, FormBuilder],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AdminGuard, AuthGuard, AuthService, AngularFirestore, FirebaseService, FormBuilder, SetupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

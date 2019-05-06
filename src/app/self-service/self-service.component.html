@@ -1,6 +1,6 @@
 <div class="panel-header">
   <div class="header text-center">
-    <h2 class="title">Self-Service - {{onda}}</h2>
+    <h2 class="title">Self-Service</h2>
   </div>
 </div>
 <div class="main-content">
@@ -14,95 +14,7 @@
         <div class="card-body all-icons">
           <div class="row" align="center">
             <div class="col-md-12">
-              <div *ngIf="onda == '1ª Onda'" class="accordion" id="accordionExample">
-                <div class="card">
-                  <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#dssbi"
-                        aria-expanded="true" aria-controls="dssbi">
-                        <img src="assets/img/DSSBI.png">
-                      </button>
-                    </h2>
-                  </div>
-
-                  <div id="dssbi" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>
-                            <button class="btn btn-primary" type="button" data-toggle="modal"
-                              data-target="#dssbi-background" aria-expanded="false" aria-controls="collapseExample">
-                              <img width="30" src="assets/img/background.png">
-                              Background
-                            </button>
-                          </p>
-                        </div>
-                        <div class="col-md-4">
-                          <p>
-                            <button class="btn btn-primary" type="button" data-toggle="modal"
-                              data-target="#dssbi-toolkit" aria-expanded="false" aria-controls="collapseExample">
-                              <img width="30" src="assets/img/toolkit.png">
-                              Toolkit
-                            </button>
-                          </p>
-                        </div>
-                        <div class="col-md-4">
-                          <p>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse"
-                              data-target="#thirdCollapse" aria-expanded="false" aria-controls="collapseExample">
-                              <img width="30" src="assets/img/diy.png">
-                              DIY
-                            </button>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#espgti"
-                        aria-expanded="false" aria-controls="espgti">
-                        <img src="assets/img/ESPGTI.png">
-                      </button>
-                    </h2>
-                  </div>
-                  <div id="espgti" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <p>
-                            <button class="btn btn-primary" type="button" data-toggle="modal"
-                              data-target="#espgti-background" aria-expanded="false" aria-controls="collapseExample">
-                              <img width="30" src="assets/img/background.png">
-                              Background
-                            </button>
-                          </p>
-                        </div>
-                        <div class="col-md-4">
-                          <p>
-                            <button class="btn btn-primary" type="button" data-toggle="modal"
-                              data-target="#espgti-toolkit" aria-expanded="false" aria-controls="collapseExample">
-                              <img width="30" src="assets/img/toolkit.png">
-                              Toolkit
-                            </button>
-                          </p>
-                        </div>
-                        <div class="col-md-4">
-                          <p>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse"
-                              data-target="#thirdCollapse" aria-expanded="false" aria-controls="collapseExample">
-                              <img width="30" src="assets/img/diy.png">
-                              DIY
-                            </button>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <app-self-curso *ngIf="!isLoading" [curso]="cursoSelected"></app-self-curso>
             </div>
           </div>
         </div>

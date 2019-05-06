@@ -16,6 +16,7 @@ import { GameComponent } from 'app/game/game.component';
 import { GetJogadorPipe } from 'app/pipes/get-jogador.pipe';
 import { TimeItemComponent } from 'app/time-item/time-item.component';
 import { TimeBigComponent } from 'app/time-big/time-big.component';
+import { SelfCursoComponent} from '../../components/self-curso/self-curso.component';
 import { AdminComponent } from 'app/admin/admin.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AdminComponent } from 'app/admin/admin.component';
     GetJogadorPipe,
     TimeItemComponent,
     TimeBigComponent,
+    SelfCursoComponent,
     AdminComponent
   ]
 })

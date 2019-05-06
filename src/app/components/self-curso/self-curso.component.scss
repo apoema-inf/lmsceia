@@ -23,3 +23,15 @@ span {
   left: -15px;
 }
 
+.btn-enfase {
+  text-align: center;
+  width: 120px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 10px;
+  text-overflow: ellipsis;
+}
+
+.btn-selected {
+  background-color: #ff672f;
+}

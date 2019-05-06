@@ -3,7 +3,11 @@
         <div class="card-header">
             <h2 class="mb-0">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#childCiclosAccordion">
-                    <img src="{{ curso.img }}">
+                    <img *ngIf="!setupService.isLoadingImage" src="{{ curso.img }}">
+                    <div *ngIf="setupService.isLoadingImage" class="d-flex justify-content-center">
+                        <div class="spinner-border" style="width: 2rem; height: 2rem;" role="status">
+                        </div>
+                    </div>
                 </button>
             </h2>
         </div>
@@ -29,6 +33,7 @@
                             </div>
                         </a>
                     </div>
+                    <div *ngIf="(!materias || materias.length === 0) && enfaseSelecionada" style="margin: 25px;"><h5>Sem matérias cadastradas.</h5></div>
                 </div>
 
                 <div *ngIf="isLoadingMaterias" class="d-flex justify-content-center">

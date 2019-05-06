@@ -29,6 +29,10 @@ export class SidebarComponent {
       });
   }
 
+  openCurso() {
+    this.setupService.isLoadingImage = true;
+  }
+
   isMobileMenu() {
     if (window.innerWidth > 991) {
       return false;

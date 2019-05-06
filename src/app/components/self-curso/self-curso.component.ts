@@ -16,7 +16,7 @@ export class SelfCursoComponent implements OnInit, OnChanges {
 
   cicloSelecionado: number = null;
 
-  enfaseSelecionada = '';
+  enfaseSelecionada = null;
   materias: Array<any> = [];
   conteudos: Array<any> = [];
   atividades: Array<any> = [];
@@ -71,6 +71,7 @@ export class SelfCursoComponent implements OnInit, OnChanges {
           }
       });
       this.isLoadingMaterias = false;
+      this.setupService.isLoadingImage = false;
     });
   }
 

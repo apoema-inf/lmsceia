@@ -6,6 +6,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
 @Injectable()
 export class SetupService {
 
+  isLoadingImage = false;
+
   constructor(public afAuth: AngularFireAuth,
     private router: Router,
     private af: AngularFirestore) { }

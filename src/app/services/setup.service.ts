@@ -22,7 +22,7 @@ export class SetupService {
     });
   }
 
-  getEnfaseData(formacao, ciclo, enfase) {
+  getEnfaseData(formacao, ciclo, enfase): any {
     const cicloConsulta = 'Ciclo ' + ciclo;
     return new Promise((resolve, reject) => {
       const result = [];

@@ -14,12 +14,16 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   @Input() curso: any;
   ciclos: Array<number> = [];
 
-  cicloOpen = 1;
+  cicloSelecionado: number = null;
 
-  enfaseSelecionada = 'Background';
-  conteudos: any = null;
+  enfaseSelecionada = '';
+  materias: Array<any> = [];
+  conteudos: Array<any> = [];
+  atividades: Array<any> = [];
 
-  conteudoSelected: any = null;
+  materiaSelected: any = null;
+
+  noContent = false;
 
   constructor(private setupService: SetupService) {
 
@@ -34,11 +38,13 @@ export class SelfCursoComponent implements OnInit, OnChanges {
     for (let i = 1; i <= this.curso.ciclos; i++) {
       this.ciclos.push(i);
     }
+    this.setCiclo(this.cicloSelecionado);
   }
 
   setCiclo(ciclo) {
-    this.cicloOpen = ciclo;
-    console.log(this.cicloOpen);
+    this.cicloSelecionado = ciclo;
+    console.log(this.cicloSelecionado);
+    this.setEnfase(this.enfaseSelecionada);
   }
 
   setEnfase(enfase) {
@@ -47,15 +53,27 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   }
 
   populateEnfase() {
-    this.setupService.getEnfaseData(this.curso.desc, this.cicloOpen, this.enfaseSelecionada).then((documentos) => {
-      this.conteudos = documentos;
-      console.log(documentos);
+    this.atividades = [];
+    this.conteudos = [];
+    this.setupService.getEnfaseData(this.curso.desc, this.cicloSelecionado, this.enfaseSelecionada).then((documentos) => {
+      this.materias = documentos;
+      documentos.forEach(documento => {
+          if (documento.arrayObjAprendizagem.length > 0) {
+            documento.arrayObjAprendizagem.forEach(objeto => {
+              if (objeto.tipo === 'C' && documento.nome === this.materiaSelected.nome) { this.conteudos.push(objeto); }
+              else if (objeto.tipo === 'A' && documento.nome === this.materiaSelected.nome) { this.atividades.push(objeto); }
+            });
+          } else {
+            this.noContent = true;
+          }
+      });
     });
   }
 
-  openConteudoModal(conteudo) {
-    this.conteudoSelected = conteudo;
-    console.log(conteudo);
+  openConteudoModal(materia) {
+    this.materiaSelected = materia;
+    this.populateEnfase();
+    console.log(materia);
     $('#content-modal').modal('show');
   }
 

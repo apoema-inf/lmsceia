@@ -122,6 +122,11 @@ export class AdminComponent implements OnInit {
       return;
     }
 
+    //atribui valor default para img card
+    if (this.formulario.controls.img.value == null || this.formulario.controls.img.value == '') {
+      this.formulario.controls.img.setValue("https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/img%2Fnoimage.jpg?alt=media&token=0c4ff4f5-0851-46c4-8e8b-11d2bac0176c");
+    }
+
     let objCard = {
       nome: this.formulario.controls.nome.value,
       img: this.formulario.controls.img.value,
@@ -165,11 +170,6 @@ export class AdminComponent implements OnInit {
 
     if (this.formulario.controls.nome.value == null || this.formulario.controls.nome.value == '') {
       this.toastr.warning('O campo Nome não foi informado.', '', obj);
-      return true;
-    }
-
-    if (this.formulario.controls.img.value == null || this.formulario.controls.img.value == '') {
-      this.toastr.warning('O campo Link da Imagem não foi informado.', '', obj);
       return true;
     }
 

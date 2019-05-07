@@ -15,7 +15,7 @@
                 <p>Dashboard</p>
             </a>
         </li>
-        <li *ngIf="admins.includes(emailUsuario) && user | async" routerLinkActive="active" class="nav-item">
+        <li *ngIf="user | async" routerLinkActive="active" class="nav-item">
             <a routerLink="/admin">
                 <i class="now-ui-icons business_globe"></i>
                 <p>Admin</p>

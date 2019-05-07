@@ -13,20 +13,21 @@ export class SidebarComponent {
   cursos: any;
   private user: Observable<firebase.User>;
   menuItems: any[];
-  admins: Array<any> = new Array();
-  emailUsuario: string;
 
   constructor(private authService: AuthService, private setupService: SetupService, private firebaseService: FirebaseService) {
-      this.setupService.getCursosInfo().then(cursosInfo => {
-        this.cursos = cursosInfo[0].cursos;
-      });
-      this.user = authService.afAuth.authState;
-      this.user.subscribe(user => {
-        this.emailUsuario = user.email;
-        this.firebaseService.getMetaDados().then(infos => {
-          this.admins = infos.admins;
-        })
-      });
+    this.setupService.getCursosInfo().then(cursosInfo => {
+      this.cursos = cursosInfo[0].cursos;
+    });
+
+    authService.afAuth.authState.subscribe(user => {
+      this.firebaseService.getMetaDados().then(infos => {
+        if (infos.admins.includes(user.email)) {
+          this.user = authService.afAuth.authState;
+        } else {
+          this.user = null;
+        }
+      })
+    });
   }
 
   openCurso() {

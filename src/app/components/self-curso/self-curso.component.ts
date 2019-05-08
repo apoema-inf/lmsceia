@@ -28,11 +28,10 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   isLoadingMaterias = false;
 
   constructor(private setupService: SetupService) {
-
   }
 
   ngOnInit() {
-
+    $('#childCiclosAccordion').collapse('show');
   }
 
   ngOnChanges(): void {
@@ -44,13 +43,21 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   }
 
   setCiclo(ciclo) {
-    this.cicloSelecionado = ciclo;
-    console.log(this.cicloSelecionado);
+    if(ciclo === this.cicloSelecionado) {
+      this.cicloSelecionado = null;
+    } else {
+      this.cicloSelecionado = ciclo;
+      console.log(this.cicloSelecionado);
+    }
     this.setEnfase(this.enfaseSelecionada);
   }
 
   setEnfase(enfase) {
-    this.enfaseSelecionada = enfase;
+    if(enfase === this.enfaseSelecionada) {
+      this.enfaseSelecionada = null;
+    } else {
+      this.enfaseSelecionada = enfase;
+    }
     this.populateEnfase();
   }
 

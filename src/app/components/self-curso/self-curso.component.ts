@@ -43,21 +43,13 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   }
 
   setCiclo(ciclo) {
-    if(ciclo === this.cicloSelecionado) {
-      this.cicloSelecionado = null;
-    } else {
-      this.cicloSelecionado = ciclo;
-      console.log(this.cicloSelecionado);
-    }
+    this.cicloSelecionado = ciclo;
+    console.log(this.cicloSelecionado);
     this.setEnfase(this.enfaseSelecionada);
   }
 
   setEnfase(enfase) {
-    if(enfase === this.enfaseSelecionada) {
-      this.enfaseSelecionada = null;
-    } else {
-      this.enfaseSelecionada = enfase;
-    }
+    this.enfaseSelecionada = enfase;
     this.populateEnfase();
   }
 
@@ -80,6 +72,10 @@ export class SelfCursoComponent implements OnInit, OnChanges {
       this.isLoadingMaterias = false;
       this.setupService.isLoadingImage = false;
     });
+  }
+
+  lower(str) {
+    return str.toLowerCase();
   }
 
   openConteudoModal(materia) {

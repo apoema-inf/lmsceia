@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
           this.firebaseService.getAtividadesByTime(time.ref).then(atividades => {
             if (time.id == this.user.time.id) {
               this.indexTimeUser = index;
-              this.timeOnTheBig = atividades[index];
+              this.timeOnTheBig = atividades as Array<any>;
             }
             localAtividades.push(atividades);
           });
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
             this.firebaseService.getAtividadesByTime(time.ref).then(atividades => {
               if (time.id == this.user.time.id) {
                 this.indexTimeUser = index;
-                this.timeOnTheBig = atividades[index];
+                this.timeOnTheBig = atividades as Array<any>;
               }
               localAtividades.push(atividades);
             });

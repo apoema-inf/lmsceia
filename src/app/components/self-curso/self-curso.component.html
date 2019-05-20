@@ -11,33 +11,68 @@
                 </button>
             </h2>
         </div>
-        <div id="childCiclosAccordion" class="collapse" data-parent="#accordionCiclosParent">
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    <div *ngFor="let ciclo of ciclos;" class="col-auto">
-                        <button [ngClass]="{'btn-selected': ciclo == cicloSelecionado}" type="radio" (click)="setCiclo(ciclo)" class="btn btn-info">{{ ciclo }}º ciclo</button>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div *ngFor="let enfase of curso.enfases;">
-                        <button [ngClass]="{'btn-selected': enfase == enfaseSelecionada}" type="button" (click)="setEnfase(enfase)" class="btn btn-info btn-enfase">{{ enfase }}</button>
-                    </div>
-                </div>
+        <div>
+            <div class="card-body" id="childCiclosAccordion" class="collapse" data-parent="#accordionCiclosParent">
 
-                <div *ngIf="!isLoadingMaterias" class="card-deck justify-content-center">
-                    <div *ngFor="let materia of materias;" class="card col-md-3" style="margin-top: 25px;">
-                        <a (click)="openConteudoModal(materia)" style="cursor: pointer;">
-                            <img src="{{ materia.img }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ materia.nome }}</h5>
+                <div id="accordion-ciclos">
+                    <div *ngFor="let ciclo of ciclos;">
+                        <div class="card">
+                            <div class="card-header" id="heading-{{ ciclo }}-ciclo" style="padding-bottom: 15px;">
+                                <h5 class="mb-0">
+                                    <a role="button" style="color: #63BFB0;" (click)="setCiclo(ciclo)" data-toggle="collapse" href="#collapse-{{ ciclo }}-ciclo">
+                                        {{ ciclo }}ª onda
+                                    </a>
+                                </h5>
                             </div>
-                        </a>
-                    </div>
-                    <div *ngIf="(!materias || materias.length === 0) && enfaseSelecionada" style="margin: 25px;"><h5>Sem matérias cadastradas.</h5></div>
-                </div>
+                            <div id="collapse-{{ ciclo }}-ciclo" class="collapse" data-parent="#accordion-ciclos">
+                                <div class="card-body">
 
-                <div *ngIf="isLoadingMaterias" class="d-flex justify-content-center">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                    <div id="accordion-enfases">
+                                        <div *ngFor="let enfase of curso.enfases;">
+                                            <div class="card">
+                                                <div class="card-header" id="heading-{{ lower(enfase) }}-{{ ciclo }}">
+                                                    <h5 class="text-muted">
+                                                        <a role="button" data-toggle="collapse" (click)="setEnfase(enfase)"
+                                                           href="#collapse-{{ lower(enfase) }}-{{ ciclo }}">
+                                                            {{ enfase }}
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse-{{ lower(enfase) }}-{{ ciclo }}" class="collapse"
+                                                     data-parent="#accordion-enfases">
+                                                    <div class="card-body">
+                                                        <div *ngIf="!isLoadingMaterias && enfaseSelecionada"
+                                                             class="card-deck justify-content-center">
+                                                            <div *ngFor="let materia of materias;" class="card col-md-3"
+                                                                 style="margin-top: 25px; margin-bottom: 25px;">
+                                                                <a (click)="openConteudoModal(materia)"
+                                                                   style="cursor: pointer;">
+                                                                    <img src="{{ materia.img }}" class="card-img-top"
+                                                                         alt="...">
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title">{{ materia.nome }}</h5>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <div *ngIf="(!materias || materias.length === 0) && enfaseSelecionada"
+                                                                 style="margin: 25px;"><h5>Sem matérias
+                                                                cadastradas.</h5></div>
+                                                        </div>
+
+                                                        <div *ngIf="isLoadingMaterias"
+                                                             class="d-flex justify-content-center">
+                                                            <div class="spinner-border"
+                                                                 style="width: 3rem; height: 3rem;" role="status">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -50,7 +85,8 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 *ngIf="materiaSelected" class="modal-title" id="exampleModalLabel"><b>{{ materiaSelected.nome }}</b></h5>
+                <h5 *ngIf="materiaSelected" class="modal-title" id="exampleModalLabel"><b>{{ materiaSelected.nome }}</b>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -58,24 +94,27 @@
             <div class="modal-body" align="center">
                 <div class="row justify-content-center">
                     <div class="col-auto">
-                        <img *ngIf="materiaSelected" src="{{ materiaSelected.img }}" class="card-img-top" alt="..." style="height: 180px; width: 320px;">
+                        <img *ngIf="materiaSelected" src="{{ materiaSelected.img }}" class="card-img-top" alt="..."
+                             style="height: 180px; width: 320px;">
                     </div>
                 </div>
                 <div class="row justify-content-center" style="margin: 20px;">
                     <div class="col-auto">
-                        <ul class="nav nav-tabs" id="conteudoTab" role="tablist">
+                        <ul class="nav nav-tabs justify-content-center" id="conteudoTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#conteudos">Conteúdos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#atividades" >Atividades</a>
+                                <a class="nav-link" data-toggle="tab" href="#atividades">Atividades</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="conteudo">
-                            <div class="tab-pane fade show active" id="conteudos" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade show active" id="conteudos" role="tabpanel"
+                                 aria-labelledby="home-tab">
                                 <div *ngFor="let conteudo of conteudos;">
                                     <li style="text-align: left;" class="list-group-item">
-                                        <a href="{{conteudo.link}}" target="_blank"><img src="{{ conteudo.formato == 'video' ? 'assets/img/youtube.png' : 'assets/img/pdf.png' }}">
+                                        <a href="{{conteudo.link}}" target="_blank"><img
+                                                src="{{ conteudo.formato == 'video' ? 'assets/img/youtube.png' : 'assets/img/pdf.png' }}">
                                             {{ '  ' + conteudo.nome }}
                                         </a>
                                     </li>
@@ -89,7 +128,8 @@
                             <div class="tab-pane fade" id="atividades" role="tabpanel" aria-labelledby="profile-tab">
                                 <div *ngFor="let atividade of atividades;">
                                     <li style="text-align: left;" class="list-group-item">
-                                        <a href="{{atividade.link}}" target="_blank"><img src="{{ atividade.formato == 'video' ? 'assets/img/youtube.png' : 'assets/img/pdf.png' }}">
+                                        <a href="{{atividade.link}}" target="_blank"><img
+                                                src="{{ atividade.formato == 'video' ? 'assets/img/youtube.png' : 'assets/img/pdf.png' }}">
                                             {{ '  ' + atividade.nome }}
                                         </a>
                                     </li>

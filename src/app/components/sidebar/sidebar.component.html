@@ -11,15 +11,14 @@
     <ul class="nav">
         <li routerLinkActive="active" class="nav-item">
             <a routerLink="/dashboard">
-                <div class="row">
-                    <div class="col-8">
-                        <i class="now-ui-icons design_app"></i>
-                        <p>Dashboard</p>
-                    </div>
-                    <div class="col-4">
-                        <span class="badge badge-warning">DEMO</span>
-                    </div>
-                </div>
+                <i class="now-ui-icons design_app"></i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        <li *ngIf="user | async" routerLinkActive="active" class="nav-item">
+            <a routerLink="/admin">
+                <i class="now-ui-icons business_globe"></i>
+                <p>Admin</p>
             </a>
         </li>
         <li routerLinkActive="active" class="nav-item">
@@ -28,14 +27,7 @@
                 <p>Self-Service</p>
             </a>
             <div class="dropdown-menu">
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">1º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">2º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">3º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">4º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">5º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">6º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">7º Temporada</a></button>
-                <button class="dropdown-item" type="button"><a routerLink="/self-service">8º Temporada</a></button>
+                <button *ngFor="let curso of cursos;" (click)="openCurso()" [routerLink]="['/self-service', curso.desc]" class="dropdown-item" style="color: orangered;" type="button">{{ curso.desc }}</button>
             </div>
         </li>
         <li routerLinkActive="active" class="nav-item">

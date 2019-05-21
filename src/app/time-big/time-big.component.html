@@ -1,0 +1,31 @@
+<div class="card-header">
+  <div class="dropdown">
+    <button class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" type="button"
+      data-toggle="dropdown"><i class="now-ui-icons loader_gear"></i>
+    </button>
+    <ng-container *ngIf="flag">
+      <b style="color: whitesmoke; margin-left: 5px;">Gráfico do Time {{time}}</b>
+      <button style="margin-left:1em" (click)="backYourTime()" type="button"
+        class="btn btn-default btn-simple" data-toggle="tooltip" data-placement="bottom"
+        title="Voltar Gráfico para seu Time">
+        <i class="fas fa-undo"></i>
+      </button>
+    </ng-container>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" (click)="toogleChartType('line')">Gráfico em Linhas</a></li>
+      <li><a class="dropdown-item" (click)="toogleChartType('bar')">Gráfico em Barras</a></li>
+      <li><a class="dropdown-item" (click)="toogleChartType('pie')">Gráfico em Pizza</a></li>
+      <li><a class="dropdown-item" (click)="toogleChartType('doughnut')">Gráfico em Doughnut</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="card-body">
+  <div class="chart-area">
+    <div style="display: block;">
+      <canvas #chart baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+        (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>

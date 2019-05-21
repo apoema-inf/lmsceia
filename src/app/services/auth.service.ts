@@ -40,7 +40,6 @@ export class AuthService {
         .then( value => {
           this.afAuth.auth.signInWithEmailAndPassword(email, pass)
             .then(userData => {
-              console.log(userData.user.uid);
               this.findUser();
               resolve(userData)
             },

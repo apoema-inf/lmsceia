@@ -1,13 +1,25 @@
 p {
-    height: 50px;
+  height: 50px;
 }
 
 span {
-    position: relative;
-    bottom: 0;
+  position: relative;
+  bottom: 0;
 }
 
 .badge-orange {
-    background-color: orangered;
-    color: white;
+  background-color: orangered;
+  color: white;
 }
+
+.font-icon-detail {
+  p {
+    font-size: 1em;
+  }
+}
+
+.pdf-icon {
+  position: absolute;
+  left: -15px;
+}
+

@@ -19,7 +19,7 @@ export class AuthService {
     private router: Router,
     private toastr: ToastrService,
     private af: AngularFirestore
-  ) { this.userObservable = afAuth.authState;}
+  ) { this.userObservable = afAuth.authState; }
 
   user: any;
 
@@ -128,27 +128,27 @@ export class AuthService {
     localUser.time = new Time();
     return new Promise((resolve, reject) => {
       firebase.auth().onAuthStateChanged(function (user) {
-        if(user) {
+        if (user) {
           let docRef = that.af.collection("membros").doc(user.uid);
           docRef.ref.get().then((docSnapshot) => {
-            if(docSnapshot.exists) {
+            if (docSnapshot.exists) {
               localUser.email = docSnapshot.data().email;
-                localUser.curso = docSnapshot.data().curso;
-                localUser.nome = docSnapshot.data().nome;
-                localUser.avatar = docSnapshot.data().avatar;
-                docSnapshot.data().idtime.get().then((doc) => {
-                  if(doc.exists) {
-                    localUser.time.id = doc.id;
-                    localUser.time.avatar = doc.data().avatar;
-                    resolve(localUser);
-                  } else {
-                    console.log("No such document.");
-                    reject(null);
-                  }
-                }).catch(e => {
-                  console.log("Error getting document: ", e);
-                  reject(e);
-                });
+              localUser.curso = docSnapshot.data().curso;
+              localUser.nome = docSnapshot.data().nome;
+              localUser.pontuacao = docSnapshot.data().pontuacao;
+              docSnapshot.data().idtime.get().then((doc) => {
+                if (doc.exists) {
+                  localUser.time.id = doc.id;
+                  localUser.time.avatar = doc.data().avatar;
+                  resolve(localUser);
+                } else {
+                  console.log("No such document.");
+                  reject(null);
+                }
+              }).catch(e => {
+                console.log("Error getting document: ", e);
+                reject(e);
+              });
             } else {
               console.log("No such document.");
               reject(null);
@@ -181,7 +181,7 @@ export class AuthService {
         positionClass: 'toast-top-center'
       });
     }).catch(function (error) {
-      if(error == "Error: The email address is badly formatted.") {
+      if (error == "Error: The email address is badly formatted.") {
         error = "O endereço de email está em um formato inválido";
       }
       that.toastr.error('<span class="now-ui-icons ui-1_bell-53"></span>' + error, '', {

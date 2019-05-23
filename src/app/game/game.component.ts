@@ -28,20 +28,6 @@ export class GameComponent implements OnInit {
   valor: number;
   time: any;
 
-  constructor(private contaService: ContaService, private authService: AuthService) {
-    authService.getAuth().then(user => {
-      this.user = user;
-      contaService.getUserConta(this.user).toPromise().then(conta => {
-        this.contas = conta;
-        contaService.getUserTime(this.user).toPromise().then(time => {
-          this.time = time[0];
-        })
-      })
-    })
-    contaService.getItens().toPromise().then(item => {
-      this.itens = item;
-    })
-
   primeira: boolean = false;
   segunda: boolean = false;
   terceira: boolean = false;
@@ -50,7 +36,12 @@ export class GameComponent implements OnInit {
   sexta: boolean = false;
   setima: boolean = false;
   oitava: boolean = false;
-  lideres: Array<any> = new Array();
+  lideres = new Array<any>();
+
+  //Gráfico de barras
+  public barChartLabels = [];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -93,75 +84,85 @@ export class GameComponent implements OnInit {
     { data: [], label: 'Pontuação' }
   ];
 
-  //Gráfico de barras
-  public barChartLabels = [];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
+  constructor(private contaService: ContaService, private authService: AuthService) {
+    // authService.getAuth().then(user => {
+    //   this.user = user;
+    //   contaService.getUserConta(this.user).toPromise().then(conta => {
+    //     this.contas = conta;
+    //     contaService.getUserTime(this.user).toPromise().then(time => {
+    //       this.time = time[0];
+    //     })
+    //   })
+    // })
+    // contaService.getItens().toPromise().then(item => {
+    //   this.itens = item;
+    // })
+  }
 
   ngOnInit() {
   }
 
-  ifnull(valor): boolean {
-    if (valor == null ||
-      valor == '' ||
-      valor == undefined) {
-      this.msg = "Sem valor indicado";
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  credita() {
-    if (this.ifnull(this.valor)) {
-      this.msg = "";
-      this.contas[0].saldo = this.contas[0].saldo + this.valor;
-      this.contaService.updateConta(this.contas[0]).subscribe(
-        response => {
-          console.log(response);
-          this.contaService.getUserConta(this.user).toPromise().then(conta => {
-            this.contas = conta;
-          })
-        },
-      );
-    } else {
-      return;
-    }
-
-  }
-
-  saque(valor, itemID) {
-    console.log(valor);
-    this.inventario.item_id = itemID;
-    this.inventario.time_id = this.time.id_time;
-    this.extrato.date = new Date();
-    this.extrato.tipo = 'S';
-    this.extrato.valor = parseFloat(valor);
-    this.extrato.usuario_id = 1;
-    this.extrato.conta_id = this.contas[0].id_conta;
-    if (this.ifnull(valor)) {
-      if (this.contas[0].saldo < valor) {
-        this.msg = "Sem limite para o saldo solicitado: " + this.contas[0].saldo;
-        return;
-      } else {
-        this.msg = "";
-        this.contas[0].saldo = this.contas[0].saldo - valor;
-        this.contaService.setInventario(this.inventario).toPromise().then(value => {
-          this.contaService.updateConta(this.contas[0]).subscribe(
-            response => {
-              this.contaService.setExtrato(this.extrato).toPromise().then(res => {
-                this.contaService.getUserConta(this.user).toPromise().then(conta => {
-                  this.contas = conta;
-                })
-              })
-            },
-          );
-        })
-      }
-    } else {
-      return;
-    }
-  }
+  // ifnull(valor): boolean {
+  //   if (valor == null ||
+  //     valor == '' ||
+  //     valor == undefined) {
+  //     this.msg = "Sem valor indicado";
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+  //
+  // credita() {
+  //   if (this.ifnull(this.valor)) {
+  //     this.msg = "";
+  //     this.contas[0].saldo = this.contas[0].saldo + this.valor;
+  //     this.contaService.updateConta(this.contas[0]).subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.contaService.getUserConta(this.user).toPromise().then(conta => {
+  //           this.contas = conta;
+  //         })
+  //       },
+  //     );
+  //   } else {
+  //     return;
+  //   }
+  //
+  // }
+  //
+  // saque(valor, itemID) {
+  //   console.log(valor);
+  //   this.inventario.item_id = itemID;
+  //   this.inventario.time_id = this.time.id_time;
+  //   this.extrato.date = new Date();
+  //   this.extrato.tipo = 'S';
+  //   this.extrato.valor = parseFloat(valor);
+  //   this.extrato.usuario_id = 1;
+  //   this.extrato.conta_id = this.contas[0].id_conta;
+  //   if (this.ifnull(valor)) {
+  //     if (this.contas[0].saldo < valor) {
+  //       this.msg = "Sem limite para o saldo solicitado: " + this.contas[0].saldo;
+  //       return;
+  //     } else {
+  //       this.msg = "";
+  //       this.contas[0].saldo = this.contas[0].saldo - valor;
+  //       this.contaService.setInventario(this.inventario).toPromise().then(value => {
+  //         this.contaService.updateConta(this.contas[0]).subscribe(
+  //           response => {
+  //             this.contaService.setExtrato(this.extrato).toPromise().then(res => {
+  //               this.contaService.getUserConta(this.user).toPromise().then(conta => {
+  //                 this.contas = conta;
+  //               })
+  //             })
+  //           },
+  //         );
+  //       })
+  //     }
+  //   } else {
+  //     return;
+  //   }
+  // }
 
   allFalse() {
     this.primeira = false;

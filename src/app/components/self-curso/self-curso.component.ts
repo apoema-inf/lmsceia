@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SetupService} from '../../services/setup.service';
+import {Router} from '@angular/router';
 
 declare let $: any;
 
@@ -28,13 +29,30 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   isLoadingMaterias = false;
 
   constructor(private setupService: SetupService) {
+
   }
 
   ngOnInit() {
     $('#childCiclosAccordion').collapse('show');
+    this.loadLogoImage();
+  }
+
+  loadLogoImage() {
+    let img = new Image();
+    let imgTag: any = document.getElementById("courseLogo");
+    let loadingTag: any = document.getElementById("courseLogoLoading");
+    imgTag.hidden = true;
+    loadingTag.hidden = false;
+    img.onload = function () {
+      imgTag.src = img.src;
+      imgTag.hidden = false;
+      loadingTag.hidden = true;
+    };
+    img.src = this.curso.img;
   }
 
   ngOnChanges(): void {
+    this.loadLogoImage();
     this.ciclos = [];
     for (let i = 1; i <= this.curso.ciclos; i++) {
       this.ciclos.push(i);
@@ -51,7 +69,6 @@ export class SelfCursoComponent implements OnInit, OnChanges {
   setEnfase(enfase) {
     if (this.enfaseSelecionada != null && this.cicloSelecionado !== 1) $('#collapse-' + this.lower(this.enfaseSelecionada) + '-' + this.cicloSelecionado  + '').collapse('hide');
     this.enfaseSelecionada = enfase;
-    //if (this.enfaseSelecionada != null) $('#collapse-' + this.lower(this.enfaseSelecionada) + '-' + this.cicloSelecionado  + '').collapse('show');
     this.populateEnfase();
   }
 
@@ -72,7 +89,6 @@ export class SelfCursoComponent implements OnInit, OnChanges {
           }
       });
       this.isLoadingMaterias = false;
-      this.setupService.isLoadingImage = false;
     });
   }
 

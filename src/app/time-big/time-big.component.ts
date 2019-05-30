@@ -2,6 +2,9 @@ import { Component, Input, OnChanges, ViewChild, ElementRef, AfterViewInit, Outp
 import { FirebaseService } from '../services/firebase.service';
 import { ChartDataSets } from 'chart.js';
 import { BaseChartDirective, Label } from 'ng2-charts';
+import { AuthService } from 'app/services/auth.service';
+
+declare let $: any;
 
 @Component({
   selector: 'app-time-big',
@@ -14,8 +17,10 @@ export class TimeBigComponent implements OnChanges, AfterViewInit {
   @Input() flag: boolean = false;
   @Input() time: string = '';
   @Output() respostaVoltar = new EventEmitter();
+  @Output() respostaModal = new EventEmitter();
 
   gradient: any;
+  timeUser: string;
   lineChartData: ChartDataSets[] = [
     {
       data: [0, 0, 0, 0],
@@ -86,7 +91,7 @@ export class TimeBigComponent implements OnChanges, AfterViewInit {
       }]
     }
   };
-  
+
   lineChartColors = [
     {
       backgroundColor: this.gradient,
@@ -103,7 +108,12 @@ export class TimeBigComponent implements OnChanges, AfterViewInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   @ViewChild('chart') canvas: ElementRef;
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService, private authService: AuthService) {
+    this.authService.getUserTimeId().then(time => {
+      this.timeUser = time as string;
+      this.time = this.timeUser;
+    })
+  }
 
   ngAfterViewInit() {
     this.gradient = this.canvas.nativeElement.getContext('2d').createLinearGradient(0, 200, 0, 50);
@@ -152,6 +162,7 @@ export class TimeBigComponent implements OnChanges, AfterViewInit {
         };
       }
     });
+
   }
 
   setDataOnChart() {
@@ -167,14 +178,54 @@ export class TimeBigComponent implements OnChanges, AfterViewInit {
 
   backYourTime() {
     this.respostaVoltar.emit(false);
+    this.time = this.timeUser;
+  }
+
+  chartClicked(evt) {
+    let atividadesModal = [];
+    let modal = { title: '', pontuacao: 0, missao: '', descricao: '' };
+
+    if (evt.active.length > 0) {
+      const chart = evt.active[0]._chart;
+      const activePoints = chart.getElementAtEvent(evt.event);
+      if (activePoints.length > 0) {
+        // get the internal index of slice in pie chart
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        // get value by index
+        const value = chart.data.datasets[0].data[clickedElementIndex];
+        $('.modal').modal('show');
+
+        modal.title = this.time + ' - ' + this.firebaseService.getTemporadaEmDestaque();
+
+        modal.missao = label;
+        modal.pontuacao = value;
+
+        this.missoes.forEach(missao => {
+          if (modal.missao == missao.data().nome) {
+            modal.descricao = missao.data().descricao;
+            this.atividades.forEach(atividade => {
+              if (atividade.missao.id == missao.id) {
+                if (!(atividadesModal.includes(atividade))) {
+                  atividadesModal.push(atividade);
+                }
+              }
+            })
+          }
+        })
+      }
+    }
+
+    this.respostaModal.emit([modal, atividadesModal]);
   }
 
   ngOnChanges() {
     //Setando 0 novamente para valor não acumular
     this.lineChartData[0].data = [0, 0, 0, 0];
-    
+
     if (this.atividades) {
       this.setDataOnChart();
     }
+
   }
 }

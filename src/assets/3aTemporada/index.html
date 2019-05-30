@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html class="no-js" lang="en">
 
 <head>
@@ -7,20 +7,19 @@
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link rel="stylesheet" href="libs/css/jquery/jquery.ui.css" type="text/css" />
-    <link rel="stylesheet" href="libs/css/bizagi-font.css" type="text/css" />
     <link rel="stylesheet" href="libs/css/app.css" type="text/css" />
     <script type="text/javascript" src="libs/js/app/app.bizagi.min.js"></script>
 </head>
 
 <body class="off-canvas hide-extras">
 
-    
-<!-- *****************************************************************************
+
+    <!-- *****************************************************************************
  process-viewer
  @author: UX-Team
  @version: 0.1.0
  @url: http://institutoapoema.org
- @date: Feb 20, 2018 10:02 AM 
+ @date: Feb 09, 2016 5:02 PM 
 ***************************************************************************** /
  -->
 
@@ -28,9 +27,12 @@
 
     <div class="alert-box biz-ex-supported">
         <p id="biz-ex-support"></p>
-        <a href="http://www.google.com/intl/es-419/chrome/" title="Chrome" target="_blank"><span class="biz-ex-iconbrowser-chrome"></span></a>
-        <a href="http://www.mozilla.org/en-US/firefox/new/" title="Firefox" target="_blank"><span class="biz-ex-iconbrowser-firefox"></span></a>
-        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" title="IE 9+" target="_blank"><span class="biz-ex-iconbrowser-ie"></span></a>
+        <a href="http://www.google.com/intl/es-419/chrome/" title="Chrome" target="_blank"><span
+                class="biz-ex-iconbrowser-chrome"></span></a>
+        <a href="http://www.mozilla.org/en-US/firefox/new/" title="Firefox" target="_blank"><span
+                class="biz-ex-iconbrowser-firefox"></span></a>
+        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" title="IE 9+" target="_blank"><span
+                class="biz-ex-iconbrowser-ie"></span></a>
     </div>
     <script type="text/javascript" src="libs/js/app/app.ie8detect.js"></script>
 
@@ -38,6 +40,7 @@
     <script id="json" src="libs/js/json/configuration.json.js"></script>
 
     <script id="initialization">
+
         switch (window.location.protocol) {
             case 'http:':
             case 'https:':
@@ -92,17 +95,20 @@
             kineticJs.src = 'libs/js/app/kinetic.min.js';
             document.write(kineticJs.outerHTML);
         }
+
     </script>
 
     <script src="libs/js/app/process-viewer.libraries.min.js"></script>
     <script src="libs/js/app/process-viewer.plugins.min.js"></script>
     <script src="libs/js/app/process-viewer.min.js"></script>
-<!-- 
+
+
+    <!-- 
     @name:          Zoomer Template
     @view:          Bizagi.App.Views.DiagramView
     @description:   Diagram Process / Zoom Plugin Markup
 -->
-<script type="text/x-jquery-tmpl" id="ZoomerViewTmpl">
+    <script type="text/x-jquery-tmpl" id="ZoomerViewTmpl">
     <div class="zoom-container" data-zoomcontainer>
         <div data-zoomcontent draggable="true">
         </div>
@@ -116,32 +122,29 @@
             </div>
         </div>
         <div class="zoom-pane-preview" data-zoompanepanel></div>
-        <div class="zoom-pane-icon biz-ex-icon-pane-panel" data-zoomiconpanepanel>
-            <i class="bz-icon bz-icon-new-close-outline bz-icon-16"></i>
-            <i class="bz-icon bz-icon-new-outline bz-icon-16"></i>
-        </div>
+        <div class="zoom-pane-icon biz-ex-icon-pane-panel" data-zoomiconpanepanel></div>
     </div>
 </script>
 
 
-<!-- 
+    <!-- 
     @name:      Carousel ( Recursive Function for SubProcess Images )
     @view:      Bizagi.App.Views.NavigationView
     @role:      recursive section
     @function:  Bizagi.Util.renderSubPagesRecursive(idTemplate, data)
 -->
-<script type="text/x-jquery-tmpl" id="CarouselSubProcessViewTmpl">
+    <script type="text/x-jquery-tmpl" id="CarouselSubProcessViewTmpl">
         <!-- carousel -->
         {{tmpl(this.data) Bizagi.Util.getTemplate("CarouselSubPagesLI")}}
         {{html Bizagi.Util.renderSubPagesRecursive('CarouselSubProcessTmpl',this.data, true)}}
 </script>
-<!-- 
+    <!-- 
     @name:      Navigation View ( Iterate Image Section )
     @view:      Bizagi.App.Views.NavigationView
     @role:      Image Process Iteration
 -->
-<script type="text/x-jquery-tmpl" id="CarouselSubProcessTmplList">
-    
+    <script type="text/x-jquery-tmpl" id="CarouselSubProcessTmplList">
+
     {{if subPages}}
             {{each subPages}}
                 {{tmpl($value) Bizagi.Util.getTemplate("CarouselSubPagesLI")}}
@@ -149,7 +152,7 @@
     {{/if}}
 </script>
 
-<script type="text/x-jquery-tmpl" id="CarouselSubPagesLI">
+    <script type="text/x-jquery-tmpl" id="CarouselSubPagesLI">
         <li class="biz-ex-carousel-columns">
             <a href="diagram/${id}" class="biz-ex-navigate biz-ex-navigate-carousel">
                 <figure class="biz-ex-diagram">
@@ -166,12 +169,12 @@
 </script>
 
 
-<!-- 
+    <!-- 
 	@name: Container Template
 	@view: General Layout
 -->
 
-<script type="text/x-jquery-tmpl" id="ContainerTmpl">
+    <script type="text/x-jquery-tmpl" id="ContainerTmpl">
   	<section id="sidebar" role="complementary">
 		<nav id="sideMenu" role="navigation">
 			<ul id="sideMainNav" class="nav-bar">
@@ -184,12 +187,12 @@
 		<div class="large-9 columns biz-ex-diagram-update-panel" id="updatePanelDiagram"></div>
 	</div>
 </script>
-<!-- 
+    <!-- 
 	@name: 			Diagram View
 	@view: 			Bizagi.App.Views.DiagramView
 	@description: 	Diagram Process / SubProcess visualization 
 -->
-<script type="text/x-jquery-tmpl" id="DiagramViewTmpl">
+    <script type="text/x-jquery-tmpl" id="DiagramViewTmpl">
 	<div class='biz-ex-diagram-view'>
 		{{if properties}}
 		<div class="biz-ex-diagram-data">
@@ -208,13 +211,13 @@
 	</div>
 </script>
 
-<!-- 
+    <!-- 
 	@name: 			Diagram View
 	@view: 			Bizagi.App.Views.DiagramView
 	@description: 	Diagram Process / SubProcess visualization 
 -->
 
-<script type="text/x-jquery-tmpl" id="ActionsTmpl">
+    <script type="text/x-jquery-tmpl" id="ActionsTmpl">
 	{{if presentationAction}}
 		<span class="biz-ex-mark-action"></span>
 	{{/if}}
@@ -287,13 +290,13 @@
 </script>
 
 
-<!-- 
+    <!-- 
 	@name: 			Diagram View
 	@view: 			Bizagi.App.Views.DiagramView
 	@description: 	Diagram Process / SubProcess visualization 
 -->
 
-<script type="text/x-jquery-tmpl" id="ActionsProcessTmpl">
+    <script type="text/x-jquery-tmpl" id="ActionsProcessTmpl">
 	{{if presentationAction}}
 		<span class="biz-ex-mark-action"></span>
 	{{/if}}
@@ -371,26 +374,25 @@
 
 
 
-<!-- 
+    <!-- 
 	@name: 			Dialog View
 	@view: 			Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmpl">
-    <div id="myModal" class="reveal-modal biz-ex-height-modal">
-        <div id="updateDialogContent">
-        </div>
-        <div class="biz-ex-action-button">
-            <a class="close-reveal-modal"><i class="bz-icon bz-icon-16 bz-icon-close-outline"></i></a>
-            <a class="expand-reveal-modal collapsed"><i class="bz-icon bz-icon-16 bz-icon-open-outline biz-ex-icon-expand"></i></a>
-            <a class="expand-reveal-modal expanded"><i class="bz-icon bz-icon-16 bz-icon-minimize-close-outline biz-ex-icon-expand"></i></a>
-        </div>
-    </div>
+    <script type="text/x-jquery-tmpl" id="DialogViewTmpl">
+	<div id="myModal" class="reveal-modal biz-ex-height-modal">
+			<div id="updateDialogContent">
+			</div>
+			<div class="biz-ex-action-button">
+				<a class="close-reveal-modal"><i class="biz-ex-icon-close"></i></a>
+				<a class="expand-reveal-modal"><i class="biz-ex-icon-expand"></i></a>
+			</div>
+	</div>
 </script>
-<!-- 
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplImages">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplImages">
     <header class="biz-ex-dialog-header">
         <h2 class="biz-ex-dialog-name">&nbsp;</h2>
     </header>
@@ -404,11 +406,11 @@
 
 
 
-<!-- 
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplText">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplText">
     <header class="biz-ex-dialog-header">
         <h2 class="biz-ex-dialog-name">&nbsp;</h2>
     </header>
@@ -420,11 +422,11 @@
 </script>
 
 
-<!-- 
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplTextDescription">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplTextDescription">
     <header class="biz-ex-dialog-header">
         <h2 class="biz-ex-dialog-name">${Bizagi.Util.getResource('details')}</h2>
     </header>
@@ -475,11 +477,11 @@
 </script>
 
 
-<!-- 
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplHTML">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplHTML">
     <header class="biz-ex-dialog-header">
         <h2 class="biz-ex-dialog-name">${name}</h2>
     </header>
@@ -489,8 +491,8 @@
         </div>
     </div>
 </script>
-<script type="text/x-jquery-tmpl" id="DialogViewTmplPerformers">
-    
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplPerformers">
+
     <h2 class="biz-ex-performer-header biz-ex-dialog-name">${name}</h2>
     <ul class="biz-ex-performers">
         {{each elements}} 
@@ -503,248 +505,221 @@
         {{/each}}
     </ul>
 </script>
-<!--
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplProperties">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplProperties">
 
     <header class="biz-ex-dialog-header">
         <h1 class="biz-ex-title-process">${nameDiagram}</h1>
         <h2 class="biz-ex-dialog-name">${name}</h2>
         <dl class="biz-ex-dialog-properties">
             {{if performers}}
-            <dt class="biz-ex-dialog-process-title">
-                ${Bizagi.Util.getResource('performer')}
-            </dt>
-            <dd>
-                <div class="biz-ex-performers-list-as-contact">
-                    {{tmpl(Bizagi.Util.renderPerformers(performers, 10)) "DialogViewTmplPropertiesPerformers"}}
-                </div>
-            </dd>
-            {{/if}}
-            {{if accountable}}
-            <dt class="biz-ex-dialog-process-title">
-                ${Bizagi.Util.getResource('accountable')}
-            </dt>
-            <dd>
-                <div class="biz-ex-performers-list-as-contact">
-                    {{tmpl(Bizagi.Util.renderPerformers(accountable, 10)) "DialogViewTmplPropertiesPerformers"}}
-                </div>
-            </dd>
-            {{/if}}
-            {{if consulted}}
-            <dt class="biz-ex-dialog-process-title">
-                ${Bizagi.Util.getResource('consulted')}
-            </dt>
-            <dd>
-                <div class="biz-ex-performers-list-as-contact">
-                    {{tmpl(Bizagi.Util.renderPerformers(consulted, 10)) "DialogViewTmplPropertiesPerformers"}}
-                </div>
-            </dd>
-            {{/if}}
-            {{if informed}}
-            <dt class="biz-ex-dialog-process-title">
-                ${Bizagi.Util.getResource('informed')}
-            </dt>
-            <dd>
-                <div class="biz-ex-performers-list-as-contact">
-                    {{tmpl(Bizagi.Util.renderPerformers(informed, 10)) "DialogViewTmplPropertiesPerformers"}}
-                </div>
-            </dd>
+                <dt class="biz-ex-dialog-process-title">
+                    ${Bizagi.Util.getResource('performer')}
+                </dt>
+                <dd>
+                    <div class="biz-ex-performers-list-as-contact">
+                        {{tmpl(Bizagi.Util.renderPerformers(performers, 10)) "DialogViewTmplPropertiesPerformers"}} 
+                    </div>
+                </dd>
             {{/if}}
             {{if description}}
-            {{if !Bizagi.Util.validateLength(description)}}
-            <dt class="biz-ex-dialog-process-title">
-                ${Bizagi.Util.getResource('description')}
-            </dt>
-            <dd class="biz-ex-dialog-description">
-                {{tmpl(Bizagi.Util.renderDescriptionPreview(description, PublishWebAttributes.maxLenghtDescription)) "DialogViewTmplPropertiesDescription"}}
-            </dd>
-            {{/if}}
+                {{if !Bizagi.Util.validateLength(description)}}
+                    <dt class="biz-ex-dialog-process-title">
+                        ${Bizagi.Util.getResource('description')}
+                    </dt>
+                    <dd class="biz-ex-dialog-description">
+                        {{tmpl(Bizagi.Util.renderDescriptionPreview(description, PublishWebAttributes.maxLenghtDescription)) "DialogViewTmplPropertiesDescription"}} 
+                    </dd>
+                {{/if}}
             {{/if}}
 
             {{if presentationAction }}
-
-            <dt class="biz-ex-dialog-process-title" data-pa="${this.data.pa = true}">
-                ${Bizagi.Util.getResource('presentationAction')}
-            </dt>
-            <dd class="biz-ex-dialog-presentation">
-                {{tmpl(this.data) Bizagi.Util.getTemplate("ActionsProcessTmpl")}}
-            </dd>
+                
+                <dt class="biz-ex-dialog-process-title" data-pa="${this.data.pa = true}">
+                    ${Bizagi.Util.getResource('presentationAction')}
+                </dt>
+                <dd class="biz-ex-dialog-presentation">
+                    {{tmpl(this.data) Bizagi.Util.getTemplate("ActionsProcessTmpl")}}
+                </dd>            
             {{/if}}
 
             {{if this.data.elementType}}
-
-            <dt class="biz-ex-dialog-process-title" data-pa="${this.data.pa = false}">
-                {{if this.data.elementType === "CallActivity"}}
-                ${Bizagi.Util.getResource('process')}
-                {{/if}}
-                {{if this.data.elementType === 'SubProcess' && this.data.isPublished}}
-                ${Bizagi.Util.getResource('subProcess')}
-                {{/if}}
-            </dt>
-            <dd class="biz-ex-dialog-presentation">
-                {{tmpl(this.data) Bizagi.Util.getTemplate("ActionsProcessTmpl")}}
-            </dd>
+                
+                <dt class="biz-ex-dialog-process-title" data-pa="${this.data.pa = false}">
+                    {{if this.data.elementType === "CallActivity"}}
+                        ${Bizagi.Util.getResource('process')}
+                    {{else}}
+                        ${Bizagi.Util.getResource('subProcess')}
+                    {{/if}}
+                </dt>
+                <dd class="biz-ex-dialog-presentation">
+                   {{tmpl(this.data) Bizagi.Util.getTemplate("ActionsProcessTmpl")}}
+                </dd>
             {{/if}}
 
         </dl>
     </header>
     <div class="biz-ex-dialog-content biz-ex-dialog-properties">
         <div class="content biz-ex-content-properties">
-            {{if properties}}
-            {{if properties.length}}
-            {{if PublishWebAttributes.subNavigation}}
-            <div data-magellan-expedition="fixed">
-                <dl class="sub-nav">
-                    {{each properties}}
-                    <dd data-magellan-arrival="${Bizagi.Util.serializeNames(name)}">
-                        <a href="#${Bizagi.Util.serializeNames(name)}">
-                            ${name}
-                        </a>
-                    </dd>
-                    {{/each}}
-                </dl>
-            </div>
-            {{/if}}
-            {{tmpl(properties) Bizagi.Util.getTemplate("PropertiesViewTmpl")}}
-            {{/if}}
-            {{/if}}
-
-            {{if elementType}}
-            {{if Bizagi.Util.validateForValidTasks(elementType)}}
-            {{if pageElements}}
-            <div class="biz-ex-pageElements">
-                {{each pageElements}}
-                <div class="biz-ex-pageElement">
-                    <a name="${Bizagi.Util.serializeNames(name)}"></a>
-                    <h5 class="biz-ex-property-title" data-magellan-destination="${Bizagi.Util.serializeNames(name)}">
-                        {{if elementType}}<i class="biz-ex-result-icon biz-ex-icon-${elementType}"></i>{{/if}}${name}
-                    </h5>
-                    {{if properties}}
-                    {{tmpl(properties) Bizagi.Util.getTemplate("PropertiesViewTmpl")}}
+        {{if properties}}
+                {{if properties.length}}
+                    {{if PublishWebAttributes.subNavigation}}
+                        <div data-magellan-expedition="fixed">
+                            <dl class="sub-nav">
+                                {{each properties}}
+                                  <dd data-magellan-arrival="${Bizagi.Util.serializeNames(name)}">
+                                        <a href="#${Bizagi.Util.serializeNames(name)}">
+                                            ${name}
+                                        </a>
+                                    </dd>
+                                {{/each}}
+                            </dl>
+                        </div>
                     {{/if}}
-                </div>
-                {{/each}}
-            </div>
-            {{/if}}
-            {{/if}}
-            {{else}}
-            <!-- DRAGON-12111 : Participant properties are not exported to Web -->
-            {{if elements}}
-            {{if elements.length}}
-            {{each elements}}
-            {{tmpl(properties) Bizagi.Util.getTemplate("PropertiesViewTmpl")}}
-            {{/each}}
-            {{/if}}
-            {{/if}}
-            <!-- / -->
-            {{/if}}
+                    {{tmpl(properties) Bizagi.Util.getTemplate("PropertiesViewTmpl")}}
+                {{/if}}
+        {{/if}}
 
-            {{if Bizagi.Util.validateForEmpty(this.data)}}
-            {{tmpl(this.data) Bizagi.Util.getTemplate("empty")}}
+        {{if elementType}}
+            {{if Bizagi.Util.validateForValidTasks(elementType)}}
+                {{if pageElements}}
+                    <div class="biz-ex-pageElements">
+                        {{each pageElements}}
+                            <div class="biz-ex-pageElement">
+                                <a name="${Bizagi.Util.serializeNames(name)}"></a>
+                                <h5 class="biz-ex-property-title" data-magellan-destination="${Bizagi.Util.serializeNames(name)}">
+                                    {{if elementType}}<i class="biz-ex-result-icon biz-ex-icon-${elementType}"></i>{{/if}}${name}
+                                </h5>
+                                {{if properties}}
+                                    {{tmpl(properties) Bizagi.Util.getTemplate("PropertiesViewTmpl")}}
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/if}}
             {{/if}}
+        {{else}}
+        <!-- DRAGON-12111 : Participant properties are not exported to Web -->
+            {{if elements}}
+                {{if elements.length}}
+                    {{each elements}}
+                        {{tmpl(properties) Bizagi.Util.getTemplate("PropertiesViewTmpl")}}
+                    {{/each}}
+                {{/if}}
+            {{/if}}
+        <!-- / -->
+        {{/if}}
+
+        {{if Bizagi.Util.validateForEmpty(this.data)}}
+                    {{tmpl(this.data) Bizagi.Util.getTemplate("empty")}}
+        {{/if}}
         </div>
     </div>
 </script>
 
 
-<!--
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="empty">
-    <div class="alert-box biz-ex-alert-message">
-        ${Bizagi.Util.getResource('emptyElement')}
-    </div>
+    <script type="text/x-jquery-tmpl" id="empty">
+     {{if description}}
+        <!-- Has Description -->
+    {{else}}
+        <div class="alert-box biz-ex-alert-message">
+            ${Bizagi.Util.getResource('emptyElement')}
+        </div>
+    {{/if}}
 </script>
 
 
 
-<!--
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplPropertiesPerformers">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplPropertiesPerformers">
 
     <div class="biz-ex-collapsible">
-
+  
         {{if isLarge}}
-        {{if hidden}}
-        <a href="#more" class="biz-ex-badge biz-ex-more">${Bizagi.Util.getResource('more')}</a>
-        {{/if}}
-        <div class="biz-ex-is-collapsible">
-            {{each showed}}
-            <span class="biz-ex-performer-tag">${$value.name}</span>
-            {{/each}}
-        </div>
-        {{if hidden}}
-        <div class="biz-ex-is-extended biz-ex-is-hidden">
-            <a href="#less" class="biz-ex-badge biz-ex-less">${Bizagi.Util.getResource('less')}</a>
+            {{if hidden}}
+                <a href="#more" class="biz-ex-badge biz-ex-more">${Bizagi.Util.getResource('more')}</a>
+            {{/if}}
+            <div class="biz-ex-is-collapsible">
+                {{each showed}}
+                    <span class="biz-ex-performer-tag">${$value.name}</span>
+                {{/each}}
+            </div>
+            {{if hidden}}
+                <div class="biz-ex-is-extended biz-ex-is-hidden">
+                    <a href="#less" class="biz-ex-badge biz-ex-less">${Bizagi.Util.getResource('less')}</a>
+                    <div>
+                        {{each showed}}
+                            <span class="biz-ex-performer-tag">${$value.name}</span>
+                        {{/each}}                            
+                        {{each hidden}}
+                            <span class="biz-ex-performer-tag">${$value.name}</span>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+        {{else}}
             <div>
                 {{each showed}}
-                <span class="biz-ex-performer-tag">${$value.name}</span>
-                {{/each}}
-                {{each hidden}}
-                <span class="biz-ex-performer-tag">${$value.name}</span>
+                    <span class="biz-ex-performer-tag">${$value.name}</span>
                 {{/each}}
             </div>
-        </div>
         {{/if}}
-        {{else}}
-        <div>
-            {{each showed}}
-            <span class="biz-ex-performer-tag">${$value.name}</span>
-            {{/each}}
-        </div>
-        {{/if}}
-
+  
     </div>
 
 </script>
 
-<!--
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplPropertiesDescription">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplPropertiesDescription">
 
     {{if isLarge}}
-    <div class="biz-ex-collapsible">
-        {{else}}
+        <div class="biz-ex-collapsible">
+    {{else}}
         <div class="biz-ex-collapsible biz-max-wrapper">
-            {{/if}}
+    {{/if}}
 
-            {{if isLarge}}
-            <div class="biz-ex-is-collapsible">
-                ${descriptionSummary}
-                <div class="biz-ex-badge biz-ex-expand-description biz-ex-expand-button">
-                    <a href="dialog/expand/description" class="biz-ex-navigate"> ${Bizagi.Util.getResource('expand')} </a>
+        {{if isLarge}}
+                <div class="biz-ex-is-collapsible">
+                    ${descriptionSummary}
+                    <div class="biz-ex-badge biz-ex-expand-description biz-ex-expand-button">
+                        <a href="dialog/expand/description" class="biz-ex-navigate"> ${Bizagi.Util.getResource('expand')} </a>
+                    </div>
                 </div>
-            </div>
             {{if descriptionComplete}}
-            <div class="biz-ex-is-extended biz-ex-is-hidden">
-                <a href="" class="biz-ex-badge biz-ex-less">${Bizagi.Util.getResource('less')}</a>
-                <div>
+                <div class="biz-ex-is-extended biz-ex-is-hidden">
+                    <a href="" class="biz-ex-badge biz-ex-less">${Bizagi.Util.getResource('less')}</a>
+                    <div>
+                        {{html descriptionComplete}}
+                    </div>
+                </div>
+
+            {{/if}}
+        {{else}}
+                <div class="biz-ex-is-collapsible biz-max-height">
                     {{html descriptionComplete}}
                 </div>
-            </div>
+        {{/if}}
 
-            {{/if}}
-            {{else}}
-            <div class="biz-ex-is-collapsible biz-max-height">
-                {{html descriptionComplete}}
-            </div>
-            {{/if}}
-
-        </div>
+    </div>
 </script>
-<!-- 
+    <!-- 
     @name:          Dialog View Container
     @view:          Bizagi.App.Views.DialogView
 -->
-<script type="text/x-jquery-tmpl" id="DialogViewTmplSubProcess">
+    <script type="text/x-jquery-tmpl" id="DialogViewTmplSubProcess">
 
     <header class="biz-ex-dialog-header">
         <h2 class="biz-ex-dialog-name">${name}</h2>
@@ -832,22 +807,22 @@
     </div>
     
 </script>
-<!-- 
+    <!-- 
 	@name: 			Diagram View
 	@view: 			Bizagi.App.Views.ErrorView 
 	@description: 	Fires when ID diagram not exist 
 -->
-<script type="text/x-jquery-tmpl" id="ErrorViewTmpl">
+    <script type="text/x-jquery-tmpl" id="ErrorViewTmpl">
 	<div class='biz-ex-error-view'>
 		<h3>${Bizagi.Util.getResource('errorPage')}  </h3>
 		<div class='biz-ex-box-process'>${message}  ${id}</div>
 	</div>
 </script>
-<!-- 
+    <!-- 
     @name:      GUID View
     @view:      Bizagi.App.Views.TableView
 -->
-<script type="text/x-jquery-tmpl" id="GuidViewTmpl">
+    <script type="text/x-jquery-tmpl" id="GuidViewTmpl">
     <div class='row biz-ex-guid-view'>
         {{each pages}}
             {{tmpl($value) "GuidViewRecursiveTmpl"}} 
@@ -863,7 +838,7 @@
 </script>
 
 
-<script type="text/x-jquery-tmpl" id="GuidViewRecursiveTmpl">
+    <script type="text/x-jquery-tmpl" id="GuidViewRecursiveTmpl">
     <div class="large-6 columns biz-ex-guid-element">
         <div class="biz-ex-guid-wrapper">
             <div class="biz-ex-guid-img">
@@ -880,11 +855,11 @@
 
 
 
-<!-- 
+    <!-- 
     @name: Header View Template
     @view: Bizagi.App.Views.HeaderView
 -->
-<script type="text/x-jquery-tmpl" id="HeaderViewTmpl">
+    <script type="text/x-jquery-tmpl" id="HeaderViewTmpl">
     <div class="large-3 columns biz-ex-logo">
         <a class="show-for-small button sidebar-button" id="sidebarButton" href="#sidebar">
             <img src="libs/img/biz-ex-icon-menu.png" />
@@ -901,148 +876,141 @@
             </h1>
             <h2 class="biz-ex-title-diagram" title="${name}">${name}</h2>
             {{if PublishWebAttributes.showPublishDate}}
-            <p class="biz-ex-time"><time datetime="${publishDate}">${publishDate}</time></p>
+                <p class="biz-ex-time"><time datetime="${publishDate}">${publishDate}</time></p>
             {{/if}}
         </div>
         <nav class="hide-for-small large-5 columns">
             <ul class="cf biz-ex-user-options">
                 {{if PublishWebAttributes.showPerformersList}}
-                <li>
-                    <a href="dialog/performers" class="biz-ex-icon-performers biz-ex-navigate" title="${Bizagi.Util.getResource('performers')}"></a>
-                </li>
+                    <li>
+                        <a href="dialog/performers" class="biz-ex-icon-performers biz-ex-navigate" title="${Bizagi.Util.getResource('performers')}"></a>
+                    </li>
                 {{/if}}
-                <li>
-                    <a href="fullscreen" class="biz-ex-full-screen-modifier biz-ex-navigate" title="${Bizagi.Util.getResource('fullscreen')}">
-                        <i class="bz-icon bz-icon-16 bz-icon-maximize-outline"></i>
-                    </a>
-                </li>
+                    <li>
+                        <a href="fullscreen" class="biz-ex-icon-fullscreen biz-ex-navigate" title="${Bizagi.Util.getResource('fullscreen')}"></a>
+                    </li>
+                {{if !Bizagi.AppModel.personalized}}
+                    <li>
+                        <a href="http://institutoapoema.org/" target="_blank" class="biz-ex-bizagi" >${Bizagi.Util.getResource('visitBizagi')}</a>
+                    </li>
+                {{/if}}
             </ul>
         </nav>
     </div>
 </script>
 
-<script type="text/x-jquery-tmpl" id="AlertViewTmpl">
+    <script type="text/x-jquery-tmpl" id="AlertViewTmpl">
     <div data-alert class="alert-box biz-ex-alert">
         <p class="biz-ex-alert-content">{{html message}}</p>
     </div>
 </script>
-<!-- 
+
+
+    <!-- 
 	@name: Navigation View Template
 	@view: Bizagi.App.Views.NavigationView
 	@role: Principal
 -->
-<script type="text/x-jquery-tmpl" id="NavigationViewTmpl">
-    <nav id="menu" role="navigation">
-        <ul id="mainNav" class="nav-bar">
-            {{each pages}}
-            <li class="biz-ex-sub-page">
-                <a href="diagram/${id}" class="biz-ex-navigate" title="${name}">
-                    <div class="truncate-text biz-ex-name biz-ex-menu">${name}</div>
-                    {{if Bizagi.Util.getSubProcesses($value) >= 1}}
-                    <div class="biz-ex-ind-container">
-                        <i class="biz-ex-icon-plus bz-icon bz-icon-plus"></i>
-                    </div>
-                    {{/if}}
-                </a>
-                {{if subPages}}
-                <div class="biz-ex-subPages">
-                    {{html Bizagi.Util.renderSubPagesRecursive('NavigationSubViewTmpl',{subPages:subPages})}}
-                </div>
-                {{/if}}
-            </li>
-            {{/each}}
-        </ul>
-    </nav>
-    <div class="biz-gradien-scroll"></div>
+    <script type="text/x-jquery-tmpl" id="NavigationViewTmpl">
+	<nav id="menu" role="navigation">
+		<ul id="mainNav" class="nav-bar">
+			{{each pages}}
+			<li class="biz-ex-sub-page">
+				<a href="diagram/${id}" class="biz-ex-navigate" title="${name}">
+					<div class="truncate-text biz-ex-name biz-ex-menu">${name}</div>
+					{{if Bizagi.Util.getSubProcesses($value) >= 1}}
+						<div class="biz-ex-ind-container">
+							<i class="biz-ex-icon-plus"></i>
+						</div>
+					{{/if}}
+				</a>
+				{{if subPages}}
+					<div class="biz-ex-subPages">
+						{{html Bizagi.Util.renderSubPagesRecursive('NavigationSubViewTmpl',{subPages:subPages})}}
+					</div>
+				{{/if}}
+			</li>
+			{{/each}}
+		</ul>
+	</nav>
+	<div class="biz-gradien-scroll"></div>
 </script>
 
-<!-- 
+    <!-- 
 	@name: Navigation View Template
 	@view: Bizagi.App.Views.NavigationView
 	@role: Clone from Proncipal Menu (for Devices)
 -->
-<script type="text/x-jquery-tmpl" id="CloneNavigationViewTmpl">
-    {{each pages}}
-    <li class="biz-ex-sub-page">
-        <a href="diagram/${id}" class="biz-ex-navigate" title="${name}">
-            <div class="truncate-text biz-ex-name biz-ex-menu">${name}</div>
-            {{if Bizagi.Util.getSubProcesses($value) > 1}}
-            <div class="biz-ex-icon-plus bz-icon bz-icon-plus"></div>
-            {{/if}}
-        </a>
-        {{if subPages}}
-        <div class="biz-ex-subPages">
-            {{html Bizagi.Util.renderSubPagesRecursive('NavigationSubViewTmpl',{subPages:subPages})}}
-        </div>
-        {{/if}}
-    </li>
-    {{/each}}
+    <script type="text/x-jquery-tmpl" id="CloneNavigationViewTmpl">
+	{{each pages}}
+		<li class="biz-ex-sub-page">
+			<a href="diagram/${id}" class="biz-ex-navigate" title="${name}">
+				<div class="truncate-text biz-ex-name biz-ex-menu">${name}</div>
+				{{if Bizagi.Util.getSubProcesses($value) > 1}}
+					<div class="biz-ex-icon-plus"></div>
+				{{/if}}
+			</a>
+			{{if subPages}}
+				<div class="biz-ex-subPages">
+					{{html Bizagi.Util.renderSubPagesRecursive('NavigationSubViewTmpl',{subPages:subPages})}}
+				</div>
+			{{/if}}
+		</li>
+	{{/each}}
 </script>
-<!-- 
+    <!-- 
 	@name: 		Navigation View ( Iterate section )
 	@view: 		Bizagi.App.Views.NavigationView
 	@role: 		Diagram Link Iteration
 -->
-<script type="text/x-jquery-tmpl" id="NavigationSubViewTmpl">
-    {{if subPages}}
-    <ul>
-        {{each subPages}}
-        <li class="biz-ex-sub-page">
-            <a href="diagram/${id}" class="biz-ex-navigate" title="${$value.name}">
-                <div class="truncate-text biz-ex-name biz-ex-menu">${$value.name}</div>
-            </a>
-            <div class="biz-ex-subPages"></div>
-        </li>
-        {{/each}}
-    </ul>
-    {{/if}}
+    <script type="text/x-jquery-tmpl" id="NavigationSubViewTmpl">
+	{{if subPages}}
+		<ul>
+			{{each subPages}}
+				<li class="biz-ex-sub-page">
+					<a href="diagram/${id}" class="biz-ex-navigate" title="${$value.name}">
+						<div class="truncate-text biz-ex-name biz-ex-menu">${$value.name}</div>
+					</a>
+					<div class="biz-ex-subPages"></div>
+				</li>
+			{{/each}}
+		</ul>
+	{{/if}}
 </script>
-<!-- 
+    <!-- 
 	@name: 		Navigation View ( Iterate Image Section )
 	@view: 		Bizagi.App.Views.NavigationView
 	@role: 		Image Process Iteration
 -->
-<script type="text/x-jquery-tmpl" id="NavigationSubProcessTmpl">
-    {{if subPages}}
-    <ul>
-        {{each subPages}}
-        <li>
-            <a href="diagram/${id}" class="biz-ex-navigate" title="${name}">
-                <figure class="biz-ex-diagram large-4 columns">
-                    <img src="${Bizagi.Util.serializeResourceURL(image)}" alt="${name}" />
-                </figure>
-            </a>
-            <div class="biz-ex-subPages"></div>
-        </li>
-        {{/each}}
-    </ul>
-    {{/if}}
+    <script type="text/x-jquery-tmpl" id="NavigationSubProcessTmpl">
+	{{if subPages}}
+		<ul>
+			{{each subPages}}
+				<li>
+					<a href="diagram/${id}" class="biz-ex-navigate" title="${name}">
+						<figure class="biz-ex-diagram large-4 columns">
+							<img src="${Bizagi.Util.serializeResourceURL(image)}" alt="${name}"/>
+						</figure>
+					</a>
+					<div class="biz-ex-subPages"></div>
+				</li>
+			{{/each}}
+		</ul>
+	{{/if}}
 </script>
-<!-- 
+    <!-- 
 	@name: 			Properties View
 -->
-<script type="text/x-jquery-tmpl" id="PropertiesViewTmpl">
-			<div>
-				{{if type === 'text'}}
-					{{if value}}
-						<div class="biz-ex-property">
-							<a name="${Bizagi.Util.serializeNames(name)}"></a>
-								<h5 class="biz-ex-property-title" data-magellan-destination="${Bizagi.Util.serializeNames(name)}">${name}</h5>
-								{{tmpl(this.data) 'PropertiesValueViewTmpl'}}
-						</div>
-					{{/if}}
-				{{else}}
-					<div class="biz-ex-property">
-						<a name="${Bizagi.Util.serializeNames(name)}"></a>
-						<h5 class="biz-ex-property-title" data-magellan-destination="${Bizagi.Util.serializeNames(name)}">${name}</h5>
-						{{tmpl(this.data) 'PropertiesValueViewTmpl'}}
-					</div>
-				{{/if}}
+    <script type="text/x-jquery-tmpl" id="PropertiesViewTmpl">
+			<div class="biz-ex-property">
+				<a name="${Bizagi.Util.serializeNames(name)}"></a>
+				<h5 class="biz-ex-property-title" data-magellan-destination="${Bizagi.Util.serializeNames(name)}">${name}</h5>
+				{{tmpl(this.data) 'PropertiesValueViewTmpl'}}
 			</div>
 </script>
 
 
-<script type="text/x-jquery-tmpl" id="PropertiesTableViewTmpl">
+    <script type="text/x-jquery-tmpl" id="PropertiesTableViewTmpl">
 	<div class="biz-ex-x-scroll">
 		<table class="biz-ex-table">
 			<thead>
@@ -1065,7 +1033,7 @@
 	</div>
 </script>
 
-<script type="text/x-jquery-tmpl" id="PropertiesDLViewTmpl">
+    <script type="text/x-jquery-tmpl" id="PropertiesDLViewTmpl">
 	<ul class="biz-ex-list">
 	{{each list}}
 		<li class="biz-ex-title">${$value.header}</li>
@@ -1083,7 +1051,7 @@
 </script>
 
 
-<script type="text/x-jquery-tmpl" id="PropertiesDLRowViewTmpl">
+    <script type="text/x-jquery-tmpl" id="PropertiesDLRowViewTmpl">
 	<ul class="biz-ex-list">
 		{{each table}}
 			<li class="biz-ex-row">
@@ -1098,7 +1066,7 @@
 	</ul>
 </script>
 
-<script type="text/x-jquery-tmpl" id="PropertiesValueViewTmpl">
+    <script type="text/x-jquery-tmpl" id="PropertiesValueViewTmpl">
 
 		{{if description}}
 			<h6>${Bizagi.Util.getResource('description')}</h6>
@@ -1152,17 +1120,14 @@
 		{{/if}}
 </script>
 
-<!-- 
+    <!-- 
     @name: Search View Template
     @view: Bizagi.App.Views.SearchView
 -->
-<script type="text/x-jquery-tmpl" id="SearchTmpl">
+    <script type="text/x-jquery-tmpl" id="SearchTmpl">
     <form class="biz-ex-search {{if PublishWebAttributes.showPerformersList}}biz-ex-is-performers{{/if}}">
         <div class="biz-ex-search-wrapper">
-            <!-- span name="search-options" class="biz-ex-icon-search biz-ex-btn-search"></span -->
-            <span name="search-options" class="biz-ex-btn-search">
-                <i class="bz-icon bz-icon-16 bz-icon-search-down-arrow"></i>
-            </span>
+            <span name="search-options" class="biz-ex-icon-search biz-ex-btn-search"></span>
             <input type="input" class="biz-ex-search-input" placeholder="${Bizagi.Util.getResource('search')}" autocomplete="on">
             <ul class="biz-ex-search-options biz-ex-is-hidden">
                 <li class="biz-ex-search-item">
@@ -1172,15 +1137,15 @@
                     <a href="#" class="biz-ex-search-option" data-type="local">${Bizagi.Util.getResource('searchLocal')}</a>
                 </li>
             </ul>
-        </div>
+        </div>      
     </form>
 </script>
-<!-- 
+    <!-- 
     @name: Search Results View Template
     @view: Bizagi.App.Views.SearchView
 -->
-<script type="text/x-jquery-tmpl" id="SearchTmplResults">
-    
+    <script type="text/x-jquery-tmpl" id="SearchTmplResults">
+
     <li>
         <a href="#" class="biz-ex-result">
             <i class="biz-ex-result-icon biz-ex-icon-${elementType}"></i>
@@ -1192,21 +1157,21 @@
 </script>
 
 
-<script type="text/x-jquery-tmpl" id="SearchTmplResultsAlert">
+    <script type="text/x-jquery-tmpl" id="SearchTmplResultsAlert">
     <div data-alert class="alert-box biz-ex-result-alert">
         <p class="biz-ex-result-alert-content">${Bizagi.Util.getResource('searchResults')}</p>
     </div>
 </script>
-<!-- 
+    <!-- 
     @name:      List/Table View
     @view:      Bizagi.App.Views.TableView
 -->
-<script type="text/x-jquery-tmpl" id="TableViewTmpl">
+    <script type="text/x-jquery-tmpl" id="TableViewTmpl">
     <div class='row biz-ex-table-view'></div>
 </script>
-<script type="text/x-jquery-tmpl" id="TableViewTmplItem">
+    <script type="text/x-jquery-tmpl" id="TableViewTmplItem">
     <div>
-        {{if hasPublishedSubPages}}
+        {{if subPages}} 
         <a href="dialog/diagram/${id}" class='columns large-4 biz-ex-box-process biz-ex-dialog biz-ex-navigate' data-id="${id}">
         {{else}}
             <a href="diagram/${id}" class='columns large-4 biz-ex-box-process biz-ex-navigate'>
@@ -1218,14 +1183,14 @@
         </a>
     </div>
 </script>
-<script type="text/x-jquery-tmpl" id="TableViewTmplExPanel">
+    <script type="text/x-jquery-tmpl" id="TableViewTmplExPanel">
         <div>    
             <div class="biz-ex-panel">
                 <div class="biz-ex-img">
-                    <img src="${Bizagi.Util.serializeResourceURL(page.image)}" alt="${page.name}" class="absolute-center biz-ex-diagram-img-fit">
+                    <img src="${Bizagi.Util.serializeResourceURL(page.image)}" alt="${page.name}" class="absolute-center">
                 </div>
                 <h2 class="truncate-text biz-ex-diagram-name">${page.name}</h2>
-                {{if page.hasSubPages}}
+                {{if page.subPages}}
                     <p class="biz-ex-diagram-sub">${Bizagi.Util.getSubProcesses(page)} ${Bizagi.Util.getResource('subProcess')}</p>
                 {{/if}}
             </div>
@@ -1251,309 +1216,238 @@
                         {{/if}}
                     {{/if}}
                 </div>                        
-                {{if page.hasSubPages}}
+                {{if page.subPages}}
                     <p class="biz-ex-diagram-sub">${Bizagi.Util.getResource('contain')} ${Bizagi.Util.getSubProcesses(page)} ${Bizagi.Util.getResource('subProcess')}</p>                   
                 {{/if}}
             </div>
         </div>
 </script>
-<div id="lessParser" class="biz-ex-hide"> 
+    <div id="lessParser" class="biz-ex-hide">
 
-/*******************************************************************************
-    @theme: Export Process Viewer
-    @version: 2.0.0
-    @author: UX TEAM at Bizagi
-    @description: Custom theme CSS rules for Process Viewer
-********************************************************************************/
+        /*******************************************************************************
+        @theme: Export Process Viewer
+        @version: 1.0.0
+        @author: UX TEAM at Bizagi
+        @description: Custom theme CSS rules for Process Viewer
+        ********************************************************************************/
 
-/* ==========================================================================
-   Export process viewer components
-   ========================================================================== */
+        /* ==========================================================================
+        Export process viewer components
+        ========================================================================== */
 
-/* General
-   ========================================================================== */
+        /* General
+        ========================================================================== */
 
-::-webkit-input-placeholder { color: @navigation-link; }
+        ::-webkit-input-placeholder { color: @navigation-link; }
 
-::-moz-placeholder { color: @navigation-link; }
+        ::-moz-placeholder { color: @navigation-link; }
 
-:-ms-input-placeholder { color: @navigation-link; }
+        :-ms-input-placeholder { color: @navigation-link; }
 
-a{
-    color:@navigation-link;
-}
+        #app-container-view { background: lighten(@navigation, 5%); }
 
-a:hover{
-    color:darken(@navigation-link, 30%) !important;
-}
+        .ui-tooltip.biz-ex-tooltip,
+        .ui-tooltip.biz-ex-tooltip-nav {
+        background: @content;
+        color: @content-text;
+        }
 
-h1, h2, h3, h4, h5, h6,
-p, span, div,
-body, html{
-    font-family: @font-family, Helvetica, Arial, sans-serif;
-}
+        .ui-tooltip.biz-ex-tooltip:after { border-left-color: @content; }
 
+        .ui-tooltip.biz-ex-tooltip-nav:after { border-right-color: @content; }
 
-.biz-ex-dialog-content {
-    font-family: @font-family, Helvetica, Arial, sans-serif !important;
+        .biz-gradien-scroll {
+        background: -webkit-linear-gradient(top, transparent 0%, darken(@navigation, 10%) 100%);
+        background: -moz-linear-gradient(top, transparent 0%, darken(@navigation, 10%) 100%);
+        background: linear-gradient(to bottom, transparent 0%, darken(@navigation, 10%) 100%);
+        }
 
-    ul,
-    li,
-    span,
-    table,
-    td,
-    p,
-    h2,
-    h1,
-    div {
-        font-family: @font-family, Helvetica, Arial, sans-serif !important;
-    }
-}
+        /* Header
+        ========================================================================== */
 
-#app-container-view { background: lighten(@navigation, 5%); }
-
-.ui-tooltip.biz-ex-tooltip,
-.ui-tooltip.biz-ex-tooltip-nav {
-    background: @content;
-    color: @content-text;
-}
-
-.ui-tooltip.biz-ex-tooltip:after { border-left-color: @content; }
-
-.ui-tooltip.biz-ex-tooltip-nav:after { border-right-color: @content; }
-
-.biz-gradien-scroll {
-    background: -webkit-linear-gradient(top, transparent 0%, darken(@navigation, 10%) 100%);
-    background:    -moz-linear-gradient(top, transparent 0%, darken(@navigation, 10%) 100%);
-    background: linear-gradient(to bottom, transparent 0%, darken(@navigation, 10%) 100%);
-}
-
-/* Header
-   ========================================================================== */
-
-   .bz-icon{
-       color:@icon-color;
-   }
-
-
-
-.biz-ex-header-view {
-    border-bottom-color: @header-border;
-    a {
+        .biz-ex-header-view {
+        border-bottom-color: @header-border;
+        a {
         color: @header-link;
         &:hover { color: darken(@header-link, 5%); }
-    }
-}
+        }
+        }
 
-.lt-ie9 .biz-ex-header-view{
-	background:darken(@header, 6%);
-}
+        .lt-ie9 .biz-ex-header-view{
+        background:darken(@header, 6%);
+        }
 
-.biz-ex-logo {
-    background:darken(@header, 6%);
-    border-right-color: @header-border;
-    border-bottom-color: @header-border;
-}
+        .biz-ex-logo {
+        background:darken(@header, 6%);
+        border-right-color: @header-border;
+        border-bottom-color: @header-border;
+        }
 
-.biz-ex-top-nav {
-    background: darken(@header, 6%);
-}
+        .biz-ex-top-nav {
+        background: darken(@header, 6%);
+        }
 
-.biz-ex-back-process.biz-ex-navigate {
-    border-color: @header-border;
-    background: transparent;
-}
+        .biz-ex-back-process.biz-ex-navigate {
+        border-color: @header-border;
+        background: transparent;
+        }
 
-.biz-ex-title-diagram { color: @header-link; }
+        .biz-ex-title-diagram { color: @header-link; }
 
-/* Navigation sidebar
-   ========================================================================== */
+        /* Navigation sidebar
+        ========================================================================== */
 
-#sidebar,
-.biz-ex-navigation-left { background: darken(@navigation, 5%); }
+        #sidebar,
+        .biz-ex-navigation-left { background: darken(@navigation, 5%); }
 
-.biz-ex-navigation-left { border-right-color: @navigation-border; }
+        .biz-ex-navigation-left { border-right-color: @navigation-border; }
 
-.biz-ex-search-input,
-.biz-ex-icon-search { background-color: darken(@navigation, 10%); }
+        .biz-ex-search-input,
+        .biz-ex-icon-search { background-color: darken(@navigation, 10%); }
 
-.biz-ex-search-input { color: @navigation-link; }
+        .biz-ex-search-input { color: @navigation-link; }
 
-.nav-bar {
-    border-top-color: @navigation-border;
-    .biz-ex-sub-page a { border-bottom-color: @navigation-border; }
-    .biz-ex-sub-page.active { background: fade(@navigation-link, 25%); }
-    a {
+        .nav-bar {
+        border-top-color: @navigation-border;
+        .biz-ex-sub-page a { border-bottom-color: @navigation-border; }
+        .biz-ex-sub-page.active { background: fade(@navigation-link, 25%); }
+        a {
         color: @navigation-link;
         &:hover {
-            background: darken(@navigation, 10%);
-            color: darken(@navigation-link, 5%);
+        background: darken(@navigation, 10%);
+        color: darken(@navigation-link, 5%);
         }
-    }
-}
+        }
+        }
 
-.biz-ex-active.active > a {
-    border-top-color: @navigation-border !important;
-    color: darken(@navigation-link, 40%);
-}
+        .biz-ex-active.active > a {
+        border-top-color: @navigation-border !important;
+        color: darken(@navigation-link, 40%);
+        }
 
-.biz-ex-active.active .biz-ex-ind-container,
-.biz-ex-ind-container { border-right-color: transparent; }
+        .biz-ex-ind-container { border-right-color: @navigation-border; }
 
-/* Search
-   ========================================================================== */
+        /* Search
+        ========================================================================== */
 
-.biz-ex-search-options {
-    box-shadow: 0 1px 1px darken(@content, 25%);
-    background: fade(@content, 90%);
-}
+        .biz-ex-search-options {
+        box-shadow: 0 1px 1px darken(@content, 25%);
+        background: fade(@content, 90%);
+        }
 
-.biz-ex-search-options:after {
-    border-bottom-color: fade(@content, 90%);
-}
+        .biz-ex-search-options:after {
+        border-bottom-color: fade(@content, 90%);
+        }
 
-.ui-autocomplete {
-    box-shadow: 0 1px 1px darken(@content, 25%);
-    background: fade(@content, 90%);
-}
+        .ui-autocomplete {
+        box-shadow: 0 1px 1px darken(@content, 25%);
+        background: fade(@content, 90%);
+        }
 
-.biz-ex-result-name,
-.biz-ex-result-container {
-    color: @content-text !important;
-}
+        .biz-ex-result-name,
+        .biz-ex-result-container {
+        color: @content-text !important;
+        }
 
-.biz-ex-search-option { color: @navigation-link; }
+        .biz-ex-search-option { color: @navigation-link; }
 
-.biz-ex-search-option.biz-ex-active { color: @content-text; }
+        .biz-ex-search-option.biz-ex-active { color: @content-text; }
 
-/* Content
-   ========================================================================== */
+        /* Content
+        ========================================================================== */
 
-.biz-ex-diagram-data { background: @content; }
+        .biz-ex-diagram-data { background: @content; }
 
-.no-touch .bix-ex-figure-panel {
-    border-color: @content-border;
-    background: @content;
-}
+        .no-touch .bix-ex-figure-panel {
+        border-color: @content-border;
+        background: @content;
+        }
 
-h1, h2, h3, h4, h5, h6,
-.biz-ex-diagram-desc-container { color: @content-text; }
+        h1, h2, h3, h4, h5, h6,
+        .biz-ex-diagram-desc-container { color: @content-text; }
 
-.biz-ex-img,
-.biz-ex-diagram-desc:last-child { border-color: lighten(@content-border, 25%); }
+        .biz-ex-img,
+        .biz-ex-diagram-desc:last-child { border-color: lighten(@content-border, 25%); }
 
+        .biz-ex-expand-button-span {
+        border-color: @navigation-border;
+        background: @content;
+        }
 
-.biz-ex-expand-button-span {
-    border-color: @navigation-border !important;
-    background: @content;
-    color:@navigation-link;
-}
+        /* Modal window
+        ========================================================================== */
 
-.biz-ex-badge{
-    border-color: @navigation-border !important;
-}
+        .reveal-modal { border-color: @content-border }
 
-.biz-ex-navigate:hover .biz-ex-expand-button-span{
-    color:lighten(@navigation-link, 30%) !important;
-}
+        .biz-ex-dialog-header { background: lighten(@header, 25%); }
 
-.biz-ex-expand-button-span::after{
-    border-top-color: lighten(@navigation-link, 30%) !important;
-}
+        .biz-ex-dialog-details > dt,
+        .biz-ex-dialog-details > dd,
+        .biz-ex-dialog-properties .biz-ex-dialog-process-title,
+        .biz-ex-performers-list-as-contact span,
+        .biz-ex-performers-list-as-contact span:nth-child(even) { color: @content-text; }
 
-.no-touch .bix-ex-figure-panel:hover{
-    border-color: @hover-dashboard-panel;
-}
+        .biz-ex-dialog-line { border-color: @content-border; }
 
-/* Modal window
-   ========================================================================== */
+        .biz-ex-performer-tag { background: darken(@content, 10%); }
 
-.reveal-modal { border-color: @content-border }
+        .biz-ex-dialog-content.biz-ex-dialog-properties {
+        bottom: 4px;
+        border-top-color: @content-border;
+        }
 
-.biz-ex-dialog-header { background: lighten(@header, 25%); }
-
-.biz-ex-dialog-details > dt, 
-.biz-ex-dialog-details > dd,
-.biz-ex-dialog-properties .biz-ex-dialog-process-title,
-.biz-ex-performers-list-as-contact span,
-.biz-ex-performers-list-as-contact span:nth-child(even) { color: @content-text; }
-
-.biz-ex-dialog-line { border-color: @content-border; }
-
-.biz-ex-performer-tag { background: darken(@content, 10%); }
-
-.biz-ex-dialog-content.biz-ex-dialog-properties {
-    bottom: 4px;
-    border-top-color: @content-border;
-}
-
-.alert-box {
-    background: darken(@content, 10%) !important;
-    color: @content-text;
-}
-
-.alert-box.biz-ex-alert-message{
-    background: lighten(@alert-box-message, 40%) !important;
-    color: darken(@alert-box-message, 20%);
-}
-
-/* GUID list
-   ========================================================================== */
-
-.biz-ex-guid-wrapper { 
-    border-color: @content-border;
-    background: @content;
-    color: @content-text;
-}
-
-.biz-ex-guid-img { border-color: lighten(@content-border, 25%); }
-
-/* Zoom
-   ========================================================================== */
-
-.zoom-hotspot:hover {
-    border-color: transparent;
-    background-color: fade(@navigation, 50%);
-}
-
-.zoom-pane-preview {
-    border-color: @header-border; 
-}
-
-.zoom-pane-preview .zoom-pane-square {
-    border-color: @navigation-border;
-    background: fade(@navigation, 50%);
-}
-
-.zoom-pane-preview .zoom-pane-square.ui-draggable-dragging {
-    border-color: @header-border;
-    background: fade(@header, 50%);
-}
-
-.zoom-error-image{
-    color: @content-text;
-    span{
+        .alert-box {
+        background: darken(@content, 10%) !important;
         color: @content-text;
-    }
-}
+        }
 
-/* ==========================================================================
-   Mixins
-   ========================================================================== */
+        /* GUID list
+        ========================================================================== */
 
-.gradient(@start: #EEE, @stop: #FFF) {
-    background: @start;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, @stop), color-stop(100%, @start));
-    background-image: -webkit-linear-gradient(@stop, @start);
-    background-image: -moz-linear-gradient(@stop, @start);
-    background-image: -o-linear-gradient(@stop, @start);
-    background-image: linear-gradient(@stop, @start);
-}
+        .biz-ex-guid-wrapper {
+        border-color: @content-border;
+        background: @content;
+        color: @content-text;
+        }
 
+        .biz-ex-guid-img { border-color: lighten(@content-border, 25%); }
 
+        /* Zoom
+        ========================================================================== */
 
-@import "theme-client.css";
+        .zoom-hotspot:hover {
+        border-color: transparent;
+        background-color: fade(@navigation, 50%);
+        }
 
-</div>
-	</body>
+        .zoom-pane-preview {
+        border-color: @header-border;
+        }
+
+        .zoom-pane-preview .zoom-pane-square {
+        border-color: @navigation-border;
+        background: fade(@navigation, 50%);
+        }
+
+        .zoom-pane-preview .zoom-pane-square.ui-draggable-dragging {
+        border-color: @header-border;
+        background: fade(@header, 50%);
+        }
+
+        /* ==========================================================================
+        Mixins
+        ========================================================================== */
+
+        .gradient(@start: #EEE, @stop: #FFF) {
+        background: @start;
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, @stop), color-stop(100%, @start));
+        background-image: -webkit-linear-gradient(@stop, @start);
+        background-image: -moz-linear-gradient(@stop, @start);
+        background-image: -o-linear-gradient(@stop, @start);
+        background-image: linear-gradient(@stop, @start);
+        }
+
+    </div>
+</body>
+
 </html>

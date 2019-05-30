@@ -47,7 +47,7 @@
 </nav>
 <div class="panel-header panel-header-lg">
   <app-time-big [time]="time" [flag]="flag" [atividades]="timeOnTheBig" [missoes]="missoes"
-  (respostaVoltar)="receberVoltarDataset($event)"></app-time-big>
+  (respostaVoltar)="receberVoltarDataset($event)" (respostaModal)="receberModal($event)"></app-time-big>
 </div>
 
 <div class="main-content">

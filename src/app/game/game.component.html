@@ -93,9 +93,9 @@
         aria-selected="true">Ranking</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="lideres-tab" data-toggle="tab" href="#lideres" role="tab" aria-controls="Lideres"
-          aria-selected="true">Líderes</a>
-      </li>
+      <a class="nav-link" id="lideres-tab" data-toggle="tab" href="#lideres" role="tab" aria-controls="Lideres"
+        aria-selected="true">Líderes</a>
+    </li>
   </ul>
 </div>
 
@@ -110,8 +110,7 @@
               1ª Temporada
             </div>
             <div *ngIf="primeira" class="col-md-12">
-              <a class="btn btn-blue" target="_blank" href="assets/1aTemporada-bpmn/index.html" role="button">BPMN - 1ª
-                Temporada</a>
+              <a class="btn btn-blue" target="_blank" href="assets/1aTemporada-bpmn/index.html" role="button">Fluxo de Atividades Interativo</a>
               <br>
               <div class="chevron">Missão Passport</div>
               <div class="chevron">Missão Curiosity</div>
@@ -132,9 +131,7 @@
             </div>
             <div *ngIf="segunda" class="col-md-12">
               <a class="btn btn-blue" target="_blank"
-                href="assets/2aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52" role="button">BPMN -
-                2ª
-                Temporada</a>
+                href="assets/2aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52" role="button">Fluxo de Atividades Interativo</a>
               <br>
               <div class="chevron">Missão Passport</div>
               <div class="chevron">Missão Curiosity</div>
@@ -148,8 +145,12 @@
         <div (click)="toogleTemps(3)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
           <div class="row">
             <div style="cursor: pointer;" class="col-md-12">
-              3ª Temporada
+              <div style="cursor: pointer;" class="col-md-12">
+                3ª Temporada
+              </div>
               <div *ngIf="terceira" class="col-md-12">
+                <a class="btn btn-blue" target="_blank"
+                  href="../../assets/3aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52">Fluxo de Atividades Interativo</a>
                 <br>
                 <div class="chevron">Missão Passport</div>
                 <div class="chevron">Missão Curiosity</div>
@@ -244,7 +245,38 @@
       </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="guias" role="tabpanel" aria-labelledby="guias-tab"></div>
+  <div class="tab-pane fade" id="guias" role="tabpanel" aria-labelledby="guias-tab">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <button type="button" class="btn btn-primary btn-lg btn-costumized">
+            Sumário
+          </button>
+          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Perfis%20do%20Time%20e%20do%20Jogador%2Fperfis.html?alt=media&token=940e4204-8620-42e2-9ee9-83abfdbab65c"
+              target="_blank">Perfil do ambiente de time e individual</a></button>
+        </div>
+        <div class="col-sm">
+          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Pontua%C3%A7%C3%A3o%20do%20time%20e%20do%20Jogador%2Fpontuacao.html?alt=media&token=72870ac8-0cdf-4c13-852b-1e711774e927"
+              target="_blank">Pontuação do time e
+              individual</a></button>
+          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Moeda%20de%20troca%2Fmoeda.html?alt=media&token=a723e748-62cc-4fef-a81b-8da55ab3b4d4"
+              target="_blank">Moeda</a></button>
+        </div>
+        <div class="col-sm">
+          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Conquista%20de%20time%20e%20do%20Jogador%2Fconquista.html?alt=media&token=8ab96e08-cd7a-4013-8f1b-c5911a99d18b"
+              target="_blank">Conquista de time e
+              individuais</a></button>
+          <button type="button" class="btn btn-primary btn-lg btn-costumized">
+            <a href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Atribui%C3%A7%C3%A3o%20de%20Nota%2Fnota.html?alt=media&token=cfd9afdf-6c25-4be1-8df5-a3c118cb9708"
+              target="_blank">Nota</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="tab-pane fade" id="loja" role="tabpanel" aria-labelledby="loja-tab"></div>
   <div class="tab-pane fade" id="conta" role="tabpanel" aria-labelledby="conta-tab"></div>
   <div class="tab-pane fade" id="ranking" role="tabpanel" aria-labelledby="ranking-tab">
@@ -258,28 +290,31 @@
           </div>
         </div> -->
         <div style="margin-bottom: 30px" class="col-md-12">
-            <iframe width="100%" height="806.0325203252032" seamless frameborder="0" scrolling="yes" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1620157974&amp;format=interactive"></iframe>
+          <iframe width="100%" height="806.0325203252032" seamless frameborder="0" scrolling="yes"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1620157974&amp;format=interactive"></iframe>
         </div>
         <div style="margin-bottom: 30px" class="col-md-12">
-            <iframe width="100%" height="1136" seamless frameborder="0" scrolling="yes" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1764165277&amp;format=interactive"></iframe>
+          <iframe width="100%" height="1136" seamless frameborder="0" scrolling="yes"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1764165277&amp;format=interactive"></iframe>
         </div>
         <div class="col-md-12">
-            <iframe width="100%" height="760.8001221681461" seamless frameborder="0" scrolling="yes" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1785083169&amp;format=interactive"></iframe>
+          <iframe width="100%" height="760.8001221681461" seamless frameborder="0" scrolling="yes"
+            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1785083169&amp;format=interactive"></iframe>
         </div>
       </div>
     </div>
   </div>
   <div class="tab-pane fade" id="lideres" role="tabpanel" aria-labelledby="lideres-tab">
-      <h3 class="title" align="center">1ª Temporada</h3>
-      <hr>
-      <br>
-      <div class="row">
-        <div *ngFor="let lider of lideres" class="col-md-4" align="center">
-          <img title="Medalha de Serviços Relevantes" width="100" height="100" src="{{lider.img}}">
-          <p><b>{{lider.nome}}</b></p>
-          <p><img src="assets/img/medal.png"></p>
-          <p>{{lider.time}}</p>
-        </div>
+    <h3 class="title" align="center">1ª Temporada</h3>
+    <hr>
+    <br>
+    <div class="row">
+      <div *ngFor="let lider of lideres" class="col-md-4" align="center">
+        <img title="Medalha de Serviços Relevantes" width="100" height="100" src="{{lider.img}}">
+        <p><b>{{lider.nome}}</b></p>
+        <p><img src="assets/img/medal.png"></p>
+        <p>{{lider.time}}</p>
       </div>
+    </div>
   </div>
 </div>

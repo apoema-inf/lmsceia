@@ -26,6 +26,10 @@ tr:nth-child(even) {
   margin-top: 20px;
 }
 
+a {
+  color: whitesmoke;
+}
+
 .btn-blue {
   background-color: rgb(14, 92, 209);
 }
@@ -67,4 +71,11 @@ img {
 .bg-orange {
   background-image: linear-gradient(to bottom right, #ffc14d, #e69500);
   color: whitesmoke;
+}
+
+.btn-costumized {
+  width: 300px !important;
+  height: 80px !important; 
+  white-space: normal !important; 
+  font-size: 20px !important;
 }

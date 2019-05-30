@@ -24,7 +24,7 @@ export class SelfServiceComponent implements OnInit {
       this.getCursoSelected(params.curso);
     });
     this.router.events.subscribe((event) => {
-      if(event.url) console.log(event.url);
+      console.log(event);
       this.selfChild.loadLogoImage();
     });
   }

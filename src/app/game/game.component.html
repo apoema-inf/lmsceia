@@ -1,320 +1,308 @@
 <div class="panel-header">
-  <div class="header text-center">
-    <h2 class="title">Game</h2>
-  </div>
-</div>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-      aria-selected="true">Loja</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-    <div class="row">
-      <div class="col-md-6">
-        <h5>Itens no Mercador</h5>
-        <div *ngFor="let item of itens">
-          <p><b>Nome: </b>{{item.nome}}</p>
-          <p><b>Descrição: </b>{{item.descricao}}</p>
-          <p><b>Preço: </b>{{item.preco}} x <img width="20" title="I9coins" src="https://icon-icons.com/icons2/389/PNG/32/Coins_96x96-32_37900.png"></p>
-          <button style="margin-left: 20px" type="button" (click)="saque(item.preco, item.item_id)">Comprar</button>
-          <hr>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div *ngFor="let conta of contas">
-          <table>
-            <tr>
-              <th>Conta do {{time?.nome}}</th>
-            </tr>
-            <tr>
-              <td>Saldo</td>
-              <td>{{conta.saldo}}</td>
-            </tr>
-          </table>
-        </div>
-        <br>
-        <form>
-          <input [(ngModel)]="valor" type="number" placeholder="Valor" name="valor" id="valor" maxlength="7">
-        </form>
-        <br>
-        <button style="margin-right: 20px" type="button" (click)="credita()">+</button>
-        <p style="color: red">{{msg}}</p>
-
-        <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Inventário
-                </button>
-              </h2>
-            </div>
-        
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Extrato
-                </button>
-              </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="competicao-tab" data-toggle="tab" href="#competicao" role="tab"
-        aria-controls="competicao" aria-selected="true">Competição</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="loja-tab" data-toggle="tab" href="#loja" role="tab" aria-controls="loja"
-        aria-selected="true">Loja</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="conta-tab" data-toggle="tab" href="#conta" role="tab" aria-controls="conta"
-        aria-selected="false">Conta</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="guias-tab" data-toggle="tab" href="#guias" role="tab" aria-controls="guias"
-        aria-selected="true">Guias</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="ranking-tab" data-toggle="tab" href="#ranking" role="tab" aria-controls="Ranking"
-        aria-selected="true">Ranking</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="lideres-tab" data-toggle="tab" href="#lideres" role="tab" aria-controls="Lideres"
-        aria-selected="true">Líderes</a>
-    </li>
-  </ul>
+    <div class="header text-center">
+        <h2 class="title">Game</h2>
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="competicao-tab" data-toggle="tab" href="#competicao" role="tab"
+               aria-controls="competicao" aria-selected="true">Competição</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="loja-tab" data-toggle="tab" href="#loja" role="tab" aria-controls="loja"
+               aria-selected="true">Loja</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="conta-tab" data-toggle="tab" href="#conta" role="tab" aria-controls="conta"
+               aria-selected="false">Conta</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="guias-tab" data-toggle="tab" href="#guias" role="tab" aria-controls="guias"
+               aria-selected="true">Guias</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="ranking-tab" data-toggle="tab" href="#ranking" role="tab" aria-controls="Ranking"
+               aria-selected="true">Ranking</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="lideres-tab" data-toggle="tab" href="#lideres" role="tab" aria-controls="Lideres"
+               aria-selected="true">Líderes</a>
+        </li>
+    </ul>
 </div>
 
 <div class="tab-content container" id="myTabContent">
-  <div class="tab-pane fade show active" id="competicao" role="tabpanel" aria-labelledby="competicao-tab">
-    <div class="row d-flex justify-content-center">
+    <div class="tab-pane fade show active" id="competicao" role="tabpanel" aria-labelledby="competicao-tab">
+        <div class="row d-flex justify-content-center">
 
-      <div [ngClass]="{'col-md-12': primeira}" class="col-md-4">
-        <div (click)="toogleTemps(1)" class="card temp-card shadow p-3 mb-5 bg-orange rounded  ">
-          <div class="row">
-            <div style="cursor: pointer;" class="col-md-12">
-              1ª Temporada
+            <div [ngClass]="{'col-md-12': primeira}" class="col-md-4">
+                <div (click)="toogleTemps(1)" class="card temp-card shadow p-3 mb-5 bg-orange rounded  ">
+                    <div class="row">
+                        <div style="cursor: pointer;" class="col-md-12">
+                            1ª Temporada
+                        </div>
+                        <div *ngIf="primeira" class="col-md-12">
+                            <a class="btn btn-blue" target="_blank" href="assets/1aTemporada-bpmn/index.html"
+                               role="button">Fluxo de Atividades Interativo</a>
+                            <br>
+                            <div class="chevron">Missão Passport</div>
+                            <div class="chevron">Missão Curiosity</div>
+                            <div class="chevron">Missão Discovery</div>
+                            <div class="chevron">Missão Startup</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div *ngIf="primeira" class="col-md-12">
-              <a class="btn btn-blue" target="_blank" href="assets/1aTemporada-bpmn/index.html" role="button">Fluxo de Atividades Interativo</a>
-              <br>
-              <div class="chevron">Missão Passport</div>
-              <div class="chevron">Missão Curiosity</div>
-              <div class="chevron">Missão Discovery</div>
-              <div class="chevron">Missão Startup</div>
+        </div>
+        <div class="row">
+            <div [ngClass]="{'col-md-12': segunda}" class="col-md-4">
+                <div (click)="toogleTemps(2)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+                    <div class="row">
+                        <div style="cursor: pointer;" class="col-md-12">
+                            2ª Temporada
+                        </div>
+                        <div *ngIf="segunda" class="col-md-12">
+                            <a class="btn btn-blue" target="_blank"
+                               href="assets/2aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52"
+                               role="button">Fluxo de Atividades Interativo</a>
+                            <br>
+                            <div class="chevron">Missão Passport</div>
+                            <div class="chevron">Missão Curiosity</div>
+                            <div class="chevron">Missão Discovery</div>
+                            <div class="chevron">Missão Startup</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{'col-md-12': terceira}" class="col-md-4">
+                <div (click)="toogleTemps(3)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+                    <div class="row">
+                        <div style="cursor: pointer;" class="col-md-12">
+                            <div style="cursor: pointer;" class="col-md-12">
+                                3ª Temporada
+                            </div>
+                            <div *ngIf="terceira" class="col-md-12">
+                                <a class="btn btn-blue" target="_blank"
+                                   href="../../assets/3aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52">Fluxo
+                                    de Atividades Interativo</a>
+                                <br>
+                                <div class="chevron">Missão Passport</div>
+                                <div class="chevron">Missão Curiosity</div>
+                                <div class="chevron">Missão Discovery</div>
+                                <div class="chevron">Missão Startup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{'col-md-12': quarta}" class="col-md-4">
+                <div (click)="toogleTemps(4)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+                    <div class="row">
+                        <div style="cursor: pointer;" class="col-md-12">
+                            4ª Temporada
+                            <div *ngIf="quarta" class="col-md-12">
+                                <br>
+                                <div class="chevron">Missão Passport</div>
+                                <div class="chevron">Missão Curiosity</div>
+                                <div class="chevron">Missão Discovery</div>
+                                <div class="chevron">Missão Startup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{'col-md-12': quinta}" class="col-md-4">
+                <div (click)="toogleTemps(5)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+                    <div class="row">
+                        <div class="col-md-12">
+                            5ª Temporada
+                            <div style="cursor: pointer;" *ngIf="quinta" class="col-md-12">
+                                <br>
+                                <div class="chevron">Missão Passport</div>
+                                <div class="chevron">Missão Curiosity</div>
+                                <div class="chevron">Missão Discovery</div>
+                                <div class="chevron">Missão Startup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{'col-md-12': sexta}" class="col-md-4">
+                <div (click)="toogleTemps(6)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+                    <div class="row">
+                        <div class="col-md-12">
+                            6ª Temporada
+                            <div style="cursor: pointer;" *ngIf="sexta" class="col-md-12">
+                                <br>
+                                <div class="chevron">Missão Passport</div>
+                                <div class="chevron">Missão Curiosity</div>
+                                <div class="chevron">Missão Discovery</div>
+                                <div class="chevron">Missão Startup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{'col-md-12': setima}" class="col-md-4">
+                <div (click)="toogleTemps(7)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
+                    <div class="row">
+                        <div style="cursor: pointer;" class="col-md-12">
+                            7ª Temporada
+                            <div *ngIf="setima" class="col-md-12">
+                                <br>
+                                <div class="chevron">Missão Passport</div>
+                                <div class="chevron">Missão Curiosity</div>
+                                <div class="chevron">Missão Discovery</div>
+                                <div class="chevron">Missão Startup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div [ngClass]="{'col-md-12': oitava}" class="col-md-4">
+                <div (click)="toogleTemps(8)" class="card temp-card shadow p-3 mb-5 bg-orange rounded ">
+                    <div class="row">
+                        <div style="cursor: pointer;" class="col-md-12">
+                            8ª Temporada
+                            <div *ngIf="oitava" class="col-md-12">
+                                <br>
+                                <div class="chevron">Missão Passport</div>
+                                <div class="chevron">Missão Curiosity</div>
+                                <div class="chevron">Missão Discovery</div>
+                                <div class="chevron">Missão Startup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="guias" role="tabpanel" aria-labelledby="guias-tab">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-costumized">
+                        Sumário
+                    </button>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+                            href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Perfis%20do%20Time%20e%20do%20Jogador%2Fperfis.html?alt=media&token=940e4204-8620-42e2-9ee9-83abfdbab65c"
+                            target="_blank">Perfil do ambiente de time e individual</a></button>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+                            href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Pontua%C3%A7%C3%A3o%20do%20time%20e%20do%20Jogador%2Fpontuacao.html?alt=media&token=72870ac8-0cdf-4c13-852b-1e711774e927"
+                            target="_blank">Pontuação do time e
+                        individual</a></button>
+                </div>
 
+                <div class="col-xl-4 col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+                            href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Moeda%20de%20troca%2Fmoeda.html?alt=media&token=a723e748-62cc-4fef-a81b-8da55ab3b4d4"
+                            target="_blank">Moeda</a></button>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
+                            href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Conquista%20de%20time%20e%20do%20Jogador%2Fconquista.html?alt=media&token=8ab96e08-cd7a-4013-8f1b-c5911a99d18b"
+                            target="_blank">Conquista de time e
+                        individuais</a></button>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-costumized">
+                        <a href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Atribui%C3%A7%C3%A3o%20de%20Nota%2Fnota.html?alt=media&token=cfd9afdf-6c25-4be1-8df5-a3c118cb9708"
+                           target="_blank">Nota</a></button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
     </div>
-    <div class="row">
-      <div [ngClass]="{'col-md-12': segunda}" class="col-md-4">
-        <div (click)="toogleTemps(2)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-          <div class="row">
-            <div style="cursor: pointer;" class="col-md-12">
-              2ª Temporada
-            </div>
-            <div *ngIf="segunda" class="col-md-12">
-              <a class="btn btn-blue" target="_blank"
-                href="assets/2aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52" role="button">Fluxo de Atividades Interativo</a>
-              <br>
-              <div class="chevron">Missão Passport</div>
-              <div class="chevron">Missão Curiosity</div>
-              <div class="chevron">Missão Discovery</div>
-              <div class="chevron">Missão Startup</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div [ngClass]="{'col-md-12': terceira}" class="col-md-4">
-        <div (click)="toogleTemps(3)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-          <div class="row">
-            <div style="cursor: pointer;" class="col-md-12">
-              <div style="cursor: pointer;" class="col-md-12">
-                3ª Temporada
-              </div>
-              <div *ngIf="terceira" class="col-md-12">
-                <a class="btn btn-blue" target="_blank"
-                  href="../../assets/3aTemporada/index.html#diagram/6445c72c-effb-4958-9a08-bb787c172e52">Fluxo de Atividades Interativo</a>
-                <br>
-                <div class="chevron">Missão Passport</div>
-                <div class="chevron">Missão Curiosity</div>
-                <div class="chevron">Missão Discovery</div>
-                <div class="chevron">Missão Startup</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div [ngClass]="{'col-md-12': quarta}" class="col-md-4">
-        <div (click)="toogleTemps(4)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-          <div class="row">
-            <div style="cursor: pointer;" class="col-md-12">
-              4ª Temporada
-              <div *ngIf="quarta" class="col-md-12">
-                <br>
-                <div class="chevron">Missão Passport</div>
-                <div class="chevron">Missão Curiosity</div>
-                <div class="chevron">Missão Discovery</div>
-                <div class="chevron">Missão Startup</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div [ngClass]="{'col-md-12': quinta}" class="col-md-4">
-        <div (click)="toogleTemps(5)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-          <div class="row">
-            <div class="col-md-12">
-              5ª Temporada
-              <div style="cursor: pointer;" *ngIf="quinta" class="col-md-12">
-                <br>
-                <div class="chevron">Missão Passport</div>
-                <div class="chevron">Missão Curiosity</div>
-                <div class="chevron">Missão Discovery</div>
-                <div class="chevron">Missão Startup</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div [ngClass]="{'col-md-12': sexta}" class="col-md-4">
-        <div (click)="toogleTemps(6)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-          <div class="row">
-            <div class="col-md-12">
-              6ª Temporada
-              <div style="cursor: pointer;" *ngIf="sexta" class="col-md-12">
-                <br>
-                <div class="chevron">Missão Passport</div>
-                <div class="chevron">Missão Curiosity</div>
-                <div class="chevron">Missão Discovery</div>
-                <div class="chevron">Missão Startup</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div [ngClass]="{'col-md-12': setima}" class="col-md-4">
-        <div (click)="toogleTemps(7)" class="card temp-card shadow p-3 mb-5 bg-orange rounded">
-          <div class="row">
-            <div style="cursor: pointer;" class="col-md-12">
-              7ª Temporada
-              <div *ngIf="setima" class="col-md-12">
-                <br>
-                <div class="chevron">Missão Passport</div>
-                <div class="chevron">Missão Curiosity</div>
-                <div class="chevron">Missão Discovery</div>
-                <div class="chevron">Missão Startup</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="tab-pane fade" id="loja" role="tabpanel" aria-labelledby="loja-tab">
+
     </div>
-    <div class="row d-flex justify-content-center">
-      <div [ngClass]="{'col-md-12': oitava}" class="col-md-4">
-        <div (click)="toogleTemps(8)" class="card temp-card shadow p-3 mb-5 bg-orange rounded ">
-          <div class="row">
-            <div style="cursor: pointer;" class="col-md-12">
-              8ª Temporada
-              <div *ngIf="oitava" class="col-md-12">
-                <br>
-                <div class="chevron">Missão Passport</div>
-                <div class="chevron">Missão Curiosity</div>
-                <div class="chevron">Missão Discovery</div>
-                <div class="chevron">Missão Startup</div>
-              </div>
+    <div class="tab-pane fade" id="conta" role="tabpanel" aria-labelledby="conta-tab">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <h5 class="card-title">Saldo do time</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <h5 class="card-title"><strong>Saldo:</strong> {{ userTeamBalance }} <span class="badge badge-pill badge-warning" style="top: -2.0px; position: relative; color: white;">i9Coins</span></h5>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="card-title">Extrato</h5>
+                                </div>
+                                <div class="col-12">
+                                    <div class="table-responsive" style="overflow: hidden !important;">
+                                        <table class="table table-striped loading">
+                                            <thead data-toggle="sticky-onscroll-table">
+                                            <tr>
+                                                <th>Data</th>
+                                                <th>Item</th>
+                                                <th>Descrição</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+                                                <td>23/05</td>
+                                                <td>Ímpeto Glorioso</td>
+                                                <td>blablalbalblal lbalblalblab lablabl</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
     </div>
-  </div>
-  <div class="tab-pane fade" id="guias" role="tabpanel" aria-labelledby="guias-tab">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          <button type="button" class="btn btn-primary btn-lg btn-costumized">
-            Sumário
-          </button>
-          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
-              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Perfis%20do%20Time%20e%20do%20Jogador%2Fperfis.html?alt=media&token=940e4204-8620-42e2-9ee9-83abfdbab65c"
-              target="_blank">Perfil do ambiente de time e individual</a></button>
+    <div class="tab-pane fade" id="ranking" role="tabpanel" aria-labelledby="ranking-tab">
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-md-12">
+                  <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                      [legend]="barChartLegend" [chartType]="barChartType" [colors]="barColors">
+                    </canvas>
+                  </div>
+                </div> -->
+                <div style="margin-bottom: 30px" class="col-md-12">
+                    <iframe width="100%" height="806.0325203252032" seamless frameborder="0" scrolling="yes"
+                            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1620157974&amp;format=interactive"></iframe>
+                </div>
+                <div style="margin-bottom: 30px" class="col-md-12">
+                    <iframe width="100%" height="1136" seamless frameborder="0" scrolling="yes"
+                            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1764165277&amp;format=interactive"></iframe>
+                </div>
+                <div class="col-md-12">
+                    <iframe width="100%" height="760.8001221681461" seamless frameborder="0" scrolling="yes"
+                            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1785083169&amp;format=interactive"></iframe>
+                </div>
+            </div>
         </div>
-        <div class="col-sm">
-          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
-              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Pontua%C3%A7%C3%A3o%20do%20time%20e%20do%20Jogador%2Fpontuacao.html?alt=media&token=72870ac8-0cdf-4c13-852b-1e711774e927"
-              target="_blank">Pontuação do time e
-              individual</a></button>
-          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
-              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Moeda%20de%20troca%2Fmoeda.html?alt=media&token=a723e748-62cc-4fef-a81b-8da55ab3b4d4"
-              target="_blank">Moeda</a></button>
-        </div>
-        <div class="col-sm">
-          <button type="button" class="btn btn-primary btn-lg btn-costumized"><a
-              href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Conquista%20de%20time%20e%20do%20Jogador%2Fconquista.html?alt=media&token=8ab96e08-cd7a-4013-8f1b-c5911a99d18b"
-              target="_blank">Conquista de time e
-              individuais</a></button>
-          <button type="button" class="btn btn-primary btn-lg btn-costumized">
-            <a href="https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/game%2Fguias%2Ftemplate-html-lms%20-%20Atribui%C3%A7%C3%A3o%20de%20Nota%2Fnota.html?alt=media&token=cfd9afdf-6c25-4be1-8df5-a3c118cb9708"
-              target="_blank">Nota</a></button>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="tab-pane fade" id="loja" role="tabpanel" aria-labelledby="loja-tab"></div>
-  <div class="tab-pane fade" id="conta" role="tabpanel" aria-labelledby="conta-tab"></div>
-  <div class="tab-pane fade" id="ranking" role="tabpanel" aria-labelledby="ranking-tab">
-    <div class="container">
-      <div class="row">
-        <!-- <div class="col-md-12">
-          <div style="display: block">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-              [legend]="barChartLegend" [chartType]="barChartType" [colors]="barColors">
-            </canvas>
-          </div>
-        </div> -->
-        <div style="margin-bottom: 30px" class="col-md-12">
-          <iframe width="100%" height="806.0325203252032" seamless frameborder="0" scrolling="yes"
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1620157974&amp;format=interactive"></iframe>
+    <div class="tab-pane fade" id="lideres" role="tabpanel" aria-labelledby="lideres-tab">
+        <h3 class="title" align="center">1ª Temporada</h3>
+        <hr>
+        <br>
+        <div class="row">
+            <div *ngFor="let lider of lideres" class="col-md-4" align="center">
+                <img title="Medalha de Serviços Relevantes" width="100" height="100" src="{{lider.img}}">
+                <p><b>{{lider.nome}}</b></p>
+                <p><img src="assets/img/medal.png"></p>
+                <p>{{lider.time}}</p>
+            </div>
         </div>
-        <div style="margin-bottom: 30px" class="col-md-12">
-          <iframe width="100%" height="1136" seamless frameborder="0" scrolling="yes"
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1764165277&amp;format=interactive"></iframe>
-        </div>
-        <div class="col-md-12">
-          <iframe width="100%" height="760.8001221681461" seamless frameborder="0" scrolling="yes"
-            src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQf7z5gBxL_FH35KgMGwcTq6y0HSWPeCVJ2Ys4j5B3CFENxa-PpZkx7I95DJ7JrAwcDZWEeGIwrfaz9/pubchart?oid=1785083169&amp;format=interactive"></iframe>
-        </div>
-      </div>
     </div>
-  </div>
-  <div class="tab-pane fade" id="lideres" role="tabpanel" aria-labelledby="lideres-tab">
-    <h3 class="title" align="center">1ª Temporada</h3>
-    <hr>
-    <br>
-    <div class="row">
-      <div *ngFor="let lider of lideres" class="col-md-4" align="center">
-        <img title="Medalha de Serviços Relevantes" width="100" height="100" src="{{lider.img}}">
-        <p><b>{{lider.nome}}</b></p>
-        <p><img src="assets/img/medal.png"></p>
-        <p>{{lider.time}}</p>
-      </div>
-    </div>
-  </div>
 </div>

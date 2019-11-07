@@ -23,6 +23,7 @@ export class GameComponent implements OnInit {
   lideres: Array<any> = new Array();
   lideres2: Array<any> = new Array();
   lideres3: Array<any> = new Array();
+  lideres4: Array<any> = new Array();
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -105,7 +106,18 @@ export class GameComponent implements OnInit {
     this.lideres3.push({nome: 'Manoel Renan Oliveira Júnior', time: 'Time #10', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2F13_Missing_File_document_lost_computer-512.png?alt=media&token=8e74d1b7-fcd0-43b0-8587-750a80727a4b'});
     this.lideres3.push({nome: 'Joelson Coelho Costa', time: 'Time #11', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-11%2FJoelson.png?alt=media&token=0384f227-6198-4eaa-accc-452c0d1235ee'});
     
-  
+    this.lideres4.push({nome: 'André Elias Ribeiro de Morais', time: 'Time #01', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-01%2FAndre%20Elias%20Ribeiro%20Morais%20%20-%20WatchMan.jpeg?alt=media&token=83b0230a-eb75-440e-a506-d7c9f675f353'});
+    this.lideres4.push({nome: 'Davyd Wilkerson de Souza', time: 'Time #02', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-02%2FDavyd%20-%20Apache.jpeg?alt=media&token=7918a75a-b84e-434d-8fc3-9ecf625512be'});
+    this.lideres4.push({nome: 'João Paulo Lima Ribeiro', time: 'Time #03', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-03%2FJP.jpeg?alt=media&token=e99cda6a-e342-4627-92bb-641d6b03cd3a'});
+    
+    this.lideres4.push({nome: 'Silvio Alexandre', time: 'Time #05', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-05%2FSilvio%20Alexandre%20-%20Dr_Help.jpeg?alt=media&token=998cf70a-0785-42c9-ac85-e7d9908a30c0'});
+    this.lideres4.push({nome: 'Higgor De Oliveira Brito', time: 'Time #06', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-06%2FHiggor%20de%20Oliveira.jpeg?alt=media&token=b2aaef6d-57d0-4730-9c38-9ab04b282963'});
+    this.lideres4.push({nome: 'Jader Batista Gonçalves', time: 'Time #07', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-07%2FJotabeg%C3%AA.jpeg?alt=media&token=a52452d5-9154-4e01-9049-4cc37055d3f0'});
+    this.lideres4.push({nome: 'Renato Barbosa', time: 'Time #09', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-09%2FAvatar%20-%20Renato.jpg?alt=media&token=aeecf4a7-b57d-4ace-a4f3-cfe9bc63de2f'});
+    this.lideres4.push({nome: 'Breno Rodigo da Silva', time: 'Time #10', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-10%2FBreno-Hulk.jpeg?alt=media&token=c825f3eb-ad03-466b-840d-7d17e3e14487'});
+    this.lideres4.push({nome: 'Diogo Sebastião Fernandes Guimarães', time: 'Time #11', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-11%2FDiogo.png?alt=media&token=8cc5137a-2d23-46b5-ad54-7aed459eb521'});
+    
+    
   }
   
 

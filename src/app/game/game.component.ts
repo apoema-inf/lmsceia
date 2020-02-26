@@ -24,6 +24,8 @@ export class GameComponent implements OnInit {
   lideres2: Array<any> = new Array();
   lideres3: Array<any> = new Array();
   lideres4: Array<any> = new Array();
+  lideres5: Array<any> = new Array();
+  lideres6: Array<any> = new Array();
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -116,6 +118,22 @@ export class GameComponent implements OnInit {
     this.lideres4.push({nome: 'Renato Barbosa', time: 'Time #09', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-09%2FAvatar%20-%20Renato.jpg?alt=media&token=aeecf4a7-b57d-4ace-a4f3-cfe9bc63de2f'});
     this.lideres4.push({nome: 'Breno Rodigo da Silva', time: 'Time #10', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-10%2FBreno-Hulk.jpeg?alt=media&token=c825f3eb-ad03-466b-840d-7d17e3e14487'});
     this.lideres4.push({nome: 'Diogo Sebastião Fernandes Guimarães', time: 'Time #11', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-11%2FDiogo.png?alt=media&token=8cc5137a-2d23-46b5-ad54-7aed459eb521'});
+    
+    this.lideres5.push({nome: 'Ygor Galvão Lourenço', time: 'Time #01', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2F13_Missing_File_document_lost_computer-512.png?alt=media&token=8e74d1b7-fcd0-43b0-8587-750a80727a4b'});
+    this.lideres5.push({nome: 'Felipe Neves Rocha da Silva', time: 'Time #02', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-02%2FFelipe%20-%20Sir_Lipitos.png?alt=media&token=3de5aeb7-1ad7-4cfa-8467-fa5b2de1b7d2'});
+    this.lideres5.push({nome: 'Gil Romeu Assis Pereira', time: 'Time #03', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-03%2FRomeu.jpeg?alt=media&token=8be4da34-84d3-465d-a839-2b345a23013b'});
+    this.lideres5.push({nome: 'Fernando Teles Da Silva Mesquita', time: 'Time #05', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-05%2F%20Fernando%20Teles%20-%20Teles.jpeg?alt=media&token=c27abc5c-3423-4960-9d6a-5ed6d89b09e2'});
+    this.lideres5.push({nome: 'Abel Henrique Silva', time: 'Time #06', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-04%2FAbelix.jpeg?alt=media&token=50ecbb77-f5d7-4b72-984c-46c37e28a952'});
+    this.lideres5.push({nome: 'Alexandre Vieira de Oliveira', time: 'Time #07', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-07%2FMarco%20V%C3%A9i.jpeg?alt=media&token=46aa86a1-3365-4a9d-9daa-9434e8190b02'});
+    this.lideres5.push({nome: 'Diogo Sebastião Fernandes Guimarães', time: 'Time #09', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-11%2FDiogo.png?alt=media&token=8cc5137a-2d23-46b5-ad54-7aed459eb521'});
+    this.lideres5.push({nome: 'Anderson de Oliveira Costa', time: 'Time #10', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-10%2FAnderson-TCHUY.jpeg?alt=media&token=8b95537d-d237-4a79-8382-192822109ef8'});
+    this.lideres5.push({nome: 'Matheus Silva Santos', time: 'Time #11', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-11%2FMatheus%20Santos.png?alt=media&token=2705bbd8-aee3-4e5b-aaf6-7ff80dbfab81'});
+    
+    this.lideres6.push({nome: 'Gadiel Ribeiro De Almeida', time: 'Times #01 e #03', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-03%2FGadigas.jpg?alt=media&token=64e14be8-e641-4477-b69d-e5aac91a564e'});
+    this.lideres6.push({nome: 'Glleddson Fryttys Menezes Leite', time: 'Times #02 e #09', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-09%2FAvatar%20-%20Glleddson.jpg?alt=media&token=5e8f089f-41df-4bf0-ad94-2924b264a257'});
+    this.lideres6.push({nome: 'Rodolfo Wenceslau Mota', time: 'Times #05 e #06', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-06%2FRodolfo%20Wenceslau.jpeg?alt=media&token=edc2d2bc-bf9b-4186-8060-9aabbdab5b77'});
+    this.lideres6.push({nome: 'Francisco Lucas da Silva', time: 'Time #07', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-01%2FFrancisco%20Lucas%20da%20Silva%20-%20AsaNoturna.png?alt=media&token=2c4e3b01-22ef-4082-a2af-d69a5e06c446'});
+    this.lideres6.push({nome: 'Daniel Chaffe Stone', time: 'Times #10 e #11', img: 'https://firebasestorage.googleapis.com/v0/b/posgrad.appspot.com/o/jogadores%2Ftime-12%2FDaniel%20ser%C3%A1%20Petram%20(rocha).jpeg?alt=media&token=d5695154-21dc-4f7b-b8a9-da260441eb75'});
     
     
   }

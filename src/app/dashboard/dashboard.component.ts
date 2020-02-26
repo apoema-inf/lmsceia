@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   missoes: Array<any> = new Array();
   user: Membro = new Membro();
   timeOnTheBig: Array<any> = new Array();
-  temporadaDestaque: string = "1ª Temporada";
+  temporadaDestaque: string = "5ª Temporada";
   fases = ["1ª Temporada", "2ª Temporada", "3ª Temporada", "4ª Temporada", "5ª Temporada", "6ª Temporada",
     "7ª Temporada", "8ª Temporada"];
   modal = { title: '', pontuacao: 0, missao: '', descricao: '' };
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
       } else {
         this.firebaseService.getTimes().then(times => {
           (times as Array<any>).forEach((time, index) => {
-            this.times.push({id: time.id, ref: time.ref});
+            this.times.push({id: time.id, ref: time.ref, alias: time.alias});
             this.firebaseService.getAtividadesByTime(time.ref).then(atividades => {
               if (time.id == this.user.time.id) {
                 this.indexTimeUser = index;

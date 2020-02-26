@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class FirebaseService {
 
-  temporadaDestaque: string = "1ª Temporada";
+  temporadaDestaque: string = "5ª Temporada";
 
   constructor(private angularFirestore: AngularFirestore) { }
 
